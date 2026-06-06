@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Foodtalks — Financial Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0b0e18;
+  --surface:#131726;
+  --surface2:#1a1f33;
+  --border:#252c44;
+  --border2:#2e3858;
+  --green:#00d68f;
+  --green-soft:#00d68f18;
+  --red:#ff5c72;
+  --red-soft:#ff5c7218;
+  --amber:#f5a623;
+  --amber-soft:#f5a62318;
+  --blue:#4d9fff;
+  --blue-soft:#4d9fff18;
+  --text:#e4e8f5;
+  --muted:#6b738f;
+  --muted2:#3d4460;
+  --font:'DM Sans',sans-serif;
+  --mono:'DM Mono',monospace;
+}
+
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:14px;min-height:100vh;}
+
+/* ── NAV ── */
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 28px;
+  border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:100;
+  background:rgba(11,14,24,.92);backdrop-filter:blur(12px);
+}
+.nav-brand{display:flex;align-items:center;gap:10px;}
+.nav-brand .dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse-dot 2s ease-in-out infinite;}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.nav-brand h1{font-size:15px;font-weight:600;letter-spacing:-.01em;}
+.nav-brand span{font-size:12px;color:var(--muted);margin-left:4px;font-family:var(--mono);}
+.nav-right{display:flex;align-items:center;gap:8px;}
+.year-pill{
+  font-size:12px;padding:5px 14px;border-radius:20px;cursor:pointer;
+  border:1px solid var(--border2);background:transparent;color:var(--muted);
+  font-family:var(--font);transition:all .2s;
+}
+.year-pill:hover{color:var(--text);border-color:var(--border2);}
+.year-pill.active{background:var(--green);color:#000;border-color:var(--green);font-weight:500;}
+.live-badge{font-size:11px;background:var(--green-soft);color:var(--green);padding:4px 10px;border-radius:20px;border:1px solid var(--green);font-family:var(--mono);}
+
+/* ── LAYOUT ── */
+main{padding:24px 28px;max-width:1400px;margin:0 auto;}
+
+/* ── SECTION TITLE ── */
+.section-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* ── KPI ROW ── */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
+.kpi{
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  padding:18px 20px;position:relative;overflow:hidden;transition:border-color .2s;
+}
+.kpi:hover{border-color:var(--border2);}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:14px 14px 0 0;}
+.kpi.green::before{background:var(--green);}
+.kpi.red::before{background:var(--red);}
+.kpi.amber::before{background:var(--amber);}
+.kpi.blue::before{background:var(--blue);}
+.kpi-label{font-size:11px;color:var(--muted);margin-bottom:8px;letter-spacing:.04em;text-transform:uppercase;}
+.kpi-value{font-size:26px;font-weight:600;letter-spacing:-.03em;margin-bottom:6px;line-height:1;}
+.kpi-delta{font-size:12px;font-family:var(--mono);display:flex;align-items:center;gap:4px;}
+.kpi-delta.up{color:var(--green);}
+.kpi-delta.down{color:var(--red);}
+.kpi-delta.neu{color:var(--muted);}
+.kpi-sub{font-size:11px;color:var(--muted);margin-top:4px;}
+
+/* ── CHART GRID ── */
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
+.chart-grid.three{grid-template-columns:1fr 1fr 1fr;}
+.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;}
+.chart-card.wide{grid-column:span 2;}
+.chart-card.wide3{grid-column:span 3;}
+.chart-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;}
+.chart-title{font-size:13px;font-weight:500;color:var(--text);}
+.chart-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.chart-badge{font-size:10px;padding:3px 8px;border-radius:10px;font-family:var(--mono);}
+.badge-warn{background:var(--amber-soft);color:var(--amber);}
+.badge-good{background:var(--green-soft);color:var(--green);}
+.badge-info{background:var(--blue-soft);color:var(--blue);}
+
+/* ── LEGEND ── */
+.legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;}
+.leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);}
+.leg-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
+
+/* ── BOTTOM ROW ── */
+.bottom-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px;}
+
+/* ── INSIGHT CARD ── */
+.insight-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;}
+.insight-list{display:flex;flex-direction:column;gap:0;}
+.insight-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);}
+.insight-item:first-child{padding-top:0;}
+.insight-item:last-child{border-bottom:none;padding-bottom:0;}
+.insight-icon{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;margin-top:1px;}
+.icon-warn{background:var(--amber-soft);}
+.icon-good{background:var(--green-soft);}
+.icon-info{background:var(--blue-soft);}
+.insight-text{font-size:12.5px;line-height:1.65;color:var(--text);}
+.insight-text strong{font-weight:500;color:var(--text);}
+
+/* ── SWOT ── */
+.swot-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;height:100%;}
+.swot-box{border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:6px;}
+.swot-box.s{background:#00d68f10;border:1px solid #00d68f30;}
+.swot-box.w{background:#ff5c7210;border:1px solid #ff5c7230;}
+.swot-box.o{background:#4d9fff10;border:1px solid #4d9fff30;}
+.swot-box.t{background:#f5a62310;border:1px solid #f5a62330;}
+.swot-lbl{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;}
+.swot-box.s .swot-lbl{color:var(--green);}
+.swot-box.w .swot-lbl{color:var(--red);}
+.swot-box.o .swot-lbl{color:var(--blue);}
+.swot-box.t .swot-lbl{color:var(--amber);}
+.swot-pts{display:flex;flex-direction:column;gap:3px;}
+.swot-pt{font-size:11px;color:var(--muted);line-height:1.5;padding-left:10px;position:relative;}
+.swot-pt::before{content:'·';position:absolute;left:2px;}
+
+/* ── HEADCOUNT TABLE ── */
+.hc-table{width:100%;border-collapse:collapse;margin-top:4px;}
+.hc-table th{font-size:10px;color:var(--muted);font-weight:400;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;text-align:left;border-bottom:1px solid var(--border);}
+.hc-table td{font-size:13px;padding:9px 10px;border-bottom:1px solid var(--border);color:var(--text);}
+.hc-table tr:last-child td{border-bottom:none;}
+.hc-table .num{font-family:var(--mono);font-size:13px;}
+.bar-cell{position:relative;}
+.bar-bg{height:4px;background:var(--border2);border-radius:2px;margin-top:4px;width:100%;}
+.bar-fill{height:4px;border-radius:2px;position:absolute;top:0;}
+
+/* ── COST DETAIL TABLE ── */
+.cost-table{width:100%;border-collapse:collapse;}
+.cost-table th{font-size:10px;color:var(--muted);font-weight:400;letter-spacing:.06em;text-transform:uppercase;padding:6px 0;text-align:left;border-bottom:1px solid var(--border);}
+.cost-table td{font-size:12px;padding:7px 0;border-bottom:1px solid var(--border);color:var(--text);}
+.cost-table tr:last-child td{border-bottom:none;}
+.cost-table .r{text-align:right;font-family:var(--mono);font-size:12px;}
+.cost-pill{font-size:10px;padding:2px 6px;border-radius:6px;font-family:var(--mono);}
+.pill-up{background:var(--red-soft);color:var(--red);}
+.pill-down{background:var(--green-soft);color:var(--green);}
+
+/* ── FOOTER ── */
+footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-top:1px solid var(--border);}
+
+/* ── TOOLTIP ── */
+canvas{display:block;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <div class="dot"></div>
+    <h1>Foodtalks Pte. Ltd.</h1>
+    <span>Financial Dashboard</span>
+  </div>
+  <div class="nav-right">
+    <button class="year-pill" onclick="setYear(2023,this)">FY 2023</button>
+    <button class="year-pill" onclick="setYear(2024,this)">FY 2024</button>
+    <button class="year-pill active" onclick="setYear(2025,this)">FY 2025</button>
+    <span class="live-badge">● Live Data</span>
+  </div>
+</nav>
+
+<main>
+
+  <!-- KPI ROW -->
+  <div class="section-label">Key Performance Indicators</div>
+  <div class="kpi-grid">
+    <div class="kpi green">
+      <div class="kpi-label">Total Revenue</div>
+      <div class="kpi-value" id="k-rev">$3.99M</div>
+      <div class="kpi-delta up" id="k-rev-d">▲ 16.2% YoY</div>
+      <div class="kpi-sub" id="k-rev-s">vs $3.44M in FY2024</div>
+    </div>
+    <div class="kpi amber">
+      <div class="kpi-label">Gross Profit Margin</div>
+      <div class="kpi-value" id="k-gpm">63.0%</div>
+      <div class="kpi-delta up" id="k-gpm-d">▲ 2.2pp YoY</div>
+      <div class="kpi-sub" id="k-gpm-s">Gross Profit $2.52M</div>
+    </div>
+    <div class="kpi red">
+      <div class="kpi-label">Net Profit Margin</div>
+      <div class="kpi-value" id="k-npm">4.0%</div>
+      <div class="kpi-delta down" id="k-npm-d">▼ 2.8pp YoY</div>
+      <div class="kpi-sub" id="k-npm-s">Net Profit $159.5K</div>
+    </div>
+    <div class="kpi blue">
+      <div class="kpi-label">Operating Cash Flow</div>
+      <div class="kpi-value" id="k-ocf">$345K</div>
+      <div class="kpi-delta up" id="k-ocf-d">▲ 7.4% YoY</div>
+      <div class="kpi-sub" id="k-ocf-s">vs $321.5K in FY2024</div>
+    </div>
+  </div>
+
+  <!-- CHART ROW 1: Revenue trend + GPM/NPM -->
+  <div class="section-label">Revenue &amp; Profitability Trends</div>
+  <div class="chart-grid">
+    <div class="chart-card wide">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Revenue vs Profit — 3-Year Trend</div>
+          <div class="chart-sub">FY2023 – FY2025 · SGD</div>
+        </div>
+        <span class="chart-badge badge-warn">Revenue ▲ 42% over 3yr · Net Profit ▼ 52%</span>
+      </div>
+      <canvas id="revTrendChart" height="90"></canvas>
+      <div class="legend">
+        <div class="leg"><div class="leg-dot" style="background:#00d68f"></div>Revenue</div>
+        <div class="leg"><div class="leg-dot" style="background:#4d9fff"></div>Gross Profit</div>
+        <div class="leg"><div class="leg-dot" style="background:#ff5c72;"></div>Net Profit</div>
+        <div class="leg"><div class="leg-dot" style="background:#f5a623"></div>Total Op. Expenses</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHART ROW 2: Margin trend + Cost donut + Cash flow -->
+  <div class="chart-grid three">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Margin Compression</div>
+          <div class="chart-sub">GPM vs NPM over time</div>
+        </div>
+        <span class="chart-badge badge-warn">NPM fell 7.8pp in 3 yrs</span>
+      </div>
+      <canvas id="marginChart" height="160"></canvas>
+    </div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Cost of Sales Breakdown</div>
+          <div class="chart-sub" id="cos-sub">FY2025</div>
+        </div>
+        <span class="chart-badge badge-info" id="cos-total">$1.48M total</span>
+      </div>
+      <canvas id="costDonut" height="160"></canvas>
+      <div class="legend" id="cos-legend">
+        <div class="leg"><div class="leg-dot" style="background:#00d68f"></div>Purchases</div>
+        <div class="leg"><div class="leg-dot" style="background:#4d9fff"></div>Food</div>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Cash Flow Summary</div>
+          <div class="chart-sub">Operating vs Investing vs Financing</div>
+        </div>
+        <span class="chart-badge badge-good">Ops cash healthy</span>
+      </div>
+      <canvas id="cashChart" height="160"></canvas>
+    </div>
+  </div>
+
+  <!-- CHART ROW 3: Top OpEx + Labour breakdown -->
+  <div class="section-label">Cost Structure Analysis</div>
+  <div class="chart-grid">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Top Operating Expense Lines</div>
+          <div class="chart-sub">FY2023 vs FY2024 vs FY2025 · SGD</div>
+        </div>
+        <span class="chart-badge badge-warn">Labour +53% in 3 yrs</span>
+      </div>
+      <canvas id="opexChart" height="200"></canvas>
+      <div class="legend">
+        <div class="leg"><div class="leg-dot" style="background:#2e3858"></div>FY2023</div>
+        <div class="leg"><div class="leg-dot" style="background:#4d9fff80"></div>FY2024</div>
+        <div class="leg"><div class="leg-dot" style="background:#4d9fff"></div>FY2025</div>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Total Labour Cost Growth</div>
+          <div class="chart-sub">All-in labour: wages + CPF + FWL + bonuses + OT</div>
+        </div>
+        <span class="chart-badge badge-warn">+53% vs +42% revenue</span>
+      </div>
+      <canvas id="labourChart" height="200"></canvas>
+      <div class="legend">
+        <div class="leg"><div class="leg-dot" style="background:#ff5c72"></div>Salaries & Wages</div>
+        <div class="leg"><div class="leg-dot" style="background:#f5a623"></div>CPF + FWL + SDL</div>
+        <div class="leg"><div class="leg-dot" style="background:#4d9fff"></div>Bonus + OT</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM ROW: SWOT + Headcount + Key cost ratios -->
+  <div class="section-label">Benchmarking &amp; Workforce</div>
+  <div class="bottom-grid">
+
+    <!-- SWOT -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <div class="chart-title">SWOT Summary</div>
+      </div>
+      <div class="swot-grid">
+        <div class="swot-box s">
+          <div class="swot-lbl">Strengths</div>
+          <div class="swot-pts">
+            <div class="swot-pt">Halal-certified niche market</div>
+            <div class="swot-pt">Revenue CAGR +19% (3yr)</div>
+            <div class="swot-pt">GPM improving: 59% → 63%</div>
+            <div class="swot-pt">Strong operating cash flow</div>
+          </div>
+        </div>
+        <div class="swot-box w">
+          <div class="swot-lbl">Weaknesses</div>
+          <div class="swot-pts">
+            <div class="swot-pt">NPM shrinking 11.8% → 4.0%</div>
+            <div class="swot-pt">Labour cost outpacing revenue</div>
+            <div class="swot-pt">High depreciation ($210K)</div>
+            <div class="swot-pt">Negative net cash 2 yrs running</div>
+          </div>
+        </div>
+        <div class="swot-box o">
+          <div class="swot-lbl">Opportunities</div>
+          <div class="swot-pts">
+            <div class="swot-pt">B2B catering expansion</div>
+            <div class="swot-pt">Central kitchen scalability</div>
+            <div class="swot-pt">Reduce PT/FT staff ratio</div>
+            <div class="swot-pt">Data-driven cost monitoring</div>
+          </div>
+        </div>
+        <div class="swot-box t">
+          <div class="swot-lbl">Threats</div>
+          <div class="swot-pts">
+            <div class="swot-pt">Singapore labour cost inflation</div>
+            <div class="swot-pt">Utility & fuel cost pressure</div>
+            <div class="swot-pt">FWL levy increases</div>
+            <div class="swot-pt">Loan repayment burden</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Headcount -->
+    <div class="chart-card">
+      <div class="chart-header">
+        <div>
+          <div class="chart-title">Headcount & Labour Cost</div>
+          <div class="chart-sub">December headcount · all-in cost per head</div>
+        </div>
+      </div>
+      <table class="hc-table">
+        <thead>
+          <tr><th>Metric</th><th>FY2023</th><th>FY2024</th><th>FY2025</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Total headcount</td>
+            <td class="num">26</td><td class="num">34</td><td class="num">34</td>
+          </tr>
+          <tr>
+            <td>Full-time</td>
+            <td class="num">19</td><td class="num">25</td><td class="num">28</td>
+          </tr>
+          <tr>
+            <td>Part-time</td>
+            <td class="num">7</td><td class="num">9</td><td class="num">6</td>
+          </tr>
+          <tr>
+            <td>Total labour cost</td>
+            <td class="num">$877K</td><td class="num">$1.14M</td><td class="num">$1.34M</td>
+          </tr>
+          <tr>
+            <td>Cost per head (ann.)</td>
+            <td class="num">$33.7K</td><td class="num">$33.4K</td><td class="num">$39.5K</td>
+          </tr>
+          <tr>
+            <td>Labour as % of revenue</td>
+            <td class="num" style="color:var(--amber)">31.1%</td>
+            <td class="num" style="color:var(--amber)">33.0%</td>
+            <td class="num" style="color:var(--red)">33.6%</td>
+          </tr>
+          <tr>
+            <td>Revenue per head</td>
+            <td class="num">$108K</td><td class="num">$101K</td><td class="num">$117K</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Key cost ratios & insights -->
+    <div class="insight-card">
+      <div class="chart-header" style="margin-bottom:12px">
+        <div class="chart-title">Key Insights & Recommendations</div>
+      </div>
+      <div class="insight-list">
+        <div class="insight-item">
+          <div class="insight-icon icon-warn">⚠️</div>
+          <div class="insight-text"><strong>Margin squeeze is structural.</strong> Revenue grew 42% over 3 years, but net profit fell from $332K to $160K — OpEx grew 64%, nearly double the revenue growth rate.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon icon-warn">💸</div>
+          <div class="insight-text"><strong>Labour is the #1 cost driver.</strong> All-in labour hit $1.34M in FY2025 — 33.6% of revenue, up from 31.1% in FY2023. Headcount stayed flat (34) but cost per head jumped 18% to $39.5K.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon icon-good">✅</div>
+          <div class="insight-text"><strong>Gross margin is improving.</strong> GPM rose from 59.3% → 63.0%, signalling better pricing power or COGS efficiency. The problem lies entirely in operating expenses.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon icon-good">🏭</div>
+          <div class="insight-text"><strong>Central kitchen is a long-term asset.</strong> $430K renovation + $231K equipment = $661K investment. Depreciation will peak in FY2026-27, then ease — watch for margin recovery.</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon icon-info">💡</div>
+          <div class="insight-text"><strong>Recommended next step:</strong> Monthly cost-ratio monitoring via this dashboard. Target: labour below 30% of revenue and OpEx growth below revenue growth rate by FY2026.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>Foodtalks Pte. Ltd. · Financial Dashboard · Data source: Audited accounts FY2023–FY2025 · Built by SMU Consulting Team</footer>
+
+<script>
+// ── REAL DATA ──
+const DATA = {
+  2023: {
+    rev: 2818888.64, gp: 1671915.70, np: 332090.95, opex: 1527859.82,
+    gpm: 0.5931, npm: 0.1178,
+    ocf: 464548, icf: -135348, fcf: -206360,
+    cos: { food: 47701.2, purchases: 1099271.74 },
+    topOpex: {
+      labour: 876960.43, utilities: 126755.23, depreciation: 154152.44,
+      motorVehicle: 50603.68, professional: 4972.37, subscriptions: 11014.05
+    },
+    labour: { salaries: 696835.52, cpf_fwl_sdl: 109627.0, bonus_ot: 70357.0 },
+    headcount: { total: 26, ft: 19, pt: 7 }
+  },
+  2024: {
+    rev: 3439081.07, gp: 2093217.95, np: 234134.00, opex: 2099256.92,
+    gpm: 0.6087, npm: 0.0681,
+    ocf: 321517, icf: -690221, fcf: 275624,
+    cos: { food: 54548.12, purchases: 1291315.00 },
+    topOpex: {
+      labour: 1135210.07, utilities: 142184.12, depreciation: 173901.80,
+      motorVehicle: 62518.12, professional: 50247.46, subscriptions: 28883.09
+    },
+    labour: { salaries: 874421.39, cpf_fwl_sdl: 147370.0, bonus_ot: 113214.0 },
+    headcount: { total: 34, ft: 25, pt: 9 }
+  },
+  2025: {
+    rev: 3995035.73, gp: 2517882.72, np: 159509.62, opex: 2504116.09,
+    gpm: 0.6303, npm: 0.0399,
+    ocf: 345197, icf: -99101, fcf: -339583,
+    cos: { food: 156645.79, purchases: 1320507.22 },
+    topOpex: {
+      labour: 1343062.0, utilities: 157268.28, depreciation: 210289.97,
+      motorVehicle: 64953.09, professional: 47502.87, subscriptions: 48678.92
+    },
+    labour: { salaries: 1014903.54, cpf_fwl_sdl: 169792.59, bonus_ot: 158040.87 },
+    headcount: { total: 34, ft: 28, pt: 6 }
+  }
+};
+
+const fmt = (n, dp=0) => '$' + (Math.abs(n) >= 1e6
+  ? (n/1e6).toFixed(dp||2) + 'M'
+  : Math.abs(n) >= 1e3
+  ? (n/1e3).toFixed(dp||1) + 'K'
+  : n.toFixed(dp));
+
+const pct = n => (n*100).toFixed(1) + '%';
+
+Chart.defaults.color = '#6b738f';
+Chart.defaults.font.family = "'DM Sans', sans-serif";
+Chart.defaults.font.size = 11;
+const gridColor = '#1e2640';
+
+let charts = {};
+let currentYear = 2025;
+
+function destroyAll() { Object.values(charts).forEach(c => c && c.destroy()); charts = {}; }
+
+// ── UPDATE KPIs ──
+function updateKPIs(y) {
+  const d = DATA[y], p = DATA[y-1] || DATA[y];
+  const dRev = (d.rev - p.rev) / p.rev;
+  const dGPM = d.gpm - p.gpm;
+  const dNPM = d.npm - p.npm;
+  const dOCF = (d.ocf - p.ocf) / p.ocf;
+
+  document.getElementById('k-rev').textContent = fmt(d.rev);
+  document.getElementById('k-rev-d').textContent = (dRev >= 0 ? '▲ ' : '▼ ') + Math.abs(dRev*100).toFixed(1) + '% YoY';
+  document.getElementById('k-rev-d').className = 'kpi-delta ' + (dRev >= 0 ? 'up' : 'down');
+  document.getElementById('k-rev-s').textContent = 'vs ' + fmt(p.rev) + ' in FY' + (y-1);
+
+  document.getElementById('k-gpm').textContent = pct(d.gpm);
+  document.getElementById('k-gpm-d').textContent = (dGPM >= 0 ? '▲ ' : '▼ ') + Math.abs(dGPM*100).toFixed(1) + 'pp YoY';
+  document.getElementById('k-gpm-d').className = 'kpi-delta ' + (dGPM >= 0 ? 'up' : 'down');
+  document.getElementById('k-gpm-s').textContent = 'Gross Profit ' + fmt(d.gp);
+
+  document.getElementById('k-npm').textContent = pct(d.npm);
+  document.getElementById('k-npm-d').textContent = (dNPM >= 0 ? '▲ ' : '▼ ') + Math.abs(dNPM*100).toFixed(1) + 'pp YoY';
+  document.getElementById('k-npm-d').className = 'kpi-delta ' + (dNPM >= 0 ? 'up' : 'down');
+  document.getElementById('k-npm-s').textContent = 'Net Profit ' + fmt(d.np);
+
+  document.getElementById('k-ocf').textContent = fmt(d.ocf);
+  document.getElementById('k-ocf-d').textContent = (dOCF >= 0 ? '▲ ' : '▼ ') + Math.abs(dOCF*100).toFixed(1) + '% YoY';
+  document.getElementById('k-ocf-d').className = 'kpi-delta ' + (dOCF >= 0 ? 'up' : 'down');
+  document.getElementById('k-ocf-s').textContent = 'vs ' + fmt(p.ocf) + ' in FY' + (y-1);
+
+  // COS donut update
+  const d2 = DATA[y];
+  document.getElementById('cos-sub').textContent = 'FY' + y;
+  document.getElementById('cos-total').textContent = fmt(d2.cos.food + d2.cos.purchases) + ' total';
+}
+
+// ── DRAW ALL CHARTS ──
+function drawAll() {
+  destroyAll();
+  const years = [2023, 2024, 2025];
+  const labels = ['FY2023', 'FY2024', 'FY2025'];
+
+  // 1. Revenue Trend (wide)
+  charts.revTrend = new Chart(document.getElementById('revTrendChart'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Revenue', type: 'bar',
+          data: years.map(y => DATA[y].rev),
+          backgroundColor: '#00d68f22', borderColor: '#00d68f', borderWidth: 1.5, borderRadius: 6, order: 2
+        },
+        {
+          label: 'Gross Profit', type: 'line',
+          data: years.map(y => DATA[y].gp),
+          borderColor: '#4d9fff', backgroundColor: 'transparent', borderWidth: 2, tension: .3, pointRadius: 5, pointBackgroundColor: '#4d9fff', order: 1
+        },
+        {
+          label: 'Net Profit', type: 'line',
+          data: years.map(y => DATA[y].np),
+          borderColor: '#ff5c72', backgroundColor: 'transparent', borderWidth: 2, tension: .3, pointRadius: 5, pointBackgroundColor: '#ff5c72', borderDash: [5,3], order: 1
+        },
+        {
+          label: 'Total Op. Expenses', type: 'line',
+          data: years.map(y => DATA[y].opex),
+          borderColor: '#f5a623', backgroundColor: 'transparent', borderWidth: 2, tension: .3, pointRadius: 5, pointBackgroundColor: '#f5a623', borderDash: [3,3], order: 1
+        }
+      ]
+    },
+    options: {
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: { color: gridColor } },
+        y: { grid: { color: gridColor }, ticks: { callback: v => '$' + (v/1000).toFixed(0) + 'K' } }
+      }
+    }
+  });
+
+  // 2. Margin chart
+  charts.margin = new Chart(document.getElementById('marginChart'), {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        { label: 'GPM', data: years.map(y => +(DATA[y].gpm*100).toFixed(1)), borderColor: '#00d68f', backgroundColor: '#00d68f10', borderWidth: 2, fill: true, tension: .3, pointRadius: 5, pointBackgroundColor: '#00d68f' },
+        { label: 'NPM', data: years.map(y => +(DATA[y].npm*100).toFixed(1)), borderColor: '#ff5c72', backgroundColor: '#ff5c7210', borderWidth: 2, fill: true, tension: .3, pointRadius: 5, pointBackgroundColor: '#ff5c72' }
+      ]
+    },
+    options: {
+      plugins: { legend: { position: 'bottom', labels: { padding: 10 } } },
+      scales: {
+        x: { grid: { color: gridColor } },
+        y: { grid: { color: gridColor }, ticks: { callback: v => v + '%' }, min: 0, max: 75 }
+      }
+    }
+  });
+
+  // 3. Cost donut (dynamic by year)
+  const cosD = DATA[currentYear].cos;
+  charts.costDonut = new Chart(document.getElementById('costDonut'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Purchases', 'Food/Ingredients'],
+      datasets: [{ data: [cosD.purchases, cosD.food], backgroundColor: ['#00d68f', '#4d9fff'], borderWidth: 0, hoverOffset: 4 }]
+    },
+    options: { cutout: '65%', plugins: { legend: { position: 'bottom', labels: { padding: 12 } } } }
+  });
+
+  // 4. Cash flow bars
+  charts.cash = new Chart(document.getElementById('cashChart'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        { label: 'Operating', data: years.map(y => DATA[y].ocf), backgroundColor: '#00d68f80', borderColor: '#00d68f', borderWidth: 1, borderRadius: 4 },
+        { label: 'Investing', data: years.map(y => DATA[y].icf), backgroundColor: '#ff5c7280', borderColor: '#ff5c72', borderWidth: 1, borderRadius: 4 },
+        { label: 'Financing', data: years.map(y => DATA[y].fcf), backgroundColor: '#4d9fff80', borderColor: '#4d9fff', borderWidth: 1, borderRadius: 4 }
+      ]
+    },
+    options: {
+      plugins: { legend: { position: 'bottom', labels: { padding: 10 } } },
+      scales: {
+        x: { grid: { color: gridColor } },
+        y: { grid: { color: gridColor }, ticks: { callback: v => '$' + (v/1000).toFixed(0) + 'K' } }
+      }
+    }
+  });
+
+  // 5. Top OpEx grouped bar
+  const opexLabels = ['Labour', 'Utilities', 'Depreciation', 'Motor Vehicle', 'Professional', 'Subscriptions'];
+  const opexKeys = ['labour', 'utilities', 'depreciation', 'motorVehicle', 'professional', 'subscriptions'];
+  charts.opex = new Chart(document.getElementById('opexChart'), {
+    type: 'bar',
+    data: {
+      labels: opexLabels,
+      datasets: [
+        { label: 'FY2023', data: opexKeys.map(k => DATA[2023].topOpex[k]), backgroundColor: '#2e3858', borderRadius: 3 },
+        { label: 'FY2024', data: opexKeys.map(k => DATA[2024].topOpex[k]), backgroundColor: '#4d9fff60', borderRadius: 3 },
+        { label: 'FY2025', data: opexKeys.map(k => DATA[2025].topOpex[k]), backgroundColor: '#4d9fff', borderRadius: 3 }
+      ]
+    },
+    options: {
+      indexAxis: 'y',
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: { color: gridColor }, ticks: { callback: v => '$' + (v/1000).toFixed(0) + 'K' } },
+        y: { grid: { color: 'transparent' } }
+      }
+    }
+  });
+
+  // 6. Labour stacked bar
+  charts.labour = new Chart(document.getElementById('labourChart'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        { label: 'Salaries & Wages', data: years.map(y => DATA[y].labour.salaries), backgroundColor: '#ff5c72', borderRadius: 4 },
+        { label: 'CPF + FWL + SDL', data: years.map(y => DATA[y].labour.cpf_fwl_sdl), backgroundColor: '#f5a623', borderRadius: 4 },
+        { label: 'Bonus + OT', data: years.map(y => DATA[y].labour.bonus_ot), backgroundColor: '#4d9fff', borderRadius: 4 }
+      ]
+    },
+    options: {
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { stacked: true, grid: { color: gridColor } },
+        y: { stacked: true, grid: { color: gridColor }, ticks: { callback: v => '$' + (v/1000).toFixed(0) + 'K' } }
+      }
+    }
+  });
+}
+
+// ── YEAR SWITCH ──
+function setYear(y, el) {
+  currentYear = y;
+  document.querySelectorAll('.year-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  updateKPIs(y);
+  // Update COS donut
+  const cosD = DATA[y].cos;
+  if (charts.costDonut) {
+    charts.costDonut.data.datasets[0].data = [cosD.purchases, cosD.food];
+    charts.costDonut.update();
+  }
+}
+
+// ── INIT ──
+drawAll();
+updateKPIs(2025);
+</script>
+</body>
+</html>
