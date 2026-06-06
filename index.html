@@ -260,7 +260,7 @@ canvas{display:block;}
         <div class="leg"><div class="leg-dot" style="background:#e60000"></div>Revenue</div>
         <div class="leg"><div class="leg-dot" style="background:#8a8a8a"></div>Gross Profit</div>
         <div class="leg"><div class="leg-dot" style="background:#d8d8d8;"></div>Net Profit</div>
-        <div class="leg"><div class="leg-dot" style="background:#8a8a8a"></div>Total Op. Expenses</div>
+        <div class="leg"><div class="leg-dot" style="background:#171717"></div>Total Op. Expenses</div>
       </div>
     </div>
   </div>
@@ -525,6 +525,7 @@ const gridColor = '#e9e9e9';
 const chartColors = {
   brand: '#e60000',
   brandSoft: '#e6000018',
+  black: '#171717',
   darkGray: '#8a8a8a',
   darkGraySoft: '#8a8a8a66',
   lightGray: '#d8d8d8',
@@ -600,7 +601,7 @@ function drawAll() {
         {
           label: 'Total Op. Expenses', type: 'line',
           data: years.map(y => DATA[y].opex),
-          borderColor: chartColors.darkGray, backgroundColor: 'transparent', borderWidth: 2, tension: .3, pointRadius: 5, pointBackgroundColor: chartColors.darkGray, borderDash: [3,3], order: 1
+          borderColor: chartColors.black, backgroundColor: 'transparent', borderWidth: 2, tension: .3, pointRadius: 5, pointBackgroundColor: chartColors.black, borderDash: [3,3], order: 1
         }
       ]
     },
