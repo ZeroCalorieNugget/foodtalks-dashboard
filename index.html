@@ -532,6 +532,38 @@ const chartColors = {
   lightGraySoft: '#d8d8d866'
 };
 
+const visualOffsetPlugin = {
+  id: 'visualOffsetPlugin',
+  beforeDatasetsDraw(chart) {
+    chart.$visualOffsets = [];
+    chart.data.datasets.forEach((dataset, datasetIndex) => {
+      if (!dataset.visualOffsetY) return;
+      const meta = chart.getDatasetMeta(datasetIndex);
+      const shifted = [];
+      meta.data.forEach(point => {
+        const original = {
+          point,
+          y: point.y,
+          controlPointPreviousY: point.controlPointPreviousY,
+          controlPointNextY: point.controlPointNextY
+        };
+        point.y += dataset.visualOffsetY;
+        if (typeof point.controlPointPreviousY === 'number') point.controlPointPreviousY += dataset.visualOffsetY;
+        if (typeof point.controlPointNextY === 'number') point.controlPointNextY += dataset.visualOffsetY;
+        shifted.push(original);
+      });
+      chart.$visualOffsets.push(shifted);
+    });
+  },
+  afterDatasetsDraw(chart) {
+    (chart.$visualOffsets || []).flat().forEach(original => {
+      original.point.y = original.y;
+      original.point.controlPointPreviousY = original.controlPointPreviousY;
+      original.point.controlPointNextY = original.controlPointNextY;
+    });
+  }
+};
+
 let charts = {};
 let currentYear = 2025;
 
@@ -601,10 +633,11 @@ function drawAll() {
         {
           label: 'Total Op. Expenses', type: 'line',
           data: years.map(y => DATA[y].opex),
-          borderColor: chartColors.black, backgroundColor: 'transparent', borderWidth: 2, tension: .3, pointRadius: 5, pointBackgroundColor: chartColors.black, borderDash: [3,3], order: 1
+          borderColor: chartColors.black, backgroundColor: 'transparent', borderWidth: 2, tension: .3, pointRadius: 5, pointBackgroundColor: chartColors.black, pointBorderColor: '#fff', pointBorderWidth: 1.5, borderDash: [3,3], visualOffsetY: 16, order: 1
         }
       ]
     },
+    plugins: [visualOffsetPlugin],
     options: {
       plugins: { legend: { display: false } },
       scales: {
