@@ -10,38 +10,51 @@
 
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#0b0e18;
-  --surface:#131726;
-  --surface2:#1a1f33;
-  --border:#252c44;
-  --border2:#2e3858;
-  --green:#00d68f;
-  --green-soft:#00d68f18;
-  --red:#ff5c72;
-  --red-soft:#ff5c7218;
-  --amber:#f5a623;
-  --amber-soft:#f5a62318;
-  --blue:#4d9fff;
-  --blue-soft:#4d9fff18;
-  --text:#e4e8f5;
-  --muted:#6b738f;
-  --muted2:#3d4460;
+  --bg:#070707;
+  --surface:#111111;
+  --surface2:#181818;
+  --border:#282828;
+  --border2:#3a3a3a;
+  --brand-red:#e60000;
+  --brand-red-soft:#e600001a;
+  --green:#24c083;
+  --green-soft:#24c08318;
+  --red:#ff4b4b;
+  --red-soft:#ff4b4b18;
+  --amber:#f4b44b;
+  --amber-soft:#f4b44b18;
+  --blue:#aab2c2;
+  --blue-soft:#aab2c218;
+  --text:#f5f5f5;
+  --muted:#8d8d8d;
+  --muted2:#565656;
   --font:'DM Sans',sans-serif;
   --mono:'DM Mono',monospace;
 }
 
-body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:14px;min-height:100vh;}
+body{
+  background:
+    radial-gradient(circle at 10% -10%, rgba(230,0,0,.16), transparent 30%),
+    linear-gradient(180deg,#0b0b0b 0%,var(--bg) 42%);
+  color:var(--text);font-family:var(--font);font-size:14px;min-height:100vh;
+}
 
 /* ── NAV ── */
 nav{
   display:flex;align-items:center;justify-content:space-between;
-  padding:14px 28px;
+  padding:12px 28px;
   border-bottom:1px solid var(--border);
   position:sticky;top:0;z-index:100;
-  background:rgba(11,14,24,.92);backdrop-filter:blur(12px);
+  background:rgba(7,7,7,.92);backdrop-filter:blur(12px);
 }
-.nav-brand{display:flex;align-items:center;gap:10px;}
-.nav-brand .dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse-dot 2s ease-in-out infinite;}
+.nav-brand{display:flex;align-items:center;gap:14px;min-width:0;}
+.brand-logo{
+  width:188px;height:auto;display:block;flex-shrink:0;
+  background:#fff;border-radius:8px;padding:6px 10px;
+  box-shadow:0 0 0 1px rgba(255,255,255,.12);
+}
+.brand-copy{display:flex;align-items:baseline;gap:8px;min-width:0;}
+.nav-brand .dot{width:8px;height:8px;border-radius:50%;background:var(--brand-red);box-shadow:0 0 16px rgba(230,0,0,.7);animation:pulse-dot 2s ease-in-out infinite;flex-shrink:0;}
 @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
 .nav-brand h1{font-size:15px;font-weight:600;letter-spacing:-.01em;}
 .nav-brand span{font-size:12px;color:var(--muted);margin-left:4px;font-family:var(--mono);}
@@ -52,8 +65,8 @@ nav{
   font-family:var(--font);transition:all .2s;
 }
 .year-pill:hover{color:var(--text);border-color:var(--border2);}
-.year-pill.active{background:var(--green);color:#000;border-color:var(--green);font-weight:500;}
-.live-badge{font-size:11px;background:var(--green-soft);color:var(--green);padding:4px 10px;border-radius:20px;border:1px solid var(--green);font-family:var(--mono);}
+.year-pill.active{background:var(--brand-red);color:#fff;border-color:var(--brand-red);font-weight:500;}
+.live-badge{font-size:11px;background:var(--brand-red-soft);color:#fff;padding:4px 10px;border-radius:20px;border:1px solid var(--brand-red);font-family:var(--mono);}
 
 /* ── LAYOUT ── */
 main{padding:24px 28px;max-width:1400px;margin:0 auto;}
@@ -65,12 +78,12 @@ main{padding:24px 28px;max-width:1400px;margin:0 auto;}
 /* ── KPI ROW ── */
 .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
 .kpi{
-  background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  background:linear-gradient(180deg,#141414 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:14px;
   padding:18px 20px;position:relative;overflow:hidden;transition:border-color .2s;
 }
 .kpi:hover{border-color:var(--border2);}
 .kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:14px 14px 0 0;}
-.kpi.green::before{background:var(--green);}
+.kpi.green::before{background:var(--brand-red);}
 .kpi.red::before{background:var(--red);}
 .kpi.amber::before{background:var(--amber);}
 .kpi.blue::before{background:var(--blue);}
@@ -85,7 +98,7 @@ main{padding:24px 28px;max-width:1400px;margin:0 auto;}
 /* ── CHART GRID ── */
 .chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
 .chart-grid.three{grid-template-columns:1fr 1fr 1fr;}
-.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;}
+.chart-card{background:linear-gradient(180deg,#141414 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:14px;padding:20px;}
 .chart-card.wide{grid-column:span 2;}
 .chart-card.wide3{grid-column:span 3;}
 .chart-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;}
@@ -93,7 +106,7 @@ main{padding:24px 28px;max-width:1400px;margin:0 auto;}
 .chart-sub{font-size:11px;color:var(--muted);margin-top:2px;}
 .chart-badge{font-size:10px;padding:3px 8px;border-radius:10px;font-family:var(--mono);}
 .badge-warn{background:var(--amber-soft);color:var(--amber);}
-.badge-good{background:var(--green-soft);color:var(--green);}
+.badge-good{background:var(--brand-red-soft);color:#fff;}
 .badge-info{background:var(--blue-soft);color:var(--blue);}
 
 /* ── LEGEND ── */
@@ -105,7 +118,7 @@ main{padding:24px 28px;max-width:1400px;margin:0 auto;}
 .bottom-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px;}
 
 /* ── INSIGHT CARD ── */
-.insight-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;}
+.insight-card{background:linear-gradient(180deg,#141414 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:14px;padding:20px;}
 .insight-list{display:flex;flex-direction:column;gap:0;}
 .insight-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);}
 .insight-item:first-child{padding-top:0;}
@@ -120,12 +133,12 @@ main{padding:24px 28px;max-width:1400px;margin:0 auto;}
 /* ── SWOT ── */
 .swot-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;height:100%;}
 .swot-box{border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:6px;}
-.swot-box.s{background:#00d68f10;border:1px solid #00d68f30;}
-.swot-box.w{background:#ff5c7210;border:1px solid #ff5c7230;}
-.swot-box.o{background:#4d9fff10;border:1px solid #4d9fff30;}
-.swot-box.t{background:#f5a62310;border:1px solid #f5a62330;}
+.swot-box.s{background:#e6000010;border:1px solid #e6000040;}
+.swot-box.w{background:#ff4b4b10;border:1px solid #ff4b4b30;}
+.swot-box.o{background:#f5f5f510;border:1px solid #f5f5f530;}
+.swot-box.t{background:#f4b44b10;border:1px solid #f4b44b30;}
 .swot-lbl{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;}
-.swot-box.s .swot-lbl{color:var(--green);}
+.swot-box.s .swot-lbl{color:#fff;}
 .swot-box.w .swot-lbl{color:var(--red);}
 .swot-box.o .swot-lbl{color:var(--blue);}
 .swot-box.t .swot-lbl{color:var(--amber);}
@@ -158,15 +171,38 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-t
 
 /* ── TOOLTIP ── */
 canvas{display:block;}
+@media (max-width:900px){
+  nav{align-items:flex-start;gap:12px;flex-direction:column;}
+  .brand-logo{width:164px;}
+  .brand-copy{flex-wrap:wrap;}
+  .nav-right{flex-wrap:wrap;}
+  main{padding:20px 18px;}
+  .kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .chart-grid,.chart-grid.three,.bottom-grid{grid-template-columns:1fr;}
+  .chart-card.wide,.chart-card.wide3{grid-column:span 1;}
+  .chart-header{gap:10px;flex-wrap:wrap;}
+}
+@media (max-width:520px){
+  nav{padding:12px 18px;}
+  .nav-brand{align-items:flex-start;}
+  .brand-copy{display:block;}
+  .nav-brand span{display:block;margin-left:0;margin-top:3px;}
+  .kpi-grid{grid-template-columns:1fr;}
+  .kpi-value{font-size:24px;}
+  .chart-card,.insight-card{padding:16px;}
+}
 </style>
 </head>
 <body>
 
 <nav>
   <div class="nav-brand">
+    <img class="brand-logo" src="assets/foodtalks-logo.png" alt="Foodtalks"/>
     <div class="dot"></div>
-    <h1>Foodtalks Pte. Ltd.</h1>
-    <span>Financial Dashboard</span>
+    <div class="brand-copy">
+      <h1>Foodtalks Pte. Ltd.</h1>
+      <span>Financial Dashboard</span>
+    </div>
   </div>
   <div class="nav-right">
     <button class="year-pill" onclick="setYear(2023,this)">FY 2023</button>
@@ -220,10 +256,10 @@ canvas{display:block;}
       </div>
       <canvas id="revTrendChart" height="90"></canvas>
       <div class="legend">
-        <div class="leg"><div class="leg-dot" style="background:#00d68f"></div>Revenue</div>
-        <div class="leg"><div class="leg-dot" style="background:#4d9fff"></div>Gross Profit</div>
-        <div class="leg"><div class="leg-dot" style="background:#ff5c72;"></div>Net Profit</div>
-        <div class="leg"><div class="leg-dot" style="background:#f5a623"></div>Total Op. Expenses</div>
+        <div class="leg"><div class="leg-dot" style="background:#e60000"></div>Revenue</div>
+        <div class="leg"><div class="leg-dot" style="background:#f5f5f5"></div>Gross Profit</div>
+        <div class="leg"><div class="leg-dot" style="background:#ff4b4b;"></div>Net Profit</div>
+        <div class="leg"><div class="leg-dot" style="background:#f4b44b"></div>Total Op. Expenses</div>
       </div>
     </div>
   </div>
@@ -250,8 +286,8 @@ canvas{display:block;}
       </div>
       <canvas id="costDonut" height="160"></canvas>
       <div class="legend" id="cos-legend">
-        <div class="leg"><div class="leg-dot" style="background:#00d68f"></div>Purchases</div>
-        <div class="leg"><div class="leg-dot" style="background:#4d9fff"></div>Food</div>
+        <div class="leg"><div class="leg-dot" style="background:#e60000"></div>Purchases</div>
+        <div class="leg"><div class="leg-dot" style="background:#f5f5f5"></div>Food</div>
       </div>
     </div>
     <div class="chart-card">
@@ -279,9 +315,9 @@ canvas{display:block;}
       </div>
       <canvas id="opexChart" height="200"></canvas>
       <div class="legend">
-        <div class="leg"><div class="leg-dot" style="background:#2e3858"></div>FY2023</div>
-        <div class="leg"><div class="leg-dot" style="background:#4d9fff80"></div>FY2024</div>
-        <div class="leg"><div class="leg-dot" style="background:#4d9fff"></div>FY2025</div>
+        <div class="leg"><div class="leg-dot" style="background:#3a3a3a"></div>FY2023</div>
+        <div class="leg"><div class="leg-dot" style="background:#7a7a7a"></div>FY2024</div>
+        <div class="leg"><div class="leg-dot" style="background:#e60000"></div>FY2025</div>
       </div>
     </div>
     <div class="chart-card">
@@ -294,9 +330,9 @@ canvas{display:block;}
       </div>
       <canvas id="labourChart" height="200"></canvas>
       <div class="legend">
-        <div class="leg"><div class="leg-dot" style="background:#ff5c72"></div>Salaries & Wages</div>
-        <div class="leg"><div class="leg-dot" style="background:#f5a623"></div>CPF + FWL + SDL</div>
-        <div class="leg"><div class="leg-dot" style="background:#4d9fff"></div>Bonus + OT</div>
+        <div class="leg"><div class="leg-dot" style="background:#e60000"></div>Salaries & Wages</div>
+        <div class="leg"><div class="leg-dot" style="background:#f4b44b"></div>CPF + FWL + SDL</div>
+        <div class="leg"><div class="leg-dot" style="background:#f5f5f5"></div>Bonus + OT</div>
       </div>
     </div>
   </div>
@@ -484,7 +520,21 @@ const pct = n => (n*100).toFixed(1) + '%';
 Chart.defaults.color = '#6b738f';
 Chart.defaults.font.family = "'DM Sans', sans-serif";
 Chart.defaults.font.size = 11;
-const gridColor = '#1e2640';
+const gridColor = '#262626';
+const chartColors = {
+  brand: '#e60000',
+  brandSoft: '#e6000028',
+  white: '#f5f5f5',
+  whiteSoft: '#f5f5f51f',
+  gray: '#7a7a7a',
+  graySoft: '#7a7a7a70',
+  danger: '#ff4b4b',
+  dangerSoft: '#ff4b4b70',
+  amber: '#f4b44b',
+  amberSoft: '#f4b44b70',
+  success: '#24c083',
+  successSoft: '#24c08370'
+};
 
 let charts = {};
 let currentYear = 2025;
@@ -540,22 +590,22 @@ function drawAll() {
         {
           label: 'Revenue', type: 'bar',
           data: years.map(y => DATA[y].rev),
-          backgroundColor: '#00d68f22', borderColor: '#00d68f', borderWidth: 1.5, borderRadius: 6, order: 2
+          backgroundColor: chartColors.brandSoft, borderColor: chartColors.brand, borderWidth: 1.5, borderRadius: 6, order: 2
         },
         {
           label: 'Gross Profit', type: 'line',
           data: years.map(y => DATA[y].gp),
-          borderColor: '#4d9fff', backgroundColor: 'transparent', borderWidth: 2, tension: .3, pointRadius: 5, pointBackgroundColor: '#4d9fff', order: 1
+          borderColor: chartColors.white, backgroundColor: 'transparent', borderWidth: 2, tension: .3, pointRadius: 5, pointBackgroundColor: chartColors.white, order: 1
         },
         {
           label: 'Net Profit', type: 'line',
           data: years.map(y => DATA[y].np),
-          borderColor: '#ff5c72', backgroundColor: 'transparent', borderWidth: 2, tension: .3, pointRadius: 5, pointBackgroundColor: '#ff5c72', borderDash: [5,3], order: 1
+          borderColor: chartColors.danger, backgroundColor: 'transparent', borderWidth: 2, tension: .3, pointRadius: 5, pointBackgroundColor: chartColors.danger, borderDash: [5,3], order: 1
         },
         {
           label: 'Total Op. Expenses', type: 'line',
           data: years.map(y => DATA[y].opex),
-          borderColor: '#f5a623', backgroundColor: 'transparent', borderWidth: 2, tension: .3, pointRadius: 5, pointBackgroundColor: '#f5a623', borderDash: [3,3], order: 1
+          borderColor: chartColors.amber, backgroundColor: 'transparent', borderWidth: 2, tension: .3, pointRadius: 5, pointBackgroundColor: chartColors.amber, borderDash: [3,3], order: 1
         }
       ]
     },
@@ -574,8 +624,8 @@ function drawAll() {
     data: {
       labels,
       datasets: [
-        { label: 'GPM', data: years.map(y => +(DATA[y].gpm*100).toFixed(1)), borderColor: '#00d68f', backgroundColor: '#00d68f10', borderWidth: 2, fill: true, tension: .3, pointRadius: 5, pointBackgroundColor: '#00d68f' },
-        { label: 'NPM', data: years.map(y => +(DATA[y].npm*100).toFixed(1)), borderColor: '#ff5c72', backgroundColor: '#ff5c7210', borderWidth: 2, fill: true, tension: .3, pointRadius: 5, pointBackgroundColor: '#ff5c72' }
+        { label: 'GPM', data: years.map(y => +(DATA[y].gpm*100).toFixed(1)), borderColor: chartColors.brand, backgroundColor: chartColors.brandSoft, borderWidth: 2, fill: true, tension: .3, pointRadius: 5, pointBackgroundColor: chartColors.brand },
+        { label: 'NPM', data: years.map(y => +(DATA[y].npm*100).toFixed(1)), borderColor: chartColors.white, backgroundColor: chartColors.whiteSoft, borderWidth: 2, fill: true, tension: .3, pointRadius: 5, pointBackgroundColor: chartColors.white }
       ]
     },
     options: {
@@ -593,7 +643,7 @@ function drawAll() {
     type: 'doughnut',
     data: {
       labels: ['Purchases', 'Food/Ingredients'],
-      datasets: [{ data: [cosD.purchases, cosD.food], backgroundColor: ['#00d68f', '#4d9fff'], borderWidth: 0, hoverOffset: 4 }]
+      datasets: [{ data: [cosD.purchases, cosD.food], backgroundColor: [chartColors.brand, chartColors.white], borderWidth: 0, hoverOffset: 4 }]
     },
     options: { cutout: '65%', plugins: { legend: { position: 'bottom', labels: { padding: 12 } } } }
   });
@@ -604,9 +654,9 @@ function drawAll() {
     data: {
       labels,
       datasets: [
-        { label: 'Operating', data: years.map(y => DATA[y].ocf), backgroundColor: '#00d68f80', borderColor: '#00d68f', borderWidth: 1, borderRadius: 4 },
-        { label: 'Investing', data: years.map(y => DATA[y].icf), backgroundColor: '#ff5c7280', borderColor: '#ff5c72', borderWidth: 1, borderRadius: 4 },
-        { label: 'Financing', data: years.map(y => DATA[y].fcf), backgroundColor: '#4d9fff80', borderColor: '#4d9fff', borderWidth: 1, borderRadius: 4 }
+        { label: 'Operating', data: years.map(y => DATA[y].ocf), backgroundColor: chartColors.successSoft, borderColor: chartColors.success, borderWidth: 1, borderRadius: 4 },
+        { label: 'Investing', data: years.map(y => DATA[y].icf), backgroundColor: chartColors.dangerSoft, borderColor: chartColors.danger, borderWidth: 1, borderRadius: 4 },
+        { label: 'Financing', data: years.map(y => DATA[y].fcf), backgroundColor: chartColors.graySoft, borderColor: chartColors.gray, borderWidth: 1, borderRadius: 4 }
       ]
     },
     options: {
@@ -626,9 +676,9 @@ function drawAll() {
     data: {
       labels: opexLabels,
       datasets: [
-        { label: 'FY2023', data: opexKeys.map(k => DATA[2023].topOpex[k]), backgroundColor: '#2e3858', borderRadius: 3 },
-        { label: 'FY2024', data: opexKeys.map(k => DATA[2024].topOpex[k]), backgroundColor: '#4d9fff60', borderRadius: 3 },
-        { label: 'FY2025', data: opexKeys.map(k => DATA[2025].topOpex[k]), backgroundColor: '#4d9fff', borderRadius: 3 }
+        { label: 'FY2023', data: opexKeys.map(k => DATA[2023].topOpex[k]), backgroundColor: '#3a3a3a', borderRadius: 3 },
+        { label: 'FY2024', data: opexKeys.map(k => DATA[2024].topOpex[k]), backgroundColor: chartColors.gray, borderRadius: 3 },
+        { label: 'FY2025', data: opexKeys.map(k => DATA[2025].topOpex[k]), backgroundColor: chartColors.brand, borderRadius: 3 }
       ]
     },
     options: {
@@ -647,9 +697,9 @@ function drawAll() {
     data: {
       labels,
       datasets: [
-        { label: 'Salaries & Wages', data: years.map(y => DATA[y].labour.salaries), backgroundColor: '#ff5c72', borderRadius: 4 },
-        { label: 'CPF + FWL + SDL', data: years.map(y => DATA[y].labour.cpf_fwl_sdl), backgroundColor: '#f5a623', borderRadius: 4 },
-        { label: 'Bonus + OT', data: years.map(y => DATA[y].labour.bonus_ot), backgroundColor: '#4d9fff', borderRadius: 4 }
+        { label: 'Salaries & Wages', data: years.map(y => DATA[y].labour.salaries), backgroundColor: chartColors.brand, borderRadius: 4 },
+        { label: 'CPF + FWL + SDL', data: years.map(y => DATA[y].labour.cpf_fwl_sdl), backgroundColor: chartColors.amber, borderRadius: 4 },
+        { label: 'Bonus + OT', data: years.map(y => DATA[y].labour.bonus_ot), backgroundColor: chartColors.white, borderRadius: 4 }
       ]
     },
     options: {
