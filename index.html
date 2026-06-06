@@ -10,32 +10,32 @@
 
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#070707;
-  --surface:#111111;
-  --surface2:#181818;
-  --border:#282828;
-  --border2:#3a3a3a;
+  --bg:#ffffff;
+  --surface:#ffffff;
+  --surface2:#f7f7f7;
+  --border:#e6e6e6;
+  --border2:#cfcfcf;
   --brand-red:#e60000;
   --brand-red-soft:#e600001a;
-  --green:#24c083;
+  --green:#13875a;
   --green-soft:#24c08318;
-  --red:#ff4b4b;
+  --red:#d92d2d;
   --red-soft:#ff4b4b18;
-  --amber:#f4b44b;
+  --amber:#b87512;
   --amber-soft:#f4b44b18;
-  --blue:#aab2c2;
-  --blue-soft:#aab2c218;
-  --text:#f5f5f5;
-  --muted:#8d8d8d;
-  --muted2:#565656;
+  --blue:#4b5563;
+  --blue-soft:#4b556318;
+  --text:#171717;
+  --muted:#696969;
+  --muted2:#9a9a9a;
   --font:'DM Sans',sans-serif;
   --mono:'DM Mono',monospace;
 }
 
 body{
   background:
-    radial-gradient(circle at 10% -10%, rgba(230,0,0,.16), transparent 30%),
-    linear-gradient(180deg,#0b0b0b 0%,var(--bg) 42%);
+    radial-gradient(circle at 10% -10%, rgba(230,0,0,.08), transparent 30%),
+    linear-gradient(180deg,#fff 0%,#fafafa 48%,var(--bg) 100%);
   color:var(--text);font-family:var(--font);font-size:14px;min-height:100vh;
 }
 
@@ -45,13 +45,13 @@ nav{
   padding:12px 28px;
   border-bottom:1px solid var(--border);
   position:sticky;top:0;z-index:100;
-  background:rgba(7,7,7,.92);backdrop-filter:blur(12px);
+  background:rgba(255,255,255,.92);backdrop-filter:blur(12px);
 }
 .nav-brand{display:flex;align-items:center;gap:14px;min-width:0;}
 .brand-logo{
   width:188px;height:auto;display:block;flex-shrink:0;
   background:#fff;border-radius:8px;padding:6px 10px;
-  box-shadow:0 0 0 1px rgba(255,255,255,.12);
+  box-shadow:0 0 0 1px rgba(0,0,0,.08),0 8px 24px rgba(0,0,0,.06);
 }
 .brand-copy{display:flex;align-items:baseline;gap:8px;min-width:0;}
 .nav-brand .dot{width:8px;height:8px;border-radius:50%;background:var(--brand-red);box-shadow:0 0 16px rgba(230,0,0,.7);animation:pulse-dot 2s ease-in-out infinite;flex-shrink:0;}
@@ -64,9 +64,9 @@ nav{
   border:1px solid var(--border2);background:transparent;color:var(--muted);
   font-family:var(--font);transition:all .2s;
 }
-.year-pill:hover{color:var(--text);border-color:var(--border2);}
+.year-pill:hover{color:var(--text);border-color:var(--brand-red);}
 .year-pill.active{background:var(--brand-red);color:#fff;border-color:var(--brand-red);font-weight:500;}
-.live-badge{font-size:11px;background:var(--brand-red-soft);color:#fff;padding:4px 10px;border-radius:20px;border:1px solid var(--brand-red);font-family:var(--mono);}
+.live-badge{font-size:11px;background:var(--brand-red-soft);color:var(--brand-red);padding:4px 10px;border-radius:20px;border:1px solid var(--brand-red);font-family:var(--mono);font-weight:500;}
 
 /* ── LAYOUT ── */
 main{padding:24px 28px;max-width:1400px;margin:0 auto;}
@@ -78,8 +78,9 @@ main{padding:24px 28px;max-width:1400px;margin:0 auto;}
 /* ── KPI ROW ── */
 .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
 .kpi{
-  background:linear-gradient(180deg,#141414 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:14px;
+  background:linear-gradient(180deg,#fff 0%,#fbfbfb 100%);border:1px solid var(--border);border-radius:14px;
   padding:18px 20px;position:relative;overflow:hidden;transition:border-color .2s;
+  box-shadow:0 10px 28px rgba(0,0,0,.04);
 }
 .kpi:hover{border-color:var(--border2);}
 .kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:14px 14px 0 0;}
@@ -98,7 +99,7 @@ main{padding:24px 28px;max-width:1400px;margin:0 auto;}
 /* ── CHART GRID ── */
 .chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
 .chart-grid.three{grid-template-columns:1fr 1fr 1fr;}
-.chart-card{background:linear-gradient(180deg,#141414 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:14px;padding:20px;}
+.chart-card{background:linear-gradient(180deg,#fff 0%,#fbfbfb 100%);border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:0 10px 28px rgba(0,0,0,.04);}
 .chart-card.wide{grid-column:span 2;}
 .chart-card.wide3{grid-column:span 3;}
 .chart-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;}
@@ -106,7 +107,7 @@ main{padding:24px 28px;max-width:1400px;margin:0 auto;}
 .chart-sub{font-size:11px;color:var(--muted);margin-top:2px;}
 .chart-badge{font-size:10px;padding:3px 8px;border-radius:10px;font-family:var(--mono);}
 .badge-warn{background:var(--amber-soft);color:var(--amber);}
-.badge-good{background:var(--brand-red-soft);color:#fff;}
+.badge-good{background:var(--brand-red-soft);color:var(--brand-red);}
 .badge-info{background:var(--blue-soft);color:var(--blue);}
 
 /* ── LEGEND ── */
@@ -118,7 +119,7 @@ main{padding:24px 28px;max-width:1400px;margin:0 auto;}
 .bottom-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px;}
 
 /* ── INSIGHT CARD ── */
-.insight-card{background:linear-gradient(180deg,#141414 0%,var(--surface) 100%);border:1px solid var(--border);border-radius:14px;padding:20px;}
+.insight-card{background:linear-gradient(180deg,#fff 0%,#fbfbfb 100%);border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:0 10px 28px rgba(0,0,0,.04);}
 .insight-list{display:flex;flex-direction:column;gap:0;}
 .insight-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);}
 .insight-item:first-child{padding-top:0;}
@@ -135,10 +136,10 @@ main{padding:24px 28px;max-width:1400px;margin:0 auto;}
 .swot-box{border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:6px;}
 .swot-box.s{background:#e6000010;border:1px solid #e6000040;}
 .swot-box.w{background:#ff4b4b10;border:1px solid #ff4b4b30;}
-.swot-box.o{background:#f5f5f510;border:1px solid #f5f5f530;}
+.swot-box.o{background:#17171708;border:1px solid #17171722;}
 .swot-box.t{background:#f4b44b10;border:1px solid #f4b44b30;}
 .swot-lbl{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;}
-.swot-box.s .swot-lbl{color:#fff;}
+.swot-box.s .swot-lbl{color:var(--brand-red);}
 .swot-box.w .swot-lbl{color:var(--red);}
 .swot-box.o .swot-lbl{color:var(--blue);}
 .swot-box.t .swot-lbl{color:var(--amber);}
@@ -257,7 +258,7 @@ canvas{display:block;}
       <canvas id="revTrendChart" height="90"></canvas>
       <div class="legend">
         <div class="leg"><div class="leg-dot" style="background:#e60000"></div>Revenue</div>
-        <div class="leg"><div class="leg-dot" style="background:#f5f5f5"></div>Gross Profit</div>
+        <div class="leg"><div class="leg-dot" style="background:#171717"></div>Gross Profit</div>
         <div class="leg"><div class="leg-dot" style="background:#ff4b4b;"></div>Net Profit</div>
         <div class="leg"><div class="leg-dot" style="background:#f4b44b"></div>Total Op. Expenses</div>
       </div>
@@ -287,7 +288,7 @@ canvas{display:block;}
       <canvas id="costDonut" height="160"></canvas>
       <div class="legend" id="cos-legend">
         <div class="leg"><div class="leg-dot" style="background:#e60000"></div>Purchases</div>
-        <div class="leg"><div class="leg-dot" style="background:#f5f5f5"></div>Food</div>
+        <div class="leg"><div class="leg-dot" style="background:#171717"></div>Food</div>
       </div>
     </div>
     <div class="chart-card">
@@ -332,7 +333,7 @@ canvas{display:block;}
       <div class="legend">
         <div class="leg"><div class="leg-dot" style="background:#e60000"></div>Salaries & Wages</div>
         <div class="leg"><div class="leg-dot" style="background:#f4b44b"></div>CPF + FWL + SDL</div>
-        <div class="leg"><div class="leg-dot" style="background:#f5f5f5"></div>Bonus + OT</div>
+        <div class="leg"><div class="leg-dot" style="background:#171717"></div>Bonus + OT</div>
       </div>
     </div>
   </div>
@@ -517,23 +518,23 @@ const fmt = (n, dp=0) => '$' + (Math.abs(n) >= 1e6
 
 const pct = n => (n*100).toFixed(1) + '%';
 
-Chart.defaults.color = '#6b738f';
+Chart.defaults.color = '#696969';
 Chart.defaults.font.family = "'DM Sans', sans-serif";
 Chart.defaults.font.size = 11;
-const gridColor = '#262626';
+const gridColor = '#e9e9e9';
 const chartColors = {
   brand: '#e60000',
   brandSoft: '#e6000028',
-  white: '#f5f5f5',
-  whiteSoft: '#f5f5f51f',
-  gray: '#7a7a7a',
-  graySoft: '#7a7a7a70',
-  danger: '#ff4b4b',
-  dangerSoft: '#ff4b4b70',
-  amber: '#f4b44b',
-  amberSoft: '#f4b44b70',
-  success: '#24c083',
-  successSoft: '#24c08370'
+  ink: '#171717',
+  inkSoft: '#17171718',
+  gray: '#8a8a8a',
+  graySoft: '#8a8a8a66',
+  danger: '#d92d2d',
+  dangerSoft: '#d92d2d66',
+  amber: '#b87512',
+  amberSoft: '#b8751266',
+  success: '#13875a',
+  successSoft: '#13875a66'
 };
 
 let charts = {};
@@ -595,7 +596,7 @@ function drawAll() {
         {
           label: 'Gross Profit', type: 'line',
           data: years.map(y => DATA[y].gp),
-          borderColor: chartColors.white, backgroundColor: 'transparent', borderWidth: 2, tension: .3, pointRadius: 5, pointBackgroundColor: chartColors.white, order: 1
+          borderColor: chartColors.ink, backgroundColor: 'transparent', borderWidth: 2, tension: .3, pointRadius: 5, pointBackgroundColor: chartColors.ink, order: 1
         },
         {
           label: 'Net Profit', type: 'line',
@@ -625,7 +626,7 @@ function drawAll() {
       labels,
       datasets: [
         { label: 'GPM', data: years.map(y => +(DATA[y].gpm*100).toFixed(1)), borderColor: chartColors.brand, backgroundColor: chartColors.brandSoft, borderWidth: 2, fill: true, tension: .3, pointRadius: 5, pointBackgroundColor: chartColors.brand },
-        { label: 'NPM', data: years.map(y => +(DATA[y].npm*100).toFixed(1)), borderColor: chartColors.white, backgroundColor: chartColors.whiteSoft, borderWidth: 2, fill: true, tension: .3, pointRadius: 5, pointBackgroundColor: chartColors.white }
+        { label: 'NPM', data: years.map(y => +(DATA[y].npm*100).toFixed(1)), borderColor: chartColors.ink, backgroundColor: chartColors.inkSoft, borderWidth: 2, fill: true, tension: .3, pointRadius: 5, pointBackgroundColor: chartColors.ink }
       ]
     },
     options: {
@@ -643,7 +644,7 @@ function drawAll() {
     type: 'doughnut',
     data: {
       labels: ['Purchases', 'Food/Ingredients'],
-      datasets: [{ data: [cosD.purchases, cosD.food], backgroundColor: [chartColors.brand, chartColors.white], borderWidth: 0, hoverOffset: 4 }]
+      datasets: [{ data: [cosD.purchases, cosD.food], backgroundColor: [chartColors.brand, chartColors.ink], borderWidth: 0, hoverOffset: 4 }]
     },
     options: { cutout: '65%', plugins: { legend: { position: 'bottom', labels: { padding: 12 } } } }
   });
@@ -676,7 +677,7 @@ function drawAll() {
     data: {
       labels: opexLabels,
       datasets: [
-        { label: 'FY2023', data: opexKeys.map(k => DATA[2023].topOpex[k]), backgroundColor: '#3a3a3a', borderRadius: 3 },
+        { label: 'FY2023', data: opexKeys.map(k => DATA[2023].topOpex[k]), backgroundColor: '#d8d8d8', borderRadius: 3 },
         { label: 'FY2024', data: opexKeys.map(k => DATA[2024].topOpex[k]), backgroundColor: chartColors.gray, borderRadius: 3 },
         { label: 'FY2025', data: opexKeys.map(k => DATA[2025].topOpex[k]), backgroundColor: chartColors.brand, borderRadius: 3 }
       ]
@@ -699,7 +700,7 @@ function drawAll() {
       datasets: [
         { label: 'Salaries & Wages', data: years.map(y => DATA[y].labour.salaries), backgroundColor: chartColors.brand, borderRadius: 4 },
         { label: 'CPF + FWL + SDL', data: years.map(y => DATA[y].labour.cpf_fwl_sdl), backgroundColor: chartColors.amber, borderRadius: 4 },
-        { label: 'Bonus + OT', data: years.map(y => DATA[y].labour.bonus_ot), backgroundColor: chartColors.white, borderRadius: 4 }
+        { label: 'Bonus + OT', data: years.map(y => DATA[y].labour.bonus_ot), backgroundColor: chartColors.ink, borderRadius: 4 }
       ]
     },
     options: {
