@@ -633,13 +633,25 @@ function drawAll() {
         {
           label: 'Total Op. Expenses', type: 'line',
           data: years.map(y => DATA[y].opex),
-          borderColor: chartColors.black, backgroundColor: 'transparent', borderWidth: 2, tension: .3, pointRadius: 5, pointBackgroundColor: chartColors.black, pointBorderColor: '#fff', pointBorderWidth: 1.5, borderDash: [3,3], visualOffsetY: 16, order: 1
+          borderColor: chartColors.black, backgroundColor: 'transparent', borderWidth: 2, tension: 0, pointRadius: 5, pointHitRadius: 14, pointHoverRadius: 7, pointBackgroundColor: chartColors.black, pointBorderColor: '#fff', pointBorderWidth: 1.5, borderDash: [3,3], visualOffsetY: 16, order: 1
         }
       ]
     },
     plugins: [visualOffsetPlugin],
     options: {
-      plugins: { legend: { display: false } },
+      interaction: { mode: 'index', intersect: false, axis: 'x' },
+      hover: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          enabled: true,
+          mode: 'index',
+          intersect: false,
+          callbacks: {
+            label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y.toLocaleString(undefined, { maximumFractionDigits: 2 })}`
+          }
+        }
+      },
       scales: {
         x: { grid: { color: gridColor } },
         y: { grid: { color: gridColor }, ticks: { callback: v => '$' + (v/1000).toFixed(0) + 'K' } }
