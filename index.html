@@ -259,7 +259,7 @@ canvas{display:block;}
       <div class="legend">
         <div class="leg"><div class="leg-dot" style="background:#e60000"></div>Revenue</div>
         <div class="leg"><div class="leg-dot" style="background:#8a8a8a"></div>Gross Profit</div>
-        <div class="leg"><div class="leg-dot" style="background:#d8d8d8;"></div>Net Profit</div>
+        <div class="leg"><div class="leg-dot" style="background:#b87512;"></div>Net Profit</div>
         <div class="leg"><div class="leg-dot" style="background:#171717"></div>Total Op. Expenses</div>
       </div>
     </div>
@@ -316,7 +316,7 @@ canvas{display:block;}
       </div>
       <canvas id="opexChart" height="200"></canvas>
       <div class="legend">
-        <div class="leg"><div class="leg-dot" style="background:#d8d8d8"></div>FY2023</div>
+        <div class="leg"><div class="leg-dot" style="background:#b87512"></div>FY2023</div>
         <div class="leg"><div class="leg-dot" style="background:#8a8a8a"></div>FY2024</div>
         <div class="leg"><div class="leg-dot" style="background:#e60000"></div>FY2025</div>
       </div>
@@ -333,7 +333,7 @@ canvas{display:block;}
       <div class="legend">
         <div class="leg"><div class="leg-dot" style="background:#e60000"></div>Salaries & Wages</div>
         <div class="leg"><div class="leg-dot" style="background:#8a8a8a"></div>CPF + FWL + SDL</div>
-        <div class="leg"><div class="leg-dot" style="background:#d8d8d8"></div>Bonus + OT</div>
+        <div class="leg"><div class="leg-dot" style="background:#b87512"></div>Bonus + OT</div>
       </div>
     </div>
   </div>
@@ -528,8 +528,8 @@ const chartColors = {
   black: '#171717',
   darkGray: '#8a8a8a',
   darkGraySoft: '#8a8a8a66',
-  lightGray: '#d8d8d8',
-  lightGraySoft: '#d8d8d866'
+  gold: '#b87512',
+  goldSoft: '#b8751266'
 };
 
 const visualOffsetPlugin = {
@@ -628,7 +628,7 @@ function drawAll() {
         {
           label: 'Net Profit', type: 'line',
           data: years.map(y => DATA[y].np),
-          borderColor: chartColors.lightGray, backgroundColor: 'transparent', borderWidth: 2, tension: .3, pointRadius: 5, pointBackgroundColor: chartColors.lightGray, borderDash: [5,3], order: 1
+          borderColor: chartColors.gold, backgroundColor: 'transparent', borderWidth: 2, tension: .3, pointRadius: 5, pointBackgroundColor: chartColors.gold, borderDash: [5,3], order: 1
         },
         {
           label: 'Total Op. Expenses', type: 'line',
@@ -685,7 +685,7 @@ function drawAll() {
       datasets: [
         { label: 'Operating', data: years.map(y => DATA[y].ocf), backgroundColor: chartColors.brandSoft, borderColor: chartColors.brand, borderWidth: 1, borderRadius: 4 },
         { label: 'Investing', data: years.map(y => DATA[y].icf), backgroundColor: chartColors.darkGraySoft, borderColor: chartColors.darkGray, borderWidth: 1, borderRadius: 4 },
-        { label: 'Financing', data: years.map(y => DATA[y].fcf), backgroundColor: chartColors.lightGraySoft, borderColor: chartColors.lightGray, borderWidth: 1, borderRadius: 4 }
+        { label: 'Financing', data: years.map(y => DATA[y].fcf), backgroundColor: chartColors.goldSoft, borderColor: chartColors.gold, borderWidth: 1, borderRadius: 4 }
       ]
     },
     options: {
@@ -705,7 +705,7 @@ function drawAll() {
     data: {
       labels: opexLabels,
       datasets: [
-        { label: 'FY2023', data: opexKeys.map(k => DATA[2023].topOpex[k]), backgroundColor: chartColors.lightGray, borderRadius: 3 },
+        { label: 'FY2023', data: opexKeys.map(k => DATA[2023].topOpex[k]), backgroundColor: chartColors.gold, borderRadius: 3 },
         { label: 'FY2024', data: opexKeys.map(k => DATA[2024].topOpex[k]), backgroundColor: chartColors.darkGray, borderRadius: 3 },
         { label: 'FY2025', data: opexKeys.map(k => DATA[2025].topOpex[k]), backgroundColor: chartColors.brand, borderRadius: 3 }
       ]
@@ -728,7 +728,7 @@ function drawAll() {
       datasets: [
         { label: 'Salaries & Wages', data: years.map(y => DATA[y].labour.salaries), backgroundColor: chartColors.brand, borderRadius: 4 },
         { label: 'CPF + FWL + SDL', data: years.map(y => DATA[y].labour.cpf_fwl_sdl), backgroundColor: chartColors.darkGray, borderRadius: 4 },
-        { label: 'Bonus + OT', data: years.map(y => DATA[y].labour.bonus_ot), backgroundColor: chartColors.lightGray, borderRadius: 4 }
+        { label: 'Bonus + OT', data: years.map(y => DATA[y].labour.bonus_ot), backgroundColor: chartColors.gold, borderRadius: 4 }
       ]
     },
     options: {
