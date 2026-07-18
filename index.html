@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Foodtalks — Financial Dashboard</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap');
 
@@ -96,6 +97,25 @@ main{padding:24px 28px;max-width:1400px;margin:0 auto;}
 .kpi-delta.neu{color:var(--muted);}
 .kpi-sub{font-size:11px;color:var(--muted);margin-top:4px;}
 
+/* ── UPLOAD DROPBOX ── */
+.upload-panel{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center;
+  background:linear-gradient(180deg,#fff 0%,#fbfbfb 100%);
+  border:1px dashed var(--border2);border-radius:14px;padding:18px 20px;margin-bottom:24px;
+  box-shadow:0 10px 28px rgba(0,0,0,.04);transition:border-color .2s,background .2s;
+}
+.upload-panel.dragging{border-color:var(--brand-red);background:var(--brand-red-soft);}
+.upload-title{font-size:13px;font-weight:600;margin-bottom:4px;}
+.upload-copy{font-size:12px;color:var(--muted);line-height:1.55;}
+.upload-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;}
+.upload-button{
+  border:1px solid var(--brand-red);background:var(--brand-red);color:#fff;border-radius:20px;
+  padding:7px 14px;font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;
+}
+.upload-status{font-size:11px;color:var(--muted);font-family:var(--mono);max-width:340px;text-align:right;}
+.upload-status.ok{color:var(--green);}
+.upload-status.err{color:var(--red);}
+
 /* ── CHART GRID ── */
 .chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
 .chart-grid.three{grid-template-columns:1fr 1fr 1fr;}
@@ -178,6 +198,9 @@ canvas{display:block;}
   .brand-copy{flex-wrap:wrap;}
   .nav-right{flex-wrap:wrap;}
   main{padding:20px 18px;}
+  .upload-panel{grid-template-columns:1fr;}
+  .upload-actions{justify-content:flex-start;}
+  .upload-status{text-align:left;}
   .kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
   .chart-grid,.chart-grid.three,.bottom-grid{grid-template-columns:1fr;}
   .chart-card.wide,.chart-card.wide3{grid-column:span 1;}
@@ -205,10 +228,7 @@ canvas{display:block;}
       <span>Financial Dashboard</span>
     </div>
   </div>
-  <div class="nav-right">
-    <button class="year-pill" onclick="setYear(2023,this)">FY 2023</button>
-    <button class="year-pill" onclick="setYear(2024,this)">FY 2024</button>
-    <button class="year-pill active" onclick="setYear(2025,this)">FY 2025</button>
+  <div class="nav-right" id="year-controls">
     <span class="live-badge">● Live Data</span>
   </div>
 </nav>
@@ -244,16 +264,28 @@ canvas{display:block;}
     </div>
   </div>
 
+  <div class="upload-panel" id="upload-dropzone">
+    <div>
+      <div class="upload-title">Upload Next-Year Data</div>
+      <div class="upload-copy">Drop an Excel, CSV, or JSON file here. The file should include a year and financial fields such as revenue, gross profit, net profit, operating expenses, cash flow, cost of sales, labour, and headcount.</div>
+    </div>
+    <div class="upload-actions">
+      <button class="upload-button" type="button" id="upload-button">Choose File</button>
+      <input id="upload-input" type="file" accept=".xlsx,.xls,.csv,.json" hidden/>
+      <div class="upload-status" id="upload-status">Ready for FY2026 or updated data</div>
+    </div>
+  </div>
+
   <!-- CHART ROW 1: Revenue trend + GPM/NPM -->
   <div class="section-label">Revenue &amp; Profitability Trends</div>
   <div class="chart-grid">
     <div class="chart-card wide">
       <div class="chart-header">
         <div>
-          <div class="chart-title">Revenue vs Profit — 3-Year Trend</div>
-          <div class="chart-sub">FY2023 – FY2025 · SGD</div>
+          <div class="chart-title">Revenue vs Profit Trend</div>
+          <div class="chart-sub" id="trend-sub">FY2023 – FY2025 · SGD</div>
         </div>
-        <span class="chart-badge badge-warn">Revenue ▲ 42% over 3yr · Net Profit ▼ 52%</span>
+        <span class="chart-badge badge-warn" id="trend-badge">Revenue ▲ 42% over 3yr · Net Profit ▼ 52%</span>
       </div>
       <canvas id="revTrendChart" height="90"></canvas>
       <div class="legend">
@@ -310,12 +342,12 @@ canvas{display:block;}
       <div class="chart-header">
         <div>
           <div class="chart-title">Top Operating Expense Lines</div>
-          <div class="chart-sub">FY2023 vs FY2024 vs FY2025 · SGD</div>
+          <div class="chart-sub" id="opex-sub">FY2023 vs FY2024 vs FY2025 · SGD</div>
         </div>
         <span class="chart-badge badge-warn">Labour +53% in 3 yrs</span>
       </div>
       <canvas id="opexChart" height="200"></canvas>
-      <div class="legend">
+      <div class="legend" id="opex-legend">
         <div class="leg"><div class="leg-dot" style="background:#b87512"></div>FY2023</div>
         <div class="leg"><div class="leg-dot" style="background:#8a8a8a"></div>FY2024</div>
         <div class="leg"><div class="leg-dot" style="background:#e60000"></div>FY2025</div>
@@ -395,7 +427,7 @@ canvas{display:block;}
           <div class="chart-sub">December headcount · all-in cost per head</div>
         </div>
       </div>
-      <table class="hc-table">
+      <table class="hc-table" id="headcount-table">
         <thead>
           <tr><th>Metric</th><th>FY2023</th><th>FY2024</th><th>FY2025</th></tr>
         </thead>
@@ -568,10 +600,82 @@ let charts = {};
 let currentYear = 2025;
 
 function destroyAll() { Object.values(charts).forEach(c => c && c.destroy()); charts = {}; }
+function getYears() { return Object.keys(DATA).map(Number).sort((a,b) => a-b); }
+function getLatestYear() { const years = getYears(); return years[years.length - 1]; }
+function getPreviousYear(y) {
+  const years = getYears().filter(year => year < y);
+  return years.length ? years[years.length - 1] : y;
+}
+function seriesColor(index, count) {
+  if (index === count - 1) return chartColors.brand;
+  return [chartColors.gold, chartColors.darkGray, chartColors.black][index % 3];
+}
+function updateTrendLabels(years) {
+  const first = years[0], last = years[years.length - 1];
+  document.getElementById('trend-sub').textContent = `FY${first} – FY${last} · SGD`;
+  document.getElementById('opex-sub').textContent = years.map(y => `FY${y}`).join(' vs ') + ' · SGD';
+  const revGrowth = (DATA[last].rev - DATA[first].rev) / DATA[first].rev;
+  const npGrowth = (DATA[last].np - DATA[first].np) / DATA[first].np;
+  document.getElementById('trend-badge').textContent =
+    `Revenue ${revGrowth >= 0 ? '▲' : '▼'} ${Math.abs(revGrowth*100).toFixed(0)}% over ${years.length}yr · Net Profit ${npGrowth >= 0 ? '▲' : '▼'} ${Math.abs(npGrowth*100).toFixed(0)}%`;
+  document.querySelector('footer').textContent =
+    `Foodtalks Pte. Ltd. · Financial Dashboard · Data source: Audited accounts FY${first}–FY${last} · Built by SMU Consulting Team`;
+}
+function renderYearPills() {
+  const controls = document.getElementById('year-controls');
+  const liveBadge = controls.querySelector('.live-badge');
+  controls.querySelectorAll('.year-pill').forEach(btn => btn.remove());
+  getYears().forEach(year => {
+    const btn = document.createElement('button');
+    btn.className = 'year-pill' + (year === currentYear ? ' active' : '');
+    btn.dataset.year = year;
+    btn.textContent = `FY ${year}`;
+    btn.type = 'button';
+    btn.addEventListener('click', () => setYear(year));
+    controls.insertBefore(btn, liveBadge);
+  });
+}
+function renderHeadcountTable(years) {
+  const table = document.getElementById('headcount-table');
+  const rows = [
+    ['Total headcount', y => DATA[y].headcount?.total],
+    ['Full-time', y => DATA[y].headcount?.ft],
+    ['Part-time', y => DATA[y].headcount?.pt],
+    ['Total labour cost', y => totalLabour(DATA[y])],
+    ['Cost per head (ann.)', y => {
+      const hc = DATA[y].headcount?.total || 0;
+      return hc ? totalLabour(DATA[y]) / hc : null;
+    }],
+    ['Labour as % of revenue', y => DATA[y].rev ? totalLabour(DATA[y]) / DATA[y].rev : null],
+    ['Revenue per head', y => {
+      const hc = DATA[y].headcount?.total || 0;
+      return hc ? DATA[y].rev / hc : null;
+    }]
+  ];
+  table.querySelector('thead').innerHTML = '<tr><th>Metric</th>' + years.map(y => `<th>FY${y}</th>`).join('') + '</tr>';
+  table.querySelector('tbody').innerHTML = rows.map(([label, getter]) => {
+    const cells = years.map(y => {
+      const value = getter(y);
+      let text = value == null || !isFinite(value) ? '—' : value;
+      if (label.includes('cost') || label.includes('Revenue') || label.includes('labour cost')) text = value == null ? '—' : fmt(value);
+      if (label.includes('%')) text = value == null ? '—' : pct(value);
+      return `<td class="num">${text}</td>`;
+    }).join('');
+    return `<tr><td>${label}</td>${cells}</tr>`;
+  }).join('');
+}
+function totalLabour(d) {
+  return (d.labour?.salaries || 0) + (d.labour?.cpf_fwl_sdl || 0) + (d.labour?.bonus_ot || 0);
+}
+function renderOpexLegend(years) {
+  document.getElementById('opex-legend').innerHTML = years.map((year, index) =>
+    `<div class="leg"><div class="leg-dot" style="background:${seriesColor(index, years.length)}"></div>FY${year}</div>`
+  ).join('');
+}
 
 // ── UPDATE KPIs ──
 function updateKPIs(y) {
-  const d = DATA[y], p = DATA[y-1] || DATA[y];
+  const d = DATA[y], pYear = getPreviousYear(y), p = DATA[pYear] || DATA[y];
   const dRev = (d.rev - p.rev) / p.rev;
   const dGPM = d.gpm - p.gpm;
   const dNPM = d.npm - p.npm;
@@ -580,7 +684,7 @@ function updateKPIs(y) {
   document.getElementById('k-rev').textContent = fmt(d.rev);
   document.getElementById('k-rev-d').textContent = (dRev >= 0 ? '▲ ' : '▼ ') + Math.abs(dRev*100).toFixed(1) + '% YoY';
   document.getElementById('k-rev-d').className = 'kpi-delta ' + (dRev >= 0 ? 'up' : 'down');
-  document.getElementById('k-rev-s').textContent = 'vs ' + fmt(p.rev) + ' in FY' + (y-1);
+  document.getElementById('k-rev-s').textContent = 'vs ' + fmt(p.rev) + ' in FY' + pYear;
 
   document.getElementById('k-gpm').textContent = pct(d.gpm);
   document.getElementById('k-gpm-d').textContent = (dGPM >= 0 ? '▲ ' : '▼ ') + Math.abs(dGPM*100).toFixed(1) + 'pp YoY';
@@ -595,19 +699,23 @@ function updateKPIs(y) {
   document.getElementById('k-ocf').textContent = fmt(d.ocf);
   document.getElementById('k-ocf-d').textContent = (dOCF >= 0 ? '▲ ' : '▼ ') + Math.abs(dOCF*100).toFixed(1) + '% YoY';
   document.getElementById('k-ocf-d').className = 'kpi-delta ' + (dOCF >= 0 ? 'up' : 'down');
-  document.getElementById('k-ocf-s').textContent = 'vs ' + fmt(p.ocf) + ' in FY' + (y-1);
+  document.getElementById('k-ocf-s').textContent = 'vs ' + fmt(p.ocf) + ' in FY' + pYear;
 
   // COS donut update
   const d2 = DATA[y];
   document.getElementById('cos-sub').textContent = 'FY' + y;
-  document.getElementById('cos-total').textContent = fmt(d2.cos.food + d2.cos.purchases) + ' total';
+  document.getElementById('cos-total').textContent = fmt((d2.cos?.food || 0) + (d2.cos?.purchases || 0)) + ' total';
 }
 
 // ── DRAW ALL CHARTS ──
 function drawAll() {
   destroyAll();
-  const years = [2023, 2024, 2025];
-  const labels = ['FY2023', 'FY2024', 'FY2025'];
+  const years = getYears();
+  const labels = years.map(y => `FY${y}`);
+  updateTrendLabels(years);
+  renderYearPills();
+  renderHeadcountTable(years);
+  renderOpexLegend(years);
 
   // 1. Revenue Trend (wide)
   charts.revTrend = new Chart(document.getElementById('revTrendChart'), {
@@ -679,12 +787,12 @@ function drawAll() {
   });
 
   // 3. Cost donut (dynamic by year)
-  const cosD = DATA[currentYear].cos;
+  const cosD = DATA[currentYear].cos || {};
   charts.costDonut = new Chart(document.getElementById('costDonut'), {
     type: 'doughnut',
     data: {
       labels: ['Purchases', 'Food/Ingredients'],
-      datasets: [{ data: [cosD.purchases, cosD.food], backgroundColor: [chartColors.brand, chartColors.darkGray], borderWidth: 0, hoverOffset: 4 }]
+      datasets: [{ data: [cosD.purchases || 0, cosD.food || 0], backgroundColor: [chartColors.brand, chartColors.darkGray], borderWidth: 0, hoverOffset: 4 }]
     },
     options: { cutout: '65%', plugins: { legend: { position: 'bottom', labels: { padding: 12 } } } }
   });
@@ -716,11 +824,12 @@ function drawAll() {
     type: 'bar',
     data: {
       labels: opexLabels,
-      datasets: [
-        { label: 'FY2023', data: opexKeys.map(k => DATA[2023].topOpex[k]), backgroundColor: chartColors.gold, borderRadius: 3 },
-        { label: 'FY2024', data: opexKeys.map(k => DATA[2024].topOpex[k]), backgroundColor: chartColors.darkGray, borderRadius: 3 },
-        { label: 'FY2025', data: opexKeys.map(k => DATA[2025].topOpex[k]), backgroundColor: chartColors.brand, borderRadius: 3 }
-      ]
+      datasets: years.map((year, index) => ({
+        label: `FY${year}`,
+        data: opexKeys.map(k => DATA[year].topOpex?.[k] || 0),
+        backgroundColor: seriesColor(index, years.length),
+        borderRadius: 3
+      }))
     },
     options: {
       indexAxis: 'y',
@@ -738,9 +847,9 @@ function drawAll() {
     data: {
       labels,
       datasets: [
-        { label: 'Salaries & Wages', data: years.map(y => DATA[y].labour.salaries), backgroundColor: chartColors.brand, borderRadius: 4 },
-        { label: 'CPF + FWL + SDL', data: years.map(y => DATA[y].labour.cpf_fwl_sdl), backgroundColor: chartColors.darkGray, borderRadius: 4 },
-        { label: 'Bonus + OT', data: years.map(y => DATA[y].labour.bonus_ot), backgroundColor: chartColors.gold, borderRadius: 4 }
+        { label: 'Salaries & Wages', data: years.map(y => DATA[y].labour?.salaries || 0), backgroundColor: chartColors.brand, borderRadius: 4 },
+        { label: 'CPF + FWL + SDL', data: years.map(y => DATA[y].labour?.cpf_fwl_sdl || 0), backgroundColor: chartColors.darkGray, borderRadius: 4 },
+        { label: 'Bonus + OT', data: years.map(y => DATA[y].labour?.bonus_ot || 0), backgroundColor: chartColors.gold, borderRadius: 4 }
       ]
     },
     options: {
@@ -753,23 +862,204 @@ function drawAll() {
   });
 }
 
+const FIELD_ALIASES = {
+  rev: ['revenue','totalrevenue','sales','turnover'],
+  gp: ['grossprofit','grossprofitloss'],
+  np: ['netprofit','netprofitloss','profitaftertax','netincome'],
+  opex: ['opex','operatingexpenses','totalopexpenses','totaloperatingexpenses'],
+  gpm: ['gpm','grossprofitmargin','grossmargin'],
+  npm: ['npm','netprofitmargin','netmargin'],
+  ocf: ['ocf','operatingcashflow','cashflowfromoperations','netcashfromoperatingactivities'],
+  icf: ['icf','investingcashflow','cashflowfrominvesting','netcashfrominvestingactivities'],
+  fcf: ['fcf','financingcashflow','cashflowfromfinancing','netcashfromfinancingactivities'],
+  'cos.purchases': ['purchases','purchase','costofsalespurchases'],
+  'cos.food': ['food','foodingredients','ingredients','foodcost'],
+  'topOpex.labour': ['labour','labor','labourcost','laborcost','totallabourcost','totallaborcost','staffcost'],
+  'topOpex.utilities': ['utilities','utility','utilitiescost'],
+  'topOpex.depreciation': ['depreciation','depreciationexpense'],
+  'topOpex.motorVehicle': ['motorvehicle','motorvehicleexpense','vehicle','transport'],
+  'topOpex.professional': ['professional','professionalfees','professionalfee'],
+  'topOpex.subscriptions': ['subscriptions','subscription','software'],
+  'labour.salaries': ['salaries','wages','salariesandwages','salarywages'],
+  'labour.cpf_fwl_sdl': ['cpffwlsdl','cpf','fwl','sdl','levies','cpfandlevy'],
+  'labour.bonus_ot': ['bonusot','bonusandovertime','bonus','overtime','ot'],
+  'headcount.total': ['headcount','totalheadcount','totalstaff'],
+  'headcount.ft': ['fulltime','fulltimeheadcount','ft','fulltimestaff'],
+  'headcount.pt': ['parttime','parttimeheadcount','pt','parttimestaff']
+};
+
+function normKey(value) {
+  return String(value || '').toLowerCase().replace(/fy/g,'').replace(/[^a-z0-9]/g,'');
+}
+function extractYear(value) {
+  const match = String(value || '').match(/20\d{2}/);
+  return match ? Number(match[0]) : null;
+}
+function toNumber(value) {
+  if (value == null || value === '') return null;
+  if (typeof value === 'number') return isFinite(value) ? value : null;
+  const cleaned = String(value).replace(/[$,%\s,]/g,'').replace(/[()]/g, m => m === '(' ? '-' : '');
+  const parsed = Number(cleaned);
+  if (!isFinite(parsed)) return null;
+  return String(value).includes('%') ? parsed / 100 : parsed;
+}
+function blankYearData() {
+  return {
+    rev: 0, gp: 0, np: 0, opex: 0, gpm: 0, npm: 0, ocf: 0, icf: 0, fcf: 0,
+    cos: { food: 0, purchases: 0 },
+    topOpex: { labour: 0, utilities: 0, depreciation: 0, motorVehicle: 0, professional: 0, subscriptions: 0 },
+    labour: { salaries: 0, cpf_fwl_sdl: 0, bonus_ot: 0 },
+    headcount: { total: 0, ft: 0, pt: 0 }
+  };
+}
+function resolveField(name) {
+  const normalized = normKey(name);
+  for (const [field, aliases] of Object.entries(FIELD_ALIASES)) {
+    if (aliases.includes(normalized)) return field;
+  }
+  return null;
+}
+function setNested(target, path, value) {
+  if (value == null) return;
+  const parts = path.split('.');
+  let cursor = target;
+  parts.slice(0,-1).forEach(part => cursor = cursor[part] ||= {});
+  cursor[parts[parts.length - 1]] = value;
+}
+function normalizeYearData(year, data) {
+  const merged = { ...blankYearData(), ...(DATA[year] || {}), ...data };
+  merged.cos = { ...blankYearData().cos, ...(DATA[year]?.cos || {}), ...(data.cos || {}) };
+  merged.topOpex = { ...blankYearData().topOpex, ...(DATA[year]?.topOpex || {}), ...(data.topOpex || {}) };
+  merged.labour = { ...blankYearData().labour, ...(DATA[year]?.labour || {}), ...(data.labour || {}) };
+  merged.headcount = { ...blankYearData().headcount, ...(DATA[year]?.headcount || {}), ...(data.headcount || {}) };
+  if (!merged.gpm && merged.rev) merged.gpm = merged.gp / merged.rev;
+  if (!merged.npm && merged.rev) merged.npm = merged.np / merged.rev;
+  if (!merged.opex) merged.opex = Object.values(merged.topOpex).reduce((sum, v) => sum + (Number(v) || 0), 0);
+  return merged;
+}
+function parseCSV(text) {
+  const rows = [];
+  let row = [], cell = '', quoted = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i], next = text[i+1];
+    if (ch === '"' && quoted && next === '"') { cell += '"'; i++; continue; }
+    if (ch === '"') { quoted = !quoted; continue; }
+    if (ch === ',' && !quoted) { row.push(cell); cell = ''; continue; }
+    if ((ch === '\n' || ch === '\r') && !quoted) {
+      if (ch === '\r' && next === '\n') i++;
+      row.push(cell); rows.push(row); row = []; cell = ''; continue;
+    }
+    cell += ch;
+  }
+  row.push(cell); rows.push(row);
+  const headers = rows.shift().map(h => String(h).trim());
+  return rows.filter(r => r.some(c => String(c).trim())).map(r =>
+    Object.fromEntries(headers.map((h, i) => [h, r[i] ?? '']))
+  );
+}
+function rowsToData(rows) {
+  const parsed = {};
+  rows.forEach(row => {
+    const entries = Object.entries(row);
+    const yearEntry = entries.find(([k,v]) => normKey(k) === 'year' || normKey(k) === 'fiscalyear' || extractYear(v));
+    const metricEntry = entries.find(([k]) => ['metric','account','item','lineitem'].includes(normKey(k)));
+    if (yearEntry && !metricEntry) {
+      const year = extractYear(yearEntry[1]) || extractYear(yearEntry[0]);
+      if (!year) return;
+      parsed[year] ||= {};
+      entries.forEach(([key, value]) => {
+        const field = resolveField(key);
+        if (field) setNested(parsed[year], field, toNumber(value));
+      });
+      return;
+    }
+    if (metricEntry) {
+      const field = resolveField(metricEntry[1]);
+      if (!field) return;
+      entries.forEach(([key, value]) => {
+        const year = extractYear(key) || (['year','fiscalyear'].includes(normKey(key)) ? extractYear(value) : null);
+        if (!year || key === metricEntry[0]) return;
+        parsed[year] ||= {};
+        setNested(parsed[year], field, toNumber(value));
+      });
+    }
+  });
+  return Object.fromEntries(Object.entries(parsed).map(([year, data]) => [year, normalizeYearData(Number(year), data)]));
+}
+function normalizeJSON(payload) {
+  if (Array.isArray(payload)) return rowsToData(payload);
+  if (payload.year) return rowsToData([payload]);
+  return Object.fromEntries(Object.entries(payload).map(([year, data]) =>
+    [year, normalizeYearData(Number(year), data)]
+  ).filter(([year]) => Number(year)));
+}
+async function readUploadFile(file) {
+  const name = file.name.toLowerCase();
+  if (name.endsWith('.json')) return normalizeJSON(JSON.parse(await file.text()));
+  if (name.endsWith('.csv')) return rowsToData(parseCSV(await file.text()));
+  if (name.endsWith('.xlsx') || name.endsWith('.xls')) {
+    if (!window.XLSX) throw new Error('Excel parser is still loading. Please try again in a moment.');
+    const workbook = XLSX.read(await file.arrayBuffer(), { type: 'array' });
+    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+    return rowsToData(XLSX.utils.sheet_to_json(sheet, { defval: '' }));
+  }
+  throw new Error('Unsupported file type. Please upload .xlsx, .xls, .csv, or .json.');
+}
+async function handleUpload(file) {
+  const status = document.getElementById('upload-status');
+  status.className = 'upload-status';
+  status.textContent = `Reading ${file.name}...`;
+  try {
+    const imported = await readUploadFile(file);
+    const importedYears = Object.keys(imported).map(Number).filter(Boolean);
+    if (!importedYears.length) throw new Error('No usable fiscal year data was found.');
+    importedYears.forEach(year => DATA[year] = imported[year]);
+    currentYear = Math.max(...importedYears);
+    drawAll();
+    updateKPIs(currentYear);
+    status.className = 'upload-status ok';
+    status.textContent = `Loaded FY${importedYears.join(', FY')} from ${file.name}`;
+  } catch (err) {
+    status.className = 'upload-status err';
+    status.textContent = err.message;
+  }
+}
+function setupUpload() {
+  const dropzone = document.getElementById('upload-dropzone');
+  const input = document.getElementById('upload-input');
+  document.getElementById('upload-button').addEventListener('click', () => input.click());
+  input.addEventListener('change', e => e.target.files[0] && handleUpload(e.target.files[0]));
+  ['dragenter','dragover'].forEach(eventName => dropzone.addEventListener(eventName, e => {
+    e.preventDefault(); dropzone.classList.add('dragging');
+  }));
+  ['dragleave','drop'].forEach(eventName => dropzone.addEventListener(eventName, e => {
+    e.preventDefault(); dropzone.classList.remove('dragging');
+  }));
+  dropzone.addEventListener('drop', e => {
+    const file = e.dataTransfer.files[0];
+    if (file) handleUpload(file);
+  });
+}
+
 // ── YEAR SWITCH ──
-function setYear(y, el) {
+function setYear(y) {
   currentYear = y;
   document.querySelectorAll('.year-pill').forEach(p => p.classList.remove('active'));
-  el.classList.add('active');
+  document.querySelector(`.year-pill[data-year="${y}"]`)?.classList.add('active');
   updateKPIs(y);
   // Update COS donut
-  const cosD = DATA[y].cos;
+  const cosD = DATA[y].cos || {};
   if (charts.costDonut) {
-    charts.costDonut.data.datasets[0].data = [cosD.purchases, cosD.food];
+    charts.costDonut.data.datasets[0].data = [cosD.purchases || 0, cosD.food || 0];
     charts.costDonut.update();
   }
 }
 
 // ── INIT ──
+currentYear = getLatestYear();
+setupUpload();
 drawAll();
-updateKPIs(2025);
+updateKPIs(currentYear);
 </script>
 </body>
 </html>
