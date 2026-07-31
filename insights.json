@@ -1,0 +1,403 @@
+{
+    "findings": [
+        {
+            "module": "Revenue Rules",
+            "finding": "Healthy Revenue Growth (1089.5%) in FY2024",
+            "interpretation": "Top-line expansion successfully meets or exceeds the target benchmark of 5.0%.",
+            "recommendation": "Maintain current sales cadence and scale successful revenue-generating campaigns.",
+            "severity": "Positive",
+            "confidence": 0.9,
+            "year": "2024",
+            "metric_value": 10.8948,
+            "threshold_value": 0.05,
+            "priority_score": 1.0
+        },
+        {
+            "module": "Revenue Rules",
+            "finding": "Mild Revenue Contraction (-3.7%) in FY2025",
+            "interpretation": "Top-line revenue contracted slightly in FY2025 relative to FY2024.",
+            "recommendation": "Monitor sales pipeline velocity and evaluate promotional effectiveness.",
+            "severity": "High",
+            "confidence": 0.9,
+            "year": "2025",
+            "metric_value": -0.0368,
+            "threshold_value": 0.0,
+            "priority_score": 7.0
+        },
+        {
+            "module": "Profitability Rules",
+            "finding": "Net Loss / Negative Profit Margin (-24675.0%) in FY2023",
+            "interpretation": "The firm experienced a net loss or zero profitability in FY2023, indicating structural cost pressures or insufficient pricing.",
+            "recommendation": "Conduct an immediate cost audit, streamline operational overhead, and re-evaluate pricing structures.",
+            "severity": "Critical",
+            "confidence": 0.95,
+            "year": "2023",
+            "metric_value": -246.7505,
+            "threshold_value": 0.0,
+            "priority_score": 10.0
+        },
+        {
+            "module": "Profitability Rules",
+            "finding": "Sub-optimal Gross Margin (-816.5%) in FY2023",
+            "interpretation": "Gross margin of -816.5% is below the target threshold of 30.0%, reflecting high direct costs or COGS pressure.",
+            "recommendation": "Review supplier contracts, material input costs, and production efficiencies.",
+            "severity": "High",
+            "confidence": 0.88,
+            "year": "2023",
+            "metric_value": -8.1646,
+            "threshold_value": 0.3,
+            "priority_score": 8.0
+        },
+        {
+            "module": "Profitability Rules",
+            "finding": "Net Loss / Negative Profit Margin (-2130.9%) in FY2024",
+            "interpretation": "The firm experienced a net loss or zero profitability in FY2024, indicating structural cost pressures or insufficient pricing.",
+            "recommendation": "Conduct an immediate cost audit, streamline operational overhead, and re-evaluate pricing structures.",
+            "severity": "Critical",
+            "confidence": 0.95,
+            "year": "2024",
+            "metric_value": -21.3094,
+            "threshold_value": 0.0,
+            "priority_score": 10.0
+        },
+        {
+            "module": "Profitability Rules",
+            "finding": "Healthy Gross Margin (78.8%) in FY2024",
+            "interpretation": "Gross margin of 78.8% meets or exceeds the baseline benchmark of 30.0%.",
+            "recommendation": "Maintain pricing power and supplier cost controls.",
+            "severity": "Positive",
+            "confidence": 0.88,
+            "year": "2024",
+            "metric_value": 0.7875,
+            "threshold_value": 0.3,
+            "priority_score": 1.0
+        },
+        {
+            "module": "Profitability Rules",
+            "finding": "Net Loss / Negative Profit Margin (-2265.1%) in FY2025",
+            "interpretation": "The firm experienced a net loss or zero profitability in FY2025, indicating structural cost pressures or insufficient pricing.",
+            "recommendation": "Conduct an immediate cost audit, streamline operational overhead, and re-evaluate pricing structures.",
+            "severity": "Critical",
+            "confidence": 0.95,
+            "year": "2025",
+            "metric_value": -22.651,
+            "threshold_value": 0.0,
+            "priority_score": 10.0
+        },
+        {
+            "module": "Profitability Rules",
+            "finding": "Healthy Gross Margin (120.6%) in FY2025",
+            "interpretation": "Gross margin of 120.6% meets or exceeds the baseline benchmark of 30.0%.",
+            "recommendation": "Maintain pricing power and supplier cost controls.",
+            "severity": "Positive",
+            "confidence": 0.88,
+            "year": "2025",
+            "metric_value": 1.2057,
+            "threshold_value": 0.3,
+            "priority_score": 1.0
+        },
+        {
+            "module": "Expense Rules",
+            "finding": "Controlled Expense Growth (0.0%) in FY2024",
+            "interpretation": "Expense expansion is well managed and aligned with strategic growth parameters.",
+            "recommendation": "Sustain current cost accountability and budget monitoring protocols.",
+            "severity": "Positive",
+            "confidence": 0.9,
+            "year": "2024",
+            "metric_value": 0.0,
+            "threshold_value": 0.1,
+            "priority_score": 1.0
+        },
+        {
+            "module": "Expense Rules",
+            "finding": "Controlled Expense Growth (0.0%) in FY2025",
+            "interpretation": "Expense expansion is well managed and aligned with strategic growth parameters.",
+            "recommendation": "Sustain current cost accountability and budget monitoring protocols.",
+            "severity": "Positive",
+            "confidence": 0.9,
+            "year": "2025",
+            "metric_value": 0.0,
+            "threshold_value": 0.1,
+            "priority_score": 1.0
+        },
+        {
+            "module": "Balance Sheet Rules",
+            "finding": "Sub-optimal Current Ratio (0.96) in FY2023",
+            "interpretation": "Current ratio of 0.96 is below the safe benchmark of 1.0, indicating tight working capital management.",
+            "recommendation": "Optimize inventory turnover and tighten credit terms for customers to improve liquid buffers.",
+            "severity": "High",
+            "confidence": 0.9,
+            "year": "2023",
+            "metric_value": 0.96,
+            "threshold_value": 1.0,
+            "priority_score": 7.2
+        },
+        {
+            "module": "Balance Sheet Rules",
+            "finding": "Severe Liquidity Risk: Low Current Ratio (0.22) in FY2024",
+            "interpretation": "Current assets fall significantly short of short-term liabilities (critical threshold: 0.8), indicating imminent short-term solvency pressure.",
+            "recommendation": "Accelerate receivables collection, defer non-essential capital expenditures, or secure short-term credit facilities.",
+            "severity": "Critical",
+            "confidence": 0.95,
+            "year": "2024",
+            "metric_value": 0.22,
+            "threshold_value": 0.8,
+            "priority_score": 9.8
+        },
+        {
+            "module": "Balance Sheet Rules",
+            "finding": "Sub-optimal Current Ratio (0.88) in FY2025",
+            "interpretation": "Current ratio of 0.88 is below the safe benchmark of 1.0, indicating tight working capital management.",
+            "recommendation": "Optimize inventory turnover and tighten credit terms for customers to improve liquid buffers.",
+            "severity": "High",
+            "confidence": 0.9,
+            "year": "2025",
+            "metric_value": 0.88,
+            "threshold_value": 1.0,
+            "priority_score": 7.2
+        },
+        {
+            "module": "Cash Flow Rules",
+            "finding": "Low Cash Conversion Ratio (-0.07) in FY2023",
+            "interpretation": "Operating cash flow represents only -7.0% of net profit, signaling potential earnings quality issues or delayed receivables realization.",
+            "recommendation": "Audit working capital components, accelerate receivables collection, and examine non-cash revenue accruals.",
+            "severity": "High",
+            "confidence": 0.9,
+            "year": "2023",
+            "metric_value": -0.07,
+            "threshold_value": 0.5,
+            "priority_score": 8.5
+        },
+        {
+            "module": "Cash Flow Rules",
+            "finding": "Low Cash Conversion Ratio (-0.11) in FY2024",
+            "interpretation": "Operating cash flow represents only -11.0% of net profit, signaling potential earnings quality issues or delayed receivables realization.",
+            "recommendation": "Audit working capital components, accelerate receivables collection, and examine non-cash revenue accruals.",
+            "severity": "High",
+            "confidence": 0.9,
+            "year": "2024",
+            "metric_value": -0.11,
+            "threshold_value": 0.5,
+            "priority_score": 8.5
+        },
+        {
+            "module": "Cash Flow Rules",
+            "finding": "Low Cash Conversion Ratio (-0.01) in FY2025",
+            "interpretation": "Operating cash flow represents only -1.0% of net profit, signaling potential earnings quality issues or delayed receivables realization.",
+            "recommendation": "Audit working capital components, accelerate receivables collection, and examine non-cash revenue accruals.",
+            "severity": "High",
+            "confidence": 0.9,
+            "year": "2025",
+            "metric_value": -0.01,
+            "threshold_value": 0.5,
+            "priority_score": 8.5
+        }
+    ],
+    "business_alerts": [
+        {
+            "level": "Critical",
+            "module": "Profitability Rules",
+            "title": "Net Loss / Negative Profit Margin (-24675.0%) in FY2023",
+            "interpretation": "The firm experienced a net loss or zero profitability in FY2023, indicating structural cost pressures or insufficient pricing.",
+            "recommendation": "Conduct an immediate cost audit, streamline operational overhead, and re-evaluate pricing structures.",
+            "year": "2023",
+            "priority_score": 10.0
+        },
+        {
+            "level": "Critical",
+            "module": "Profitability Rules",
+            "title": "Net Loss / Negative Profit Margin (-2130.9%) in FY2024",
+            "interpretation": "The firm experienced a net loss or zero profitability in FY2024, indicating structural cost pressures or insufficient pricing.",
+            "recommendation": "Conduct an immediate cost audit, streamline operational overhead, and re-evaluate pricing structures.",
+            "year": "2024",
+            "priority_score": 10.0
+        },
+        {
+            "level": "Critical",
+            "module": "Profitability Rules",
+            "title": "Net Loss / Negative Profit Margin (-2265.1%) in FY2025",
+            "interpretation": "The firm experienced a net loss or zero profitability in FY2025, indicating structural cost pressures or insufficient pricing.",
+            "recommendation": "Conduct an immediate cost audit, streamline operational overhead, and re-evaluate pricing structures.",
+            "year": "2025",
+            "priority_score": 10.0
+        },
+        {
+            "level": "Critical",
+            "module": "Balance Sheet Rules",
+            "title": "Severe Liquidity Risk: Low Current Ratio (0.22) in FY2024",
+            "interpretation": "Current assets fall significantly short of short-term liabilities (critical threshold: 0.8), indicating imminent short-term solvency pressure.",
+            "recommendation": "Accelerate receivables collection, defer non-essential capital expenditures, or secure short-term credit facilities.",
+            "year": "2024",
+            "priority_score": 9.8
+        },
+        {
+            "level": "High",
+            "module": "Cash Flow Rules",
+            "title": "Low Cash Conversion Ratio (-0.07) in FY2023",
+            "interpretation": "Operating cash flow represents only -7.0% of net profit, signaling potential earnings quality issues or delayed receivables realization.",
+            "recommendation": "Audit working capital components, accelerate receivables collection, and examine non-cash revenue accruals.",
+            "year": "2023",
+            "priority_score": 8.5
+        },
+        {
+            "level": "High",
+            "module": "Cash Flow Rules",
+            "title": "Low Cash Conversion Ratio (-0.11) in FY2024",
+            "interpretation": "Operating cash flow represents only -11.0% of net profit, signaling potential earnings quality issues or delayed receivables realization.",
+            "recommendation": "Audit working capital components, accelerate receivables collection, and examine non-cash revenue accruals.",
+            "year": "2024",
+            "priority_score": 8.5
+        },
+        {
+            "level": "High",
+            "module": "Cash Flow Rules",
+            "title": "Low Cash Conversion Ratio (-0.01) in FY2025",
+            "interpretation": "Operating cash flow represents only -1.0% of net profit, signaling potential earnings quality issues or delayed receivables realization.",
+            "recommendation": "Audit working capital components, accelerate receivables collection, and examine non-cash revenue accruals.",
+            "year": "2025",
+            "priority_score": 8.5
+        },
+        {
+            "level": "High",
+            "module": "Profitability Rules",
+            "title": "Sub-optimal Gross Margin (-816.5%) in FY2023",
+            "interpretation": "Gross margin of -816.5% is below the target threshold of 30.0%, reflecting high direct costs or COGS pressure.",
+            "recommendation": "Review supplier contracts, material input costs, and production efficiencies.",
+            "year": "2023",
+            "priority_score": 8.0
+        },
+        {
+            "level": "High",
+            "module": "Balance Sheet Rules",
+            "title": "Sub-optimal Current Ratio (0.96) in FY2023",
+            "interpretation": "Current ratio of 0.96 is below the safe benchmark of 1.0, indicating tight working capital management.",
+            "recommendation": "Optimize inventory turnover and tighten credit terms for customers to improve liquid buffers.",
+            "year": "2023",
+            "priority_score": 7.2
+        },
+        {
+            "level": "High",
+            "module": "Balance Sheet Rules",
+            "title": "Sub-optimal Current Ratio (0.88) in FY2025",
+            "interpretation": "Current ratio of 0.88 is below the safe benchmark of 1.0, indicating tight working capital management.",
+            "recommendation": "Optimize inventory turnover and tighten credit terms for customers to improve liquid buffers.",
+            "year": "2025",
+            "priority_score": 7.2
+        },
+        {
+            "level": "High",
+            "module": "Revenue Rules",
+            "title": "Mild Revenue Contraction (-3.7%) in FY2025",
+            "interpretation": "Top-line revenue contracted slightly in FY2025 relative to FY2024.",
+            "recommendation": "Monitor sales pipeline velocity and evaluate promotional effectiveness.",
+            "year": "2025",
+            "priority_score": 7.0
+        }
+    ],
+    "swot_summary": {
+        "Strengths": [
+            {
+                "module": "Profitability Rules",
+                "text": "Healthy Gross Margin (78.8%) in FY2024",
+                "details": "Gross margin of 78.8% meets or exceeds the baseline benchmark of 30.0%.",
+                "year": "2024"
+            },
+            {
+                "module": "Profitability Rules",
+                "text": "Healthy Gross Margin (120.6%) in FY2025",
+                "details": "Gross margin of 120.6% meets or exceeds the baseline benchmark of 30.0%.",
+                "year": "2025"
+            }
+        ],
+        "Weaknesses": [
+            {
+                "module": "Revenue Rules",
+                "text": "Mild Revenue Contraction (-3.7%) in FY2025",
+                "details": "Top-line revenue contracted slightly in FY2025 relative to FY2024.",
+                "year": "2025"
+            },
+            {
+                "module": "Profitability Rules",
+                "text": "Net Loss / Negative Profit Margin (-24675.0%) in FY2023",
+                "details": "The firm experienced a net loss or zero profitability in FY2023, indicating structural cost pressures or insufficient pricing.",
+                "year": "2023"
+            },
+            {
+                "module": "Profitability Rules",
+                "text": "Sub-optimal Gross Margin (-816.5%) in FY2023",
+                "details": "Gross margin of -816.5% is below the target threshold of 30.0%, reflecting high direct costs or COGS pressure.",
+                "year": "2023"
+            },
+            {
+                "module": "Profitability Rules",
+                "text": "Net Loss / Negative Profit Margin (-2130.9%) in FY2024",
+                "details": "The firm experienced a net loss or zero profitability in FY2024, indicating structural cost pressures or insufficient pricing.",
+                "year": "2024"
+            },
+            {
+                "module": "Profitability Rules",
+                "text": "Net Loss / Negative Profit Margin (-2265.1%) in FY2025",
+                "details": "The firm experienced a net loss or zero profitability in FY2025, indicating structural cost pressures or insufficient pricing.",
+                "year": "2025"
+            },
+            {
+                "module": "Cash Flow Rules",
+                "text": "Low Cash Conversion Ratio (-0.07) in FY2023",
+                "details": "Operating cash flow represents only -7.0% of net profit, signaling potential earnings quality issues or delayed receivables realization.",
+                "year": "2023"
+            },
+            {
+                "module": "Cash Flow Rules",
+                "text": "Low Cash Conversion Ratio (-0.11) in FY2024",
+                "details": "Operating cash flow represents only -11.0% of net profit, signaling potential earnings quality issues or delayed receivables realization.",
+                "year": "2024"
+            },
+            {
+                "module": "Cash Flow Rules",
+                "text": "Low Cash Conversion Ratio (-0.01) in FY2025",
+                "details": "Operating cash flow represents only -1.0% of net profit, signaling potential earnings quality issues or delayed receivables realization.",
+                "year": "2025"
+            }
+        ],
+        "Opportunities": [
+            {
+                "module": "Revenue Rules",
+                "text": "Healthy Revenue Growth (1089.5%) in FY2024",
+                "details": "Top-line expansion successfully meets or exceeds the target benchmark of 5.0%.",
+                "year": "2024"
+            },
+            {
+                "module": "Expense Rules",
+                "text": "Controlled Expense Growth (0.0%) in FY2024",
+                "details": "Expense expansion is well managed and aligned with strategic growth parameters.",
+                "year": "2024"
+            },
+            {
+                "module": "Expense Rules",
+                "text": "Controlled Expense Growth (0.0%) in FY2025",
+                "details": "Expense expansion is well managed and aligned with strategic growth parameters.",
+                "year": "2025"
+            }
+        ],
+        "Threats": [
+            {
+                "module": "Balance Sheet Rules",
+                "text": "Sub-optimal Current Ratio (0.96) in FY2023",
+                "details": "Current ratio of 0.96 is below the safe benchmark of 1.0, indicating tight working capital management.",
+                "year": "2023"
+            },
+            {
+                "module": "Balance Sheet Rules",
+                "text": "Severe Liquidity Risk: Low Current Ratio (0.22) in FY2024",
+                "details": "Current assets fall significantly short of short-term liabilities (critical threshold: 0.8), indicating imminent short-term solvency pressure.",
+                "year": "2024"
+            },
+            {
+                "module": "Balance Sheet Rules",
+                "text": "Sub-optimal Current Ratio (0.88) in FY2025",
+                "details": "Current ratio of 0.88 is below the safe benchmark of 1.0, indicating tight working capital management.",
+                "year": "2025"
+            }
+        ]
+    }
+}

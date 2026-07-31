@@ -1,0 +1,30 @@
+{
+  "revenue_rules": {
+    "min_growth_target": 0.05,
+    "critical_decline_threshold": -0.05,
+    "_academic_reference": "Higgins, R. C. (1977). 'How Much Growth Can a Company Afford?' Financial Management, 6(3), 7-16; Ross, S. A., Westerfield, R., & Jaffe, J. (2022). Corporate Finance. McGraw-Hill. (Sustainable Growth Rate & Top-line Dynamics)"
+  },
+  "profitability_rules": {
+    "min_gross_margin": 0.30,
+    "min_net_margin": 0.05,
+    "critical_net_margin": 0.0,
+    "_academic_reference": "Penman, S. H. (2013). Financial Statement Analysis and Security Valuation. McGraw-Hill; Beaver, W. H. (1966). 'Financial Ratios as Predictors of Failure.' Journal of Accounting Research, 4, 71-111. (Profitability resilience & Distress Prediction)"
+  },
+  "expense_rules": {
+    "max_expense_growth": 0.10,
+    "max_opex_ratio": 0.70,
+    "_academic_reference": "Palepu, K. G., & Healy, P. M. (2013). Business Analysis and Valuation: Using Financial Statements. Cengage Learning. (Operating Leverage & Cost Structure Analysis)"
+  },
+  "balance_sheet_rules": {
+    "min_current_ratio": 1.0,
+    "critical_current_ratio": 0.8,
+    "min_cash_ratio": 0.5,
+    "_academic_reference": "Altman, E. I. (1968). 'Financial Ratios, Discriminant Analysis and the Prediction of Corporate Bankruptcy.' Journal of Finance, 23(4), 589-609; Gibson, C. H. (2012). Financial Statement Analysis. Cengage Learning. (Liquidity Buffers & Bankruptcy Risk Models)"
+  },
+  "cash_flow_rules": {
+    "min_cash_conversion": 0.5,
+    "max_cash_conversion": 1.5,
+    "critical_cash_burn_months": 6.0,
+    "_academic_reference": "Schilit, H. J., & Perler, J. (2010). Financial Shenanigans: How to Detect Accounting Gimmicks & Fraud in Financial Reports. McGraw-Hill; Gompers, P. A., & Lerner, J. (2001). The Venture Capital Cycle. MIT Press. (Earnings Quality & Cash Burn Runway)"
+  }
+}

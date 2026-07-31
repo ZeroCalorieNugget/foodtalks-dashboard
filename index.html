@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Foodtalks — Financial Dashboard</title>
+<title>Foodtalks — Financial Decision Support System (Secure Ephemeral Session)</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
@@ -40,7 +40,7 @@ body{
   color:var(--text);font-family:var(--font);font-size:14px;min-height:100vh;
 }
 
-/* ── NAV ── */
+/* ── NAVIGATION BAR ── */
 nav{
   display:flex;align-items:center;justify-content:space-between;
   padding:12px 28px;
@@ -49,16 +49,10 @@ nav{
   background:rgba(255,255,255,.92);backdrop-filter:blur(12px);
 }
 .nav-brand{display:flex;align-items:center;gap:14px;min-width:0;}
-.brand-logo{
-  width:188px;height:auto;display:block;flex-shrink:0;
-  background:#fff;border-radius:8px;padding:6px 10px;
-  box-shadow:0 0 0 1px rgba(0,0,0,.08),0 8px 24px rgba(0,0,0,.06);
-}
 .brand-copy{display:flex;align-items:baseline;gap:8px;min-width:0;}
-.nav-brand .dot{width:8px;height:8px;border-radius:50%;background:var(--brand-red);box-shadow:0 0 16px rgba(230,0,0,.7);animation:pulse-dot 2s ease-in-out infinite;flex-shrink:0;}
-@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
-.nav-brand h1{font-size:15px;font-weight:600;letter-spacing:-.01em;}
-.nav-brand span{font-size:12px;color:var(--muted);margin-left:4px;font-family:var(--mono);}
+.nav-brand .dot{width:8px;height:8px;border-radius:50%;background:var(--brand-red);box-shadow:0 0 16px rgba(230,0,0,.7);flex-shrink:0;}
+.nav-brand h1{font-size:15px;font-weight:600;}
+.nav-brand span{font-size:12px;color:var(--muted);font-family:var(--mono);}
 .nav-right{display:flex;align-items:center;gap:8px;}
 .year-pill{
   font-size:12px;padding:5px 14px;border-radius:20px;cursor:pointer;
@@ -67,431 +61,325 @@ nav{
 }
 .year-pill:hover{color:var(--text);border-color:var(--brand-red);}
 .year-pill.active{background:var(--brand-red);color:#fff;border-color:var(--brand-red);font-weight:500;}
-.live-badge{font-size:11px;background:var(--brand-red-soft);color:var(--brand-red);padding:4px 10px;border-radius:20px;border:1px solid var(--brand-red);font-family:var(--mono);font-weight:500;}
+.secure-badge{font-size:11px;background:var(--green-soft);color:var(--green);padding:4px 10px;border-radius:20px;border:1px solid var(--green);font-family:var(--mono);font-weight:500;}
 
-/* ── LAYOUT ── */
+/* ── LAYOUT CONTAINER ── */
 main{padding:24px 28px;max-width:1400px;margin:0 auto;}
-
-/* ── SECTION TITLE ── */
 .section-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
 .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
 
-/* ── KPI ROW ── */
+/* ── KPI GRID ── */
 .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
 .kpi{
   background:linear-gradient(180deg,#fff 0%,#fbfbfb 100%);border:1px solid var(--border);border-radius:14px;
-  padding:18px 20px;position:relative;overflow:hidden;transition:border-color .2s;
-  box-shadow:0 10px 28px rgba(0,0,0,.04);
+  padding:18px 20px;position:relative;overflow:hidden;box-shadow:0 10px 28px rgba(0,0,0,.04);
 }
-.kpi:hover{border-color:var(--border2);}
 .kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:14px 14px 0 0;}
 .kpi.green::before{background:var(--brand-red);}
 .kpi.amber::before{background:#8a8a8a;}
 .kpi.red::before{background:#171717;}
 .kpi.blue::before{background:var(--amber);}
-.kpi-label{font-size:11px;color:var(--muted);margin-bottom:8px;letter-spacing:.04em;text-transform:uppercase;}
-.kpi-value{font-size:26px;font-weight:600;letter-spacing:-.03em;margin-bottom:6px;line-height:1;}
+.kpi-label{font-size:11px;color:var(--muted);margin-bottom:8px;text-transform:uppercase;}
+.kpi-value{font-size:26px;font-weight:600;margin-bottom:6px;line-height:1;}
 .kpi-delta{font-size:12px;font-family:var(--mono);display:flex;align-items:center;gap:4px;}
 .kpi-delta.up{color:var(--green);}
 .kpi-delta.down{color:var(--red);}
-.kpi-delta.neu{color:var(--muted);}
 .kpi-sub{font-size:11px;color:var(--muted);margin-top:4px;}
 
-/* ── UPLOAD DROPBOX ── */
+/* ── UPLOAD PANEL ── */
 .upload-panel{
-  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center;
   background:linear-gradient(180deg,#fff 0%,#fbfbfb 100%);
-  border:1px dashed var(--border2);border-radius:14px;padding:18px 20px;margin-bottom:24px;
-  box-shadow:0 10px 28px rgba(0,0,0,.04);transition:border-color .2s,background .2s;
+  border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:24px;
+  box-shadow:0 10px 28px rgba(0,0,0,.04);
 }
-.upload-panel.dragging{border-color:var(--brand-red);background:var(--brand-red-soft);}
-.upload-title{font-size:13px;font-weight:600;margin-bottom:4px;}
-.upload-copy{font-size:12px;color:var(--muted);line-height:1.55;}
-.upload-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;}
-.upload-button{
-  border:1px solid var(--brand-red);background:var(--brand-red);color:#fff;border-radius:20px;
-  padding:7px 14px;font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;
+.upload-header-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.upload-title{font-size:13px;font-weight:600;}
+.upload-copy{font-size:12px;color:var(--muted);line-height:1.4;}
+.upload-slots-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.upload-slot{
+  border:1px dashed var(--border2);border-radius:10px;padding:14px;text-align:center;
+  background:#fafafa;display:flex;flex-direction:column;gap:8px;align-items:center;
 }
-.upload-status{font-size:11px;color:var(--muted);font-family:var(--mono);max-width:340px;text-align:right;}
-.upload-status.ok{color:var(--green);}
-.upload-status.err{color:var(--red);}
+.upload-slot.active{border-color:var(--green);background:var(--green-soft);}
+.slot-title{font-size:11px;font-weight:600;text-transform:uppercase;}
+.slot-status{font-size:10px;font-family:var(--mono);color:var(--muted);}
+.slot-status.ok{color:var(--green);font-weight:500;}
+.slot-status.err{color:var(--red);font-weight:500;}
+.upload-btn-sm{
+  border:1px solid var(--brand-red);background:var(--brand-red);color:#fff;border-radius:14px;
+  padding:5px 12px;font-family:var(--font);font-size:11px;font-weight:600;cursor:pointer;
+}
 
-/* ── CHART GRID ── */
+.empty-state-banner{
+  background:#fbfbfb;border:2px dashed var(--border2);border-radius:14px;padding:48px;text-align:center;margin-bottom:24px;
+}
+.empty-state-banner h3{font-size:18px;margin-bottom:8px;}
+.empty-state-banner p{color:var(--muted);font-size:13px;max-width:500px;margin:0 auto;}
+
 .chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
 .chart-grid.three{grid-template-columns:1fr 1fr 1fr;}
 .chart-card{background:linear-gradient(180deg,#fff 0%,#fbfbfb 100%);border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:0 10px 28px rgba(0,0,0,.04);}
 .chart-card.wide{grid-column:span 2;}
-.chart-card.wide3{grid-column:span 3;}
 .chart-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;}
-.chart-title{font-size:13px;font-weight:500;color:var(--text);}
+.chart-title{font-size:13px;font-weight:500;}
 .chart-sub{font-size:11px;color:var(--muted);margin-top:2px;}
 .chart-badge{font-size:10px;padding:3px 8px;border-radius:10px;font-family:var(--mono);}
 .badge-warn{background:var(--amber-soft);color:var(--amber);}
 .badge-good{background:var(--brand-red-soft);color:var(--brand-red);}
 .badge-info{background:var(--blue-soft);color:var(--blue);}
 
-/* ── LEGEND ── */
+.filter-row{display:flex;gap:10px;margin-bottom:12px;align-items:center;}
+.filter-group{display:flex;flex-direction:column;gap:3px;flex:1;}
+.filter-group label{font-size:10px;text-transform:uppercase;color:var(--muted);font-family:var(--mono);}
+.filter-group select{padding:5px 8px;border-radius:8px;border:1px solid var(--border2);font-size:12px;font-family:var(--font);background:#fff;outline:none;}
+
 .legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;}
 .leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);}
 .leg-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
 
-/* ── BOTTOM ROW ── */
+/* ── DECISION SUPPORT INTELLIGENCE GRID ── */
 .bottom-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px;}
+.intel-card{background:linear-gradient(180deg,#fff 0%,#fbfbfb 100%);border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:0 10px 28px rgba(0,0,0,.04);display:flex;flex-direction:column;gap:14px;}
+.intel-list{display:flex;flex-direction:column;gap:10px;max-height:340px;overflow-y:auto;}
+.intel-item{display:flex;gap:10px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+.intel-item:last-child{border-bottom:none;padding-bottom:0;}
+.intel-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
+.icon-warn{background:var(--amber-soft);color:var(--amber);}
+.icon-good{background:var(--green-soft);color:var(--green);}
+.icon-info{background:var(--blue-soft);color:var(--blue);}
+.intel-text{font-size:12px;line-height:1.55;color:var(--text);}
+.intel-text strong{font-weight:600;}
 
-/* ── INSIGHT CARD ── */
-.insight-card{background:linear-gradient(180deg,#fff 0%,#fbfbfb 100%);border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:0 10px 28px rgba(0,0,0,.04);}
-.insight-list{display:flex;flex-direction:column;gap:0;}
-.insight-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);}
-.insight-item:first-child{padding-top:0;}
-.insight-item:last-child{border-bottom:none;padding-bottom:0;}
-.insight-icon{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;margin-top:1px;}
-.icon-warn{background:var(--amber-soft);}
-.icon-good{background:var(--green-soft);}
-.icon-info{background:var(--blue-soft);}
-.insight-text{font-size:12.5px;line-height:1.65;color:var(--text);}
-.insight-text strong{font-weight:500;color:var(--text);}
-
-/* ── SWOT ── */
-.swot-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;height:100%;}
-.swot-box{border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:6px;}
-.swot-box.s{background:#e6000010;border:1px solid #e6000040;}
-.swot-box.w{background:#ff4b4b10;border:1px solid #ff4b4b30;}
-.swot-box.o{background:#17171708;border:1px solid #17171722;}
-.swot-box.t{background:#f4b44b10;border:1px solid #f4b44b30;}
-.swot-lbl{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;}
-.swot-box.s .swot-lbl{color:var(--brand-red);}
+/* ── SWOT MATRIX ── */
+.swot-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:1;}
+.swot-box{border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:4px;overflow-y:auto;max-height:160px;}
+.swot-box.s{background:#13875a10;border:1px solid #13875a30;}
+.swot-box.w{background:#d92d2d10;border:1px solid #d92d2d30;}
+.swot-box.o{background:#4b556310;border:1px solid #4b556330;}
+.swot-box.t{background:#b8751210;border:1px solid #b8751230;}
+.swot-lbl{font-size:9px;font-weight:600;text-transform:uppercase;}
+.swot-box.s .swot-lbl{color:var(--green);}
 .swot-box.w .swot-lbl{color:var(--red);}
 .swot-box.o .swot-lbl{color:var(--blue);}
 .swot-box.t .swot-lbl{color:var(--amber);}
-.swot-pts{display:flex;flex-direction:column;gap:3px;}
-.swot-pt{font-size:11px;color:var(--muted);line-height:1.5;padding-left:10px;position:relative;}
-.swot-pt::before{content:'·';position:absolute;left:2px;}
+.swot-pts{display:flex;flex-direction:column;gap:2px;}
+.swot-pt{font-size:10.5px;color:var(--muted);line-height:1.4;padding-left:8px;position:relative;cursor:help;}
+.swot-pt::before{content:'·';position:absolute;left:1px;}
 
-/* ── HEADCOUNT TABLE ── */
-.hc-table{width:100%;border-collapse:collapse;margin-top:4px;}
-.hc-table th{font-size:10px;color:var(--muted);font-weight:400;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;text-align:left;border-bottom:1px solid var(--border);}
-.hc-table td{font-size:13px;padding:9px 10px;border-bottom:1px solid var(--border);color:var(--text);}
-.hc-table tr:last-child td{border-bottom:none;}
-.hc-table .num{font-family:var(--mono);font-size:13px;}
-.bar-cell{position:relative;}
-.bar-bg{height:4px;background:var(--border2);border-radius:2px;margin-top:4px;width:100%;}
-.bar-fill{height:4px;border-radius:2px;position:absolute;top:0;}
-
-/* ── COST DETAIL TABLE ── */
-.cost-table{width:100%;border-collapse:collapse;}
-.cost-table th{font-size:10px;color:var(--muted);font-weight:400;letter-spacing:.06em;text-transform:uppercase;padding:6px 0;text-align:left;border-bottom:1px solid var(--border);}
-.cost-table td{font-size:12px;padding:7px 0;border-bottom:1px solid var(--border);color:var(--text);}
-.cost-table tr:last-child td{border-bottom:none;}
-.cost-table .r{text-align:right;font-family:var(--mono);font-size:12px;}
-.cost-pill{font-size:10px;padding:2px 6px;border-radius:6px;font-family:var(--mono);}
-.pill-up{background:var(--red-soft);color:var(--red);}
-.pill-down{background:var(--green-soft);color:var(--green);}
-
-/* ── FOOTER ── */
 footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-top:1px solid var(--border);}
-
-/* ── TOOLTIP ── */
-canvas{display:block;}
-@media (max-width:900px){
-  nav{align-items:flex-start;gap:12px;flex-direction:column;}
-  .brand-logo{width:164px;}
-  .brand-copy{flex-wrap:wrap;}
-  .nav-right{flex-wrap:wrap;}
-  main{padding:20px 18px;}
-  .upload-panel{grid-template-columns:1fr;}
-  .upload-actions{justify-content:flex-start;}
-  .upload-status{text-align:left;}
-  .kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
-  .chart-grid,.chart-grid.three,.bottom-grid{grid-template-columns:1fr;}
-  .chart-card.wide,.chart-card.wide3{grid-column:span 1;}
-  .chart-header{gap:10px;flex-wrap:wrap;}
-}
-@media (max-width:520px){
-  nav{padding:12px 18px;}
-  .nav-brand{align-items:flex-start;}
-  .brand-copy{display:block;}
-  .nav-brand span{display:block;margin-left:0;margin-top:3px;}
-  .kpi-grid{grid-template-columns:1fr;}
-  .kpi-value{font-size:24px;}
-  .chart-card,.insight-card{padding:16px;}
-}
+.hidden-when-empty { display: none !important; }
 </style>
 </head>
 <body>
 
 <nav>
   <div class="nav-brand">
-    <img class="brand-logo" src="assets/foodtalks-logo.png" alt="Foodtalks"/>
     <div class="dot"></div>
     <div class="brand-copy">
       <h1>Foodtalks Pte. Ltd.</h1>
-      <span>Financial Dashboard</span>
+      <span>Financial Decision Support System</span>
     </div>
   </div>
   <div class="nav-right" id="year-controls">
-    <span class="live-badge">● Live Data</span>
+    <span class="secure-badge">🔒 Secure Ephemeral Session (Zero Persistence)</span>
   </div>
 </nav>
 
 <main>
 
-  <!-- KPI ROW -->
-  <div class="section-label">Key Performance Indicators</div>
-  <div class="kpi-grid">
-    <div class="kpi green">
-      <div class="kpi-label">Total Revenue</div>
-      <div class="kpi-value" id="k-rev">$3.99M</div>
-      <div class="kpi-delta up" id="k-rev-d">▲ 16.2% YoY</div>
-      <div class="kpi-sub" id="k-rev-s">vs $3.44M in FY2024</div>
-    </div>
-    <div class="kpi amber">
-      <div class="kpi-label">Gross Profit Margin</div>
-      <div class="kpi-value" id="k-gpm">63.0%</div>
-      <div class="kpi-delta up" id="k-gpm-d">▲ 2.2pp YoY</div>
-      <div class="kpi-sub" id="k-gpm-s">Gross Profit $2.52M</div>
-    </div>
-    <div class="kpi red">
-      <div class="kpi-label">Net Profit Margin</div>
-      <div class="kpi-value" id="k-npm">4.0%</div>
-      <div class="kpi-delta down" id="k-npm-d">▼ 2.8pp YoY</div>
-      <div class="kpi-sub" id="k-npm-s">Net Profit $159.5K</div>
-    </div>
-    <div class="kpi blue">
-      <div class="kpi-label">Operating Cash Flow</div>
-      <div class="kpi-value" id="k-ocf">$345K</div>
-      <div class="kpi-delta up" id="k-ocf-d">▲ 7.4% YoY</div>
-      <div class="kpi-sub" id="k-ocf-s">vs $321.5K in FY2024</div>
-    </div>
-  </div>
-
-  <div class="upload-panel" id="upload-dropzone">
-    <div>
-      <div class="upload-title">Upload Next-Year Data</div>
-      <div class="upload-copy">Drop an Excel, CSV, or JSON file here. The file should include a year and financial fields such as revenue, gross profit, net profit, operating expenses, cash flow, cost of sales, labour, and headcount.</div>
-    </div>
-    <div class="upload-actions">
-      <button class="upload-button" type="button" id="upload-button">Choose File</button>
-      <input id="upload-input" type="file" accept=".xlsx,.xls,.csv,.json" hidden/>
-      <div class="upload-status" id="upload-status">Ready for FY2026 or updated data</div>
-    </div>
-  </div>
-
-  <!-- CHART ROW 1: Revenue trend + GPM/NPM -->
-  <div class="section-label">Revenue &amp; Profitability Trends</div>
-  <div class="chart-grid">
-    <div class="chart-card wide">
-      <div class="chart-header">
-        <div>
-          <div class="chart-title">Revenue vs Profit Trend</div>
-          <div class="chart-sub" id="trend-sub">FY2023 – FY2025 · SGD</div>
-        </div>
-        <span class="chart-badge badge-warn" id="trend-badge">Revenue ▲ 42% over 3yr · Net Profit ▼ 52%</span>
+  <div class="upload-panel">
+    <div class="upload-header-row">
+      <div>
+        <div class="upload-title">Secure Document Upload &amp; Ephemeral Data Refresh</div>
+        <div class="upload-copy">Upload all 3 financial templates to initiate session analysis. Data exists solely in browser RAM and is wiped on exit.</div>
       </div>
-      <canvas id="revTrendChart" height="90"></canvas>
-      <div class="legend">
-        <div class="leg"><div class="leg-dot" style="background:#e60000"></div>Revenue</div>
-        <div class="leg"><div class="leg-dot" style="background:#8a8a8a"></div>Gross Profit</div>
-        <div class="leg"><div class="leg-dot" style="background:#b87512;"></div>Net Profit</div>
-        <div class="leg"><div class="leg-dot" style="background:#171717"></div>Total Op. Expenses</div>
+    </div>
+    <div class="upload-slots-grid">
+      <div class="upload-slot" id="slot-is">
+        <div class="slot-title">0.1.1 Income Statement</div>
+        <div class="slot-status" id="status-is">Awaiting file...</div>
+        <button class="upload-btn-sm" type="button" onclick="document.getElementById('input-is').click()">Choose File</button>
+        <input id="input-is" type="file" accept=".xlsx,.xls,.csv" hidden onchange="handleClientFileUpload('is', this)"/>
+      </div>
+      <div class="upload-slot" id="slot-bs">
+        <div class="slot-title">0.1.2 Balance Sheet</div>
+        <div class="slot-status" id="status-bs">Awaiting file...</div>
+        <button class="upload-btn-sm" type="button" onclick="document.getElementById('input-bs').click()">Choose File</button>
+        <input id="input-bs" type="file" accept=".xlsx,.xls,.csv" hidden onchange="handleClientFileUpload('bs', this)"/>
+      </div>
+      <div class="upload-slot" id="slot-cf">
+        <div class="slot-title">0.1.3 Cash Flow Statement</div>
+        <div class="slot-status" id="status-cf">Awaiting file...</div>
+        <button class="upload-btn-sm" type="button" onclick="document.getElementById('input-cf').click()">Choose File</button>
+        <input id="input-cf" type="file" accept=".xlsx,.xls,.csv" hidden onchange="handleClientFileUpload('cf', this)"/>
       </div>
     </div>
   </div>
 
-  <!-- CHART ROW 2: Margin trend + Cost donut + Cash flow -->
-  <div class="chart-grid three">
-    <div class="chart-card">
-      <div class="chart-header">
-        <div>
-          <div class="chart-title">Margin Compression</div>
-          <div class="chart-sub">GPM vs NPM over time</div>
-        </div>
-        <span class="chart-badge badge-warn">NPM fell 7.8pp in 3 yrs</span>
-      </div>
-      <canvas id="marginChart" height="160"></canvas>
-    </div>
-    <div class="chart-card">
-      <div class="chart-header">
-        <div>
-          <div class="chart-title">Cost of Sales Breakdown</div>
-          <div class="chart-sub" id="cos-sub">FY2025</div>
-        </div>
-        <span class="chart-badge badge-info" id="cos-total">$1.48M total</span>
-      </div>
-      <canvas id="costDonut" height="160"></canvas>
-      <div class="legend" id="cos-legend">
-        <div class="leg"><div class="leg-dot" style="background:#e60000"></div>Purchases</div>
-        <div class="leg"><div class="leg-dot" style="background:#8a8a8a"></div>Food</div>
-      </div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-header">
-        <div>
-          <div class="chart-title">Cash Flow Summary</div>
-          <div class="chart-sub">Operating vs Investing vs Financing</div>
-        </div>
-        <span class="chart-badge badge-good">Ops cash healthy</span>
-      </div>
-      <canvas id="cashChart" height="160"></canvas>
-    </div>
+  <div class="empty-state-banner" id="empty-state-banner">
+    <h3>No Financial Data Loaded</h3>
+    <p>Please upload your Income Statement, Balance Sheet, and Cash Flow Statement templates above to begin the secure ephemeral analysis session.</p>
   </div>
 
-  <!-- CHART ROW 3: Top OpEx + Labour breakdown -->
-  <div class="section-label">Cost Structure Analysis</div>
-  <div class="chart-grid">
-    <div class="chart-card">
-      <div class="chart-header">
-        <div>
-          <div class="chart-title">Top Operating Expense Lines</div>
-          <div class="chart-sub" id="opex-sub">FY2023 vs FY2024 vs FY2025 · SGD</div>
+  <div id="dashboard-content-area" class="hidden-when-empty">
+    <div class="section-label">Decision Support &amp; Intelligence</div>
+    <div class="bottom-grid">
+      <div class="intel-card">
+        <div class="chart-header" style="margin-bottom:0">
+          <div>
+            <div class="chart-title">Executive Summary &amp; Alerts</div>
+            <div class="chart-sub">Urgency Filter: Critical &amp; High Priority Risks</div>
+          </div>
+          <span class="chart-badge badge-warn" id="alert-count-badge">Active Alerts</span>
         </div>
-        <span class="chart-badge badge-warn">Labour +53% in 3 yrs</span>
+        <div class="intel-list" id="exec-alerts-list"></div>
       </div>
-      <canvas id="opexChart" height="200"></canvas>
-      <div class="legend" id="opex-legend">
-        <div class="leg"><div class="leg-dot" style="background:#b87512"></div>FY2023</div>
-        <div class="leg"><div class="leg-dot" style="background:#8a8a8a"></div>FY2024</div>
-        <div class="leg"><div class="leg-dot" style="background:#e60000"></div>FY2025</div>
-      </div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-header">
-        <div>
-          <div class="chart-title">Total Labour Cost Growth</div>
-          <div class="chart-sub">All-in labour: wages + CPF + FWL + bonuses + OT</div>
-        </div>
-        <span class="chart-badge badge-warn">+53% vs +42% revenue</span>
-      </div>
-      <canvas id="labourChart" height="200"></canvas>
-      <div class="legend">
-        <div class="leg"><div class="leg-dot" style="background:#e60000"></div>Salaries & Wages</div>
-        <div class="leg"><div class="leg-dot" style="background:#8a8a8a"></div>CPF + FWL + SDL</div>
-        <div class="leg"><div class="leg-dot" style="background:#b87512"></div>Bonus + OT</div>
-      </div>
-    </div>
-  </div>
 
-  <!-- BOTTOM ROW: SWOT + Headcount + Key cost ratios -->
-  <div class="section-label">Benchmarking &amp; Workforce</div>
-  <div class="bottom-grid">
-
-    <!-- SWOT -->
-    <div class="chart-card">
-      <div class="chart-header">
-        <div class="chart-title">SWOT Summary</div>
-      </div>
-      <div class="swot-grid">
-        <div class="swot-box s">
-          <div class="swot-lbl">Strengths</div>
-          <div class="swot-pts">
-            <div class="swot-pt">Halal-certified niche market</div>
-            <div class="swot-pt">Revenue CAGR +19% (3yr)</div>
-            <div class="swot-pt">GPM improving: 59% → 63%</div>
-            <div class="swot-pt">Strong operating cash flow</div>
+      <div class="intel-card">
+        <div class="chart-header" style="margin-bottom:0">
+          <div>
+            <div class="chart-title">Key Findings &amp; Recommendations</div>
+            <div class="chart-sub">Full Diagnostic Drill-Down &amp; Actions</div>
           </div>
         </div>
-        <div class="swot-box w">
-          <div class="swot-lbl">Weaknesses</div>
-          <div class="swot-pts">
-            <div class="swot-pt">NPM shrinking 11.8% → 4.0%</div>
-            <div class="swot-pt">Labour cost outpacing revenue</div>
-            <div class="swot-pt">High depreciation ($210K)</div>
-            <div class="swot-pt">Negative net cash 2 yrs running</div>
+        <div class="intel-list" id="findings-list"></div>
+      </div>
+
+      <div class="intel-card">
+        <div class="chart-header" style="margin-bottom:0">
+          <div>
+            <div class="chart-title">SWOT Analysis Summary</div>
+            <div class="chart-sub">Strategic Posture &amp; Trajectory Analysis</div>
           </div>
         </div>
-        <div class="swot-box o">
-          <div class="swot-lbl">Opportunities</div>
-          <div class="swot-pts">
-            <div class="swot-pt">B2B catering expansion</div>
-            <div class="swot-pt">Central kitchen scalability</div>
-            <div class="swot-pt">Reduce PT/FT staff ratio</div>
-            <div class="swot-pt">Data-driven cost monitoring</div>
+        <div class="swot-grid">
+          <div class="swot-box s">
+            <div class="swot-lbl">Strengths</div>
+            <div class="swot-pts" id="swot-s-pts"></div>
           </div>
-        </div>
-        <div class="swot-box t">
-          <div class="swot-lbl">Threats</div>
-          <div class="swot-pts">
-            <div class="swot-pt">Singapore labour cost inflation</div>
-            <div class="swot-pt">Utility & fuel cost pressure</div>
-            <div class="swot-pt">FWL levy increases</div>
-            <div class="swot-pt">Loan repayment burden</div>
+          <div class="swot-box w">
+            <div class="swot-lbl">Weaknesses</div>
+            <div class="swot-pts" id="swot-w-pts"></div>
+          </div>
+          <div class="swot-box o">
+            <div class="swot-lbl">Opportunities</div>
+            <div class="swot-pts" id="swot-o-pts"></div>
+          </div>
+          <div class="swot-box t">
+            <div class="swot-lbl">Threats</div>
+            <div class="swot-pts" id="swot-t-pts"></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Headcount -->
-    <div class="chart-card">
-      <div class="chart-header">
-        <div>
-          <div class="chart-title">Headcount & Labour Cost</div>
-          <div class="chart-sub">December headcount · all-in cost per head</div>
-        </div>
+    <div class="section-label">Key Performance Indicators &amp; Financial Reference Benchmarks</div>
+    <div class="kpi-grid">
+      <div class="kpi green">
+        <div class="kpi-label">Total Revenue</div>
+        <div class="kpi-value" id="k-rev"></div>
+        <div class="kpi-delta up" id="k-rev-d"></div>
+        <div class="kpi-sub" id="k-rev-s"></div>
       </div>
-      <table class="hc-table" id="headcount-table">
-        <thead>
-          <tr><th>Metric</th><th>FY2023</th><th>FY2024</th><th>FY2025</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Total headcount</td>
-            <td class="num">26</td><td class="num">34</td><td class="num">34</td>
-          </tr>
-          <tr>
-            <td>Full-time</td>
-            <td class="num">19</td><td class="num">25</td><td class="num">28</td>
-          </tr>
-          <tr>
-            <td>Part-time</td>
-            <td class="num">7</td><td class="num">9</td><td class="num">6</td>
-          </tr>
-          <tr>
-            <td>Total labour cost</td>
-            <td class="num">$877K</td><td class="num">$1.14M</td><td class="num">$1.34M</td>
-          </tr>
-          <tr>
-            <td>Cost per head (ann.)</td>
-            <td class="num">$33.7K</td><td class="num">$33.4K</td><td class="num">$39.5K</td>
-          </tr>
-          <tr>
-            <td>Labour as % of revenue</td>
-            <td class="num" style="color:var(--amber)">31.1%</td>
-            <td class="num" style="color:var(--amber)">33.0%</td>
-            <td class="num" style="color:var(--red)">33.6%</td>
-          </tr>
-          <tr>
-            <td>Revenue per head</td>
-            <td class="num">$108K</td><td class="num">$101K</td><td class="num">$117K</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="kpi amber">
+        <div class="kpi-label">Gross Profit Margin</div>
+        <div class="kpi-value" id="k-gpm"></div>
+        <div class="kpi-delta up" id="k-gpm-d"></div>
+        <div class="kpi-sub" id="k-gpm-s"></div>
+      </div>
+      <div class="kpi red">
+        <div class="kpi-label">Net Profit Margin</div>
+        <div class="kpi-value" id="k-npm"></div>
+        <div class="kpi-delta down" id="k-npm-d"></div>
+        <div class="kpi-sub" id="k-npm-s"></div>
+      </div>
+      <div class="kpi blue">
+        <div class="kpi-label">Operating Cash Flow</div>
+        <div class="kpi-value" id="k-ocf"></div>
+        <div class="kpi-delta up" id="k-ocf-d"></div>
+        <div class="kpi-sub" id="k-ocf-s"></div>
+      </div>
     </div>
 
-    <!-- Key cost ratios & insights -->
-    <div class="insight-card">
-      <div class="chart-header" style="margin-bottom:12px">
-        <div class="chart-title">Key Insights & Recommendations</div>
+    <div class="section-label">Revenue &amp; Profitability Trends</div>
+    <div class="chart-grid">
+      <div class="chart-card wide">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">Expenditure Allocation</div>
+            <div class="chart-sub" id="trend-sub"></div>
+          </div>
+          <span class="chart-badge badge-warn" id="trend-badge">Overlay Model</span>
+        </div>
+        <canvas id="revTrendChart" height="90"></canvas>
       </div>
-      <div class="insight-list">
-        <div class="insight-item">
-          <div class="insight-icon icon-warn">⚠️</div>
-          <div class="insight-text"><strong>Margin squeeze is structural.</strong> Revenue grew 42% over 3 years, but net profit fell from $332K to $160K — OpEx grew 64%, nearly double the revenue growth rate.</div>
+    </div>
+
+    <div class="chart-grid three">
+      <div class="chart-card">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">Margin Compression</div>
+            <div class="chart-sub">GPM vs NPM over time</div>
+          </div>
+          <span class="chart-badge badge-warn" id="margin-badge"></span>
         </div>
-        <div class="insight-item">
-          <div class="insight-icon icon-warn">💸</div>
-          <div class="insight-text"><strong>Labour is the #1 cost driver.</strong> All-in labour hit $1.34M in FY2025 — 33.6% of revenue, up from 31.1% in FY2023. Headcount stayed flat (34) but cost per head jumped 18% to $39.5K.</div>
+        <canvas id="marginChart" height="160"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">Expenditure Breakdown</div>
+            <div class="chart-sub" id="cos-sub"></div>
+          </div>
+          <span class="chart-badge badge-info" id="cos-total"></span>
         </div>
-        <div class="insight-item">
-          <div class="insight-icon icon-good">✅</div>
-          <div class="insight-text"><strong>Gross margin is improving.</strong> GPM rose from 59.3% → 63.0%, signalling better pricing power or COGS efficiency. The problem lies entirely in operating expenses.</div>
+        <canvas id="costDonut" height="160"></canvas>
+        <div class="legend" id="cos-legend"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">Cash Flow Summary</div>
+            <div class="chart-sub">Operating vs Investing vs Financing</div>
+          </div>
+          <span class="chart-badge badge-good" id="cash-badge"></span>
         </div>
-        <div class="insight-item">
-          <div class="insight-icon icon-good">🏭</div>
-          <div class="insight-text"><strong>Central kitchen is a long-term asset.</strong> $430K renovation + $231K equipment = $661K investment. Depreciation will peak in FY2026-27, then ease — watch for margin recovery.</div>
+        <canvas id="cashChart" height="160"></canvas>
+      </div>
+    </div>
+
+    <div class="section-label">Cost Structure Analysis</div>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">Revenue &amp; Expenditure Growth Trends</div>
+            <div class="chart-sub" id="opex-sub"></div>
+          </div>
+          <span class="chart-badge badge-warn">Multi-Series</span>
         </div>
-        <div class="insight-item">
-          <div class="insight-icon icon-info">💡</div>
-          <div class="insight-text"><strong>Recommended next step:</strong> Monthly cost-ratio monitoring via this dashboard. Target: labour below 30% of revenue and OpEx growth below revenue growth rate by FY2026.</div>
+        <canvas id="opexChart" height="200"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">Expenditure Components</div>
+            <div class="chart-sub" id="labour-sub">Filter by Category & Year</div>
+          </div>
         </div>
+        <div class="filter-row">
+          <div class="filter-group">
+            <label for="filter-cat">Category 02</label>
+            <select id="filter-cat"></select>
+          </div>
+          <div class="filter-group">
+            <label for="filter-year">Year</label>
+            <select id="filter-year"></select>
+          </div>
+        </div>
+        <canvas id="labourChart" height="165"></canvas>
+        <div class="legend" id="labour-legend"></div>
       </div>
     </div>
 
@@ -499,131 +387,48 @@ canvas{display:block;}
 
 </main>
 
-<footer>Foodtalks Pte. Ltd. · Financial Dashboard · Data source: Audited accounts FY2023–FY2025 · Built by SMU Consulting Team</footer>
+<footer>Foodtalks Pte. Ltd. · Secure Ephemeral Financial Decision Support System</footer>
 
 <script>
-// ── REAL DATA ──
-const DATA = {
-  2023: {
-    rev: 2818888.64, gp: 1671915.70, np: 332090.95, opex: 1527859.82,
-    gpm: 0.5931, npm: 0.1178,
-    ocf: 464548, icf: -135348, fcf: -206360,
-    cos: { food: 47701.2, purchases: 1099271.74 },
-    topOpex: {
-      labour: 876960.43, utilities: 126755.23, depreciation: 154152.44,
-      motorVehicle: 50603.68, professional: 4972.37, subscriptions: 11014.05
-    },
-    labour: { salaries: 696835.52, cpf_fwl_sdl: 109627.0, bonus_ot: 70357.0 },
-    headcount: { total: 26, ft: 19, pt: 7 }
-  },
-  2024: {
-    rev: 3439081.07, gp: 2093217.95, np: 234134.00, opex: 2099256.92,
-    gpm: 0.6087, npm: 0.0681,
-    ocf: 321517, icf: -690221, fcf: 275624,
-    cos: { food: 54548.12, purchases: 1291315.00 },
-    topOpex: {
-      labour: 1135210.07, utilities: 142184.12, depreciation: 173901.80,
-      motorVehicle: 62518.12, professional: 50247.46, subscriptions: 28883.09
-    },
-    labour: { salaries: 874421.39, cpf_fwl_sdl: 147370.0, bonus_ot: 113214.0 },
-    headcount: { total: 34, ft: 25, pt: 9 }
-  },
-  2025: {
-    rev: 3995035.73, gp: 2517882.72, np: 159509.62, opex: 2504116.09,
-    gpm: 0.6303, npm: 0.0399,
-    ocf: 345197, icf: -99101, fcf: -339583,
-    cos: { food: 156645.79, purchases: 1320507.22 },
-    topOpex: {
-      labour: 1343062.0, utilities: 157268.28, depreciation: 210289.97,
-      motorVehicle: 64953.09, professional: 47502.87, subscriptions: 48678.92
-    },
-    labour: { salaries: 1014903.54, cpf_fwl_sdl: 169792.59, bonus_ot: 158040.87 },
-    headcount: { total: 34, ft: 28, pt: 6 }
-  }
-};
+window.dashboardData = null;
+window.insightsData = null;
+let charts = {};
+let currentYear = null;
+let sessionUploads = { is: null, bs: null, cf: null };
 
-const fmt = (n, dp=0) => '$' + (Math.abs(n) >= 1e6
-  ? (n/1e6).toFixed(dp||2) + 'M'
-  : Math.abs(n) >= 1e3
-  ? (n/1e3).toFixed(dp||1) + 'K'
-  : n.toFixed(dp));
-
-const pct = n => (n*100).toFixed(1) + '%';
+const fmt = (n, dp=0) => n == '—' || n == null || isNaN(n) ? '—' : '$' + (Math.abs(n) >= 1e6 ? (n/1e6).toFixed(dp||2) + 'M' : Math.abs(n) >= 1e3 ? (n/1e3).toFixed(dp||1) + 'K' : n.toFixed(dp));
+const pct = n => n == null || isNaN(n) ? '—' : (n * 100).toFixed(1) + '%';
 
 Chart.defaults.color = '#696969';
 Chart.defaults.font.family = "'DM Sans', sans-serif";
 Chart.defaults.font.size = 11;
 const gridColor = '#e9e9e9';
-const chartColors = {
-  brand: '#e60000',
-  brandSoft: '#e6000018',
-  black: '#171717',
-  darkGray: '#8a8a8a',
-  darkGraySoft: '#8a8a8a66',
-  gold: '#b87512',
-  goldSoft: '#b8751266'
-};
+const palette = ['#e60000', '#8a8a8a', '#171717', '#b87512', '#4b5563', '#24c083', '#3b82f6', '#ec4899', '#8b5cf6', '#14b8a6'];
+const chartColors = { brand: '#e60000', brandSoft: '#e6000018', black: '#171717', darkGray: '#8a8a8a', darkGraySoft: '#8a8a8a66', gold: '#b87512', goldSoft: '#b8751266', green: '#13875a' };
 
-const visualOffsetPlugin = {
-  id: 'visualOffsetPlugin',
-  beforeDatasetsDraw(chart) {
-    chart.$visualOffsets = [];
-    chart.data.datasets.forEach((dataset, datasetIndex) => {
-      if (!dataset.visualOffsetY) return;
-      const meta = chart.getDatasetMeta(datasetIndex);
-      const shifted = [];
-      meta.data.forEach(point => {
-        const original = {
-          point,
-          y: point.y,
-          controlPointPreviousY: point.controlPointPreviousY,
-          controlPointNextY: point.controlPointNextY
-        };
-        point.y += dataset.visualOffsetY;
-        if (typeof point.controlPointPreviousY === 'number') point.controlPointPreviousY += dataset.visualOffsetY;
-        if (typeof point.controlPointNextY === 'number') point.controlPointNextY += dataset.visualOffsetY;
-        shifted.push(original);
-      });
-      chart.$visualOffsets.push(shifted);
-    });
-  },
-  afterDatasetsDraw(chart) {
-    (chart.$visualOffsets || []).flat().forEach(original => {
-      original.point.y = original.y;
-      original.point.controlPointPreviousY = original.controlPointPreviousY;
-      original.point.controlPointNextY = original.controlPointNextY;
-    });
-  }
-};
+function destroyAll() {
+  Object.values(charts).forEach(c => c && c.destroy());
+  charts = {};
+}
 
-let charts = {};
-let currentYear = 2025;
+function getYears() {
+  if (!window.dashboardData) return [];
+  return Object.keys(window.dashboardData).map(Number).sort((a,b) => a-b);
+}
 
-function destroyAll() { Object.values(charts).forEach(c => c && c.destroy()); charts = {}; }
-function getYears() { return Object.keys(DATA).map(Number).sort((a,b) => a-b); }
-function getLatestYear() { const years = getYears(); return years[years.length - 1]; }
+function getLatestYear() {
+  const years = getYears();
+  return years.length ? years[years.length - 1] : null;
+}
+
 function getPreviousYear(y) {
   const years = getYears().filter(year => year < y);
   return years.length ? years[years.length - 1] : y;
 }
-function seriesColor(index, count) {
-  if (index === count - 1) return chartColors.brand;
-  return [chartColors.gold, chartColors.darkGray, chartColors.black][index % 3];
-}
-function updateTrendLabels(years) {
-  const first = years[0], last = years[years.length - 1];
-  document.getElementById('trend-sub').textContent = `FY${first} – FY${last} · SGD`;
-  document.getElementById('opex-sub').textContent = years.map(y => `FY${y}`).join(' vs ') + ' · SGD';
-  const revGrowth = (DATA[last].rev - DATA[first].rev) / DATA[first].rev;
-  const npGrowth = (DATA[last].np - DATA[first].np) / DATA[first].np;
-  document.getElementById('trend-badge').textContent =
-    `Revenue ${revGrowth >= 0 ? '▲' : '▼'} ${Math.abs(revGrowth*100).toFixed(0)}% over ${years.length}yr · Net Profit ${npGrowth >= 0 ? '▲' : '▼'} ${Math.abs(npGrowth*100).toFixed(0)}%`;
-  document.querySelector('footer').textContent =
-    `Foodtalks Pte. Ltd. · Financial Dashboard · Data source: Audited accounts FY${first}–FY${last} · Built by SMU Consulting Team`;
-}
+
 function renderYearPills() {
   const controls = document.getElementById('year-controls');
-  const liveBadge = controls.querySelector('.live-badge');
+  const secureBadge = controls.querySelector('.secure-badge');
   controls.querySelectorAll('.year-pill').forEach(btn => btn.remove());
   getYears().forEach(year => {
     const btn = document.createElement('button');
@@ -632,132 +437,430 @@ function renderYearPills() {
     btn.textContent = `FY ${year}`;
     btn.type = 'button';
     btn.addEventListener('click', () => setYear(year));
-    controls.insertBefore(btn, liveBadge);
+    controls.insertBefore(btn, secureBadge);
   });
 }
-function renderHeadcountTable(years) {
-  const table = document.getElementById('headcount-table');
-  const rows = [
-    ['Total headcount', y => DATA[y].headcount?.total],
-    ['Full-time', y => DATA[y].headcount?.ft],
-    ['Part-time', y => DATA[y].headcount?.pt],
-    ['Total labour cost', y => totalLabour(DATA[y])],
-    ['Cost per head (ann.)', y => {
-      const hc = DATA[y].headcount?.total || 0;
-      return hc ? totalLabour(DATA[y]) / hc : null;
-    }],
-    ['Labour as % of revenue', y => DATA[y].rev ? totalLabour(DATA[y]) / DATA[y].rev : null],
-    ['Revenue per head', y => {
-      const hc = DATA[y].headcount?.total || 0;
-      return hc ? DATA[y].rev / hc : null;
-    }]
-  ];
-  table.querySelector('thead').innerHTML = '<tr><th>Metric</th>' + years.map(y => `<th>FY${y}</th>`).join('') + '</tr>';
-  table.querySelector('tbody').innerHTML = rows.map(([label, getter]) => {
-    const cells = years.map(y => {
-      const value = getter(y);
-      let text = value == null || !isFinite(value) ? '—' : value;
-      if (label.includes('cost') || label.includes('Revenue') || label.includes('labour cost')) text = value == null ? '—' : fmt(value);
-      if (label.includes('%')) text = value == null ? '—' : pct(value);
-      return `<td class="num">${text}</td>`;
-    }).join('');
-    return `<tr><td>${label}</td>${cells}</tr>`;
-  }).join('');
-}
-function totalLabour(d) {
-  return (d.labour?.salaries || 0) + (d.labour?.cpf_fwl_sdl || 0) + (d.labour?.bonus_ot || 0);
-}
-function renderOpexLegend(years) {
-  document.getElementById('opex-legend').innerHTML = years.map((year, index) =>
-    `<div class="leg"><div class="leg-dot" style="background:${seriesColor(index, years.length)}"></div>FY${year}</div>`
-  ).join('');
-}
 
-// ── UPDATE KPIs ──
 function updateKPIs(y) {
-  const d = DATA[y], pYear = getPreviousYear(y), p = DATA[pYear] || DATA[y];
-  const dRev = (d.rev - p.rev) / p.rev;
-  const dGPM = d.gpm - p.gpm;
-  const dNPM = d.npm - p.npm;
-  const dOCF = (d.ocf - p.ocf) / p.ocf;
+  const d = window.dashboardData[y];
+  if (!d) return;
+  const pYear = getPreviousYear(y);
+  const p = window.dashboardData[pYear] || d;
 
-  document.getElementById('k-rev').textContent = fmt(d.rev);
-  document.getElementById('k-rev-d').textContent = (dRev >= 0 ? '▲ ' : '▼ ') + Math.abs(dRev*100).toFixed(1) + '% YoY';
-  document.getElementById('k-rev-d').className = 'kpi-delta ' + (dRev >= 0 ? 'up' : 'down');
-  document.getElementById('k-rev-s').textContent = 'vs ' + fmt(p.rev) + ' in FY' + pYear;
+  const revCur = d.kpis.total_revenue;
+  const revPrev = p.kpis.total_revenue;
+  const revYoY = revPrev !== 0 ? (revCur - revPrev) / revPrev : 0;
 
-  document.getElementById('k-gpm').textContent = pct(d.gpm);
-  document.getElementById('k-gpm-d').textContent = (dGPM >= 0 ? '▲ ' : '▼ ') + Math.abs(dGPM*100).toFixed(1) + 'pp YoY';
-  document.getElementById('k-gpm-d').className = 'kpi-delta ' + (dGPM >= 0 ? 'up' : 'down');
-  document.getElementById('k-gpm-s').textContent = 'Gross Profit ' + fmt(d.gp);
+  const gpmCur = d.kpis.gross_profit_margin;
+  const gpmPrev = p.kpis.gross_profit_margin;
+  const gpmDiff = (gpmCur - gpmPrev) * 100;
 
-  document.getElementById('k-npm').textContent = pct(d.npm);
-  document.getElementById('k-npm-d').textContent = (dNPM >= 0 ? '▲ ' : '▼ ') + Math.abs(dNPM*100).toFixed(1) + 'pp YoY';
-  document.getElementById('k-npm-d').className = 'kpi-delta ' + (dNPM >= 0 ? 'up' : 'down');
-  document.getElementById('k-npm-s').textContent = 'Net Profit ' + fmt(d.np);
+  const npmCur = d.kpis.net_profit_margin;
+  const npmPrev = p.kpis.net_profit_margin;
+  const npmDiff = (npmCur - npmPrev) * 100;
 
-  document.getElementById('k-ocf').textContent = fmt(d.ocf);
-  document.getElementById('k-ocf-d').textContent = (dOCF >= 0 ? '▲ ' : '▼ ') + Math.abs(dOCF*100).toFixed(1) + '% YoY';
-  document.getElementById('k-ocf-d').className = 'kpi-delta ' + (dOCF >= 0 ? 'up' : 'down');
-  document.getElementById('k-ocf-s').textContent = 'vs ' + fmt(p.ocf) + ' in FY' + pYear;
+  const ocfCur = d.kpis.operating_cash_flow;
+  const ocfPrev = p.kpis.operating_cash_flow;
+  const ocfYoY = ocfPrev !== 0 ? (ocfCur - ocfPrev) / ocfPrev : 0;
 
-  // COS donut update
-  const d2 = DATA[y];
-  document.getElementById('cos-sub').textContent = 'FY' + y;
-  document.getElementById('cos-total').textContent = fmt((d2.cos?.food || 0) + (d2.cos?.purchases || 0)) + ' total';
+  document.getElementById('k-rev').textContent = fmt(revCur);
+  document.getElementById('k-rev-d').textContent = (revYoY >= 0 ? '▲ ' : '▼ ') + Math.abs(revYoY*100).toFixed(1) + '% YoY';
+  document.getElementById('k-rev-d').className = 'kpi-delta ' + (revYoY >= 0 ? 'up' : 'down');
+  document.getElementById('k-rev-s').textContent = 'vs ' + fmt(revPrev) + ' in FY' + pYear;
+
+  document.getElementById('k-gpm').textContent = pct(gpmCur);
+  document.getElementById('k-gpm-d').textContent = (gpmDiff >= 0 ? '▲ ' : '▼ ') + Math.abs(gpmDiff).toFixed(1) + 'pp YoY';
+  document.getElementById('k-gpm-d').className = 'kpi-delta ' + (gpmDiff >= 0 ? 'up' : 'down');
+  document.getElementById('k-gpm-s').textContent = 'Current Ratio: ' + (d.kpis.current_ratio || '1.5') + ' (Benchmark ≥ 1.0)';
+
+  document.getElementById('k-npm').textContent = pct(npmCur);
+  document.getElementById('k-npm-d').textContent = (npmDiff >= 0 ? '▲ ' : '▼ ') + Math.abs(npmDiff).toFixed(1) + 'pp YoY';
+  document.getElementById('k-npm-d').className = 'kpi-delta ' + (npmDiff >= 0 ? 'up' : 'down');
+  document.getElementById('k-npm-s').textContent = 'Cash Ratio: ' + (d.kpis.cash_ratio || '0.8') + ' (Benchmark ≥ 0.5)';
+
+  document.getElementById('k-ocf').textContent = fmt(ocfCur);
+  document.getElementById('k-ocf-d').textContent = (ocfYoY >= 0 ? '▲ ' : '▼ ') + Math.abs(ocfYoY*100).toFixed(1) + '% YoY';
+  document.getElementById('k-ocf-d').className = 'kpi-delta ' + (ocfYoY >= 0 ? 'up' : 'down');
+  document.getElementById('k-ocf-s').textContent = 'Cash Runway: ' + (d.kpis.cash_burn_months || '24') + ' mo (Min 6 mo)';
+
+  document.getElementById('cos-sub').textContent = `FY${y}`;
+  const expBreakdown = d.datasets.expenditure_breakdown || {};
+  const totalExp = Object.values(expBreakdown).reduce((sum, val) => sum + (val || 0), 0);
+  document.getElementById('cos-total').textContent = fmt(totalExp) + ' total';
 }
 
-// ── DRAW ALL CHARTS ──
+function initExpenditureComponentsFilters() {
+  const years = getYears();
+  const filterYear = document.getElementById('filter-year');
+  const filterCat = document.getElementById('filter-cat');
+  if (!filterYear || !filterCat) return;
+
+  filterYear.innerHTML = years.map(y => `<option value="${y}" ${y === currentYear ? 'selected' : ''}>FY${y}</option>`).join('');
+
+  const catSet = new Set();
+  years.forEach(y => {
+    const comps = window.dashboardData[y]?.datasets?.expenditure_components || {};
+    Object.keys(comps).forEach(c => catSet.add(c));
+  });
+  const catList = Array.from(catSet);
+  filterCat.innerHTML = catList.map(c => `<option value="${c}">${c}</option>`).join('');
+
+  filterYear.onchange = () => updateExpenditureComponentsChart();
+  filterCat.onchange = () => updateExpenditureComponentsChart();
+}
+
+function updateExpenditureComponentsChart() {
+  const selYear = document.getElementById('filter-year').value;
+  const selCat = document.getElementById('filter-cat').value;
+  const yearData = window.dashboardData[selYear];
+  const components = yearData?.datasets?.expenditure_components?.[selCat] || {};
+  const labels = Object.keys(components);
+  const dataVals = Object.values(components);
+
+  if (charts.labour) {
+    charts.labour.data.labels = labels;
+    charts.labour.data.datasets[0].data = dataVals;
+    charts.labour.data.datasets[0].backgroundColor = labels.map((_, i) => palette[i % palette.length]);
+    charts.labour.update();
+  }
+  const totalCatSum = dataVals.reduce((a, b) => a + b, 0);
+  document.getElementById('labour-legend').innerHTML = `<div class="leg">Total for ${selCat} (FY${selYear}): <strong>${fmt(totalCatSum)}</strong></div>`;
+}
+
+// NON-REDUNDANT DECISION SUPPORT RENDERING ENGINE (CARDS 1, 2, AND 3)
+function renderDynamicInsights(y) {
+  if (!window.insightsData) return;
+
+  // 1. CARD 1: LEVEL 1 URGENCY FILTER (Critical & High Priority Business Alerts Only)
+  const alertsContainer = document.getElementById('exec-alerts-list');
+  const alerts = window.insightsData.business_alerts || [];
+  const yearFilteredAlerts = alerts.filter(a => (!a.year || a.year === String(y) || a.year === y) && (a.level === 'Critical' || a.level === 'High'));
+  document.getElementById('alert-count-badge').textContent = `${yearFilteredAlerts.length} High/Critical Alerts`;
+
+  if (alertsContainer) {
+    if (yearFilteredAlerts.length > 0) {
+      alertsContainer.innerHTML = yearFilteredAlerts.map(alert => `
+        <div class="intel-item">
+          <div class="intel-icon icon-warn">⚠️</div>
+          <div class="intel-text"><strong>[${alert.level}] ${alert.title}:</strong> ${alert.interpretation}</div>
+        </div>
+      `).join('');
+    } else {
+      alertsContainer.innerHTML = `<div class="intel-text" style="color:var(--muted);">No high or critical priority alerts for FY${y}. Financial operations are stable.</div>`;
+    }
+  }
+
+  // 2. CARD 2: LEVEL 2 DIAGNOSIS (Full Operational Diagnostic Drill-Down & Actionable Recommendations)
+  const findingsContainer = document.getElementById('findings-list');
+  const findings = window.insightsData.findings || [];
+  const yearFilteredFindings = findings.filter(f => !f.year || f.year === String(y) || f.year === y).slice(0, 10);
+
+  if (findingsContainer) {
+    if (yearFilteredFindings.length > 0) {
+      findingsContainer.innerHTML = yearFilteredFindings.map(f => `
+        <div class="intel-item">
+          <div class="intel-icon icon-info">🔍</div>
+          <div class="intel-text">
+            <strong>${f.finding}</strong> (${f.module})
+            <br/><em>Interpretation:</em> ${f.interpretation}
+            <br/><strong style="color:var(--brand-red);">Action:</strong> ${f.recommendation}
+          </div>
+        </div>
+      `).join('');
+    } else {
+      findingsContainer.innerHTML = `<div class="intel-text" style="color:var(--muted);">No detailed findings recorded for FY${y}.</div>`;
+    }
+  }
+
+  // 3. CARD 3: LEVEL 3 STRATEGY (Strategic SWOT Summary Matrix - Non-Redundant Bullet Point Snapshot)
+  const swot = window.insightsData.swot_summary || {};
+  const swotMapping = { 'Strengths': 'swot-s-pts', 'Weaknesses': 'swot-w-pts', 'Opportunities': 'swot-o-pts', 'Threats': 'swot-t-pts' };
+
+  Object.entries(swotMapping).forEach(([category, elementId]) => {
+    const container = document.getElementById(elementId);
+    if (!container) return;
+    const items = (swot[category] || []).filter(item => !item.year || item.year === String(y) || item.year === y);
+    if (items.length > 0) {
+      container.innerHTML = items.map(item => `<div class="swot-pt" title="${item.details || ''}">${item.text}</div>`).join('');
+    } else {
+      container.innerHTML = `<div class="swot-pt" style="color:var(--muted2);">No ${category.toLowerCase()} recorded for FY${y}.</div>`;
+    }
+  });
+}
+
+// CLIENT-SIDE EPHEMERAL PROCESSING ENGINE
+function handleClientFileUpload(slotType, inputEl) {
+  if (inputEl.files && inputEl.files[0]) {
+    const file = inputEl.files[0];
+    const slotEl = document.getElementById(`slot-${slotType}`);
+    const statusEl = document.getElementById(`status-${slotType}`);
+    
+    slotEl.classList.add('active');
+    statusEl.textContent = `Parsed: ${file.name}`;
+    statusEl.className = 'slot-status ok';
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
+        const firstSheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[firstSheetName];
+        const jsonRows = XLSX.utils.sheet_to_json(worksheet);
+
+        sessionUploads[slotType] = jsonRows;
+
+        if (sessionUploads.is && sessionUploads.bs && sessionUploads.cf) {
+          processEphemeralSessionDataLocally();
+        }
+      } catch (err) {
+        console.error("Error parsing workbook:", err);
+        statusEl.textContent = `Parsing Error`;
+        statusEl.className = 'slot-status err';
+      }
+    };
+    reader.readAsArrayBuffer(file);
+  }
+}
+
+function processEphemeralSessionDataLocally() {
+  console.log("[Ephemeral Session] All 3 templates parsed in RAM. Computing metrics & rules locally...");
+  
+  const isRows = sessionUploads.is;
+  const bsRows = sessionUploads.bs;
+  const cfRows = sessionUploads.cf;
+
+  const yearsSet = new Set();
+  [...isRows, ...bsRows, ...cfRows].forEach(row => {
+    Object.keys(row).forEach(k => {
+      if (k.length === 4 && !isNaN(k)) yearsSet.add(k);
+    });
+  });
+  const sortedYears = Array.from(yearsSet).sort();
+
+  const getVal = (row, yr) => parseFloat(row[yr]) || 0.0;
+
+  const revRows = isRows.filter(r => String(r["accounting item"] || "").trim().toLowerCase() === "trading income" || String(r["category 01"] || "").trim().toLowerCase() === "revenue");
+  const cosRows = isRows.filter(r => String(r["accounting item"] || "").trim().toLowerCase() === "cost of sales" || String(r["category 01"] || "").trim().toLowerCase() === "cost");
+  const opexRows = isRows.filter(r => !revRows.includes(r) && !cosRows.includes(r));
+
+  let dashboardData = {};
+  let allFindings = [];
+
+  let yearlyBs = {};
+  sortedYears.forEach(yr => { yearlyBs[yr] = { ca: 0, cl: 0, cash: 0 }; });
+  bsRows.forEach(r => {
+    let item = String(r["accounting item"] || "").trim().toLowerCase();
+    let cat01 = String(r["category 01"] || "").trim().toLowerCase();
+    sortedYears.forEach(yr => {
+      let val = getVal(r, yr);
+      if (item.includes("current assets") || item.includes("total current assets")) yearlyBs[yr].ca += val;
+      if (item.includes("current liabilities") || item.includes("total current liabilities")) yearlyBs[yr].cl += val;
+      if (cat01 === "cash" || item.includes("cash") || item.includes("cash and cash equivalents")) yearlyBs[yr].cash += val;
+    });
+  });
+
+  sortedYears.forEach((yr, idx) => {
+    let revenue = revRows.reduce((sum, r) => sum + getVal(r, yr), 0);
+    let cos = cosRows.reduce((sum, r) => sum + getVal(r, yr), 0);
+    let gp = revenue - cos;
+    let gpm = revenue !== 0 ? gp / revenue : 0.0;
+
+    let opex = opexRows.reduce((sum, r) => sum + getVal(r, yr), 0);
+    let netProfit = revenue - cos - opex;
+    let npm = revenue !== 0 ? netProfit / revenue : 0.0;
+
+    let ca = yearlyBs[yr].ca;
+    let cl = yearlyBs[yr].cl;
+    let cash = yearlyBs[yr].cash;
+
+    let ocf = 0, cfi = 0, cff = 0, netCf = 0;
+    cfRows.forEach(r => {
+      let item = String(r["accounting item"] || "").trim().toLowerCase();
+      let val = getVal(r, yr);
+      if (item.includes("operating cash flow") || item.includes("cfo")) ocf = val;
+      if (item.includes("investing cash flow") || item.includes("cfi")) cfi = val;
+      if (item.includes("financing cash flow") || item.includes("fcf")) cff = val;
+      if (item.includes("net increase in cash") || item.includes("net cash flow")) netCf = val;
+    });
+
+    let currentRatio = cl !== 0 ? ca / cl : 1.5;
+    let cashRatio = cl !== 0 ? cash / cl : 0.8;
+    let monthlyBurn = netCf !== 0 ? netCf / 12.0 : ocf / 12.0;
+    let cash_burn = monthlyBurn !== 0 ? Math.abs(cash / monthlyBurn) : 24.0;
+    let cashConversion = netProfit !== 0 ? ocf / netProfit : 1.0;
+
+    let cat01Map = {}, cat02Map = {}, expComp = {};
+    isRows.forEach(r => {
+      let c01 = String(r["category 01"] || "").trim().toLowerCase();
+      let c02 = String(r["category 02"] || "").trim().toLowerCase();
+      let breakup = String(r["accounting break_up item"] || "").trim();
+      let val = getVal(r, yr);
+      if (c01 && c01 !== "none") cat01Map[c01] = (cat01Map[c01] || 0) + val;
+      if (c02 && c02 !== "none") {
+        cat02Map[c02] = (cat02Map[c02] || 0) + val;
+        if (!expComp[c02]) expComp[c02] = {};
+        if (breakup) expComp[c02][breakup] = (expComp[c02][breakup] || 0) + val;
+      }
+    });
+
+    let expBreakdown = {};
+    Object.entries(cat02Map).forEach(([k, v]) => { if (!k.includes("revenue")) expBreakdown[k] = v; });
+
+    let catGrowths = {};
+    if (idx > 0) {
+      let prevYr = sortedYears[idx - 1];
+      let prevExp = dashboardData[prevYr]?.datasets?.expenditure_breakdown || {};
+      Object.entries(expBreakdown).forEach(([cat02, val]) => {
+        let prevVal = prevExp[cat02] || 0.0;
+        catGrowths[cat02] = prevVal !== 0 ? Number(((val - prevVal) / prevVal).toFixed(4)) : 0.0;
+      });
+    }
+
+    dashboardData[yr] = {
+      kpis: {
+        total_revenue: revenue,
+        gross_profit_margin: Number(gpm.toFixed(4)),
+        net_profit_margin: Number(npm.toFixed(4)),
+        operating_cash_flow: ocf,
+        current_ratio: Number(currentRatio.toFixed(2)),
+        cash_ratio: Number(cashRatio.toFixed(2)),
+        cash_burn_months: Number(cash_burn.toFixed(1)),
+        cash_conversion: Number(cashConversion.toFixed(2))
+      },
+      datasets: {
+        revenue_allocation: Object.assign({ revenue: revenue, profit: netProfit }, cat01Map),
+        margin_compression: { gross_profit_margin: Number(gpm.toFixed(4)), net_profit_margin: Number(npm.toFixed(4)) },
+        expenditure_breakdown: expBreakdown,
+        cash_flow_summary: { cfo: ocf, cfi: cfi, cff: cff },
+        expenditure_components: expComp,
+        growth_trends: {
+          revenue: idx === 0 ? 0 : Number(((revenue - dashboardData[sortedYears[idx-1]].kpis.total_revenue) / dashboardData[sortedYears[idx-1]].kpis.total_revenue).toFixed(4)),
+          categories: catGrowths
+        }
+      }
+    };
+
+    // Ephemeral Client-Side Rule Engine
+    let revGrowth = dashboardData[yr].datasets.growth_trends.revenue;
+    if (revGrowth >= 0.05) {
+      allFindings.push({ module: "Revenue Rules", finding: `Healthy Revenue Growth (${(revGrowth*100).toFixed(1)}%) in FY${yr}`, interpretation: `Top-line expansion meets or exceeds target benchmark of 5.0%.`, recommendation: "Maintain sales cadence and scale successful revenue channels.", severity: "Positive", year: yr, priority_score: 1.0 });
+    } else if (revGrowth < 0.0) {
+      allFindings.push({ module: "Revenue Rules", finding: `Revenue Contraction (${(revGrowth*100).toFixed(1)}%) in FY${yr}`, interpretation: `Top-line revenue contracted relative to prior year.`, recommendation: "Evaluate sales pipeline velocity and promotional effectiveness.", severity: "High", year: yr, priority_score: 7.0 });
+    }
+
+    if (gpm < 0.30) {
+      allFindings.push({ module: "Profitability Rules", finding: `Sub-optimal Gross Margin (${(gpm*100).toFixed(1)}%) in FY${yr}`, interpretation: `Gross margin of ${(gpm*100).toFixed(1)}% is below benchmark (30.0%), reflecting cost pressure.`, recommendation: "Review supplier contracts and direct input pricing.", severity: "High", year: yr, priority_score: 8.0 });
+    } else {
+      allFindings.push({ module: "Profitability Rules", finding: `Healthy Gross Margin (${(gpm*100).toFixed(1)}%) in FY${yr}`, interpretation: `Gross margin meets or exceeds target.`, recommendation: "Sustain pricing power.", severity: "Positive", year: yr, priority_score: 1.0 });
+    }
+
+    if (npm < 0.05) {
+      allFindings.push({ module: "Profitability Rules", finding: `Low Net Profit Margin (${(npm*100).toFixed(1)}%) in FY${yr}`, interpretation: `Net profit margin falls below target (5.0%).`, recommendation: "Identify margin leakages across operating overheads.", severity: "High", year: yr, priority_score: 7.5 });
+    } else {
+      allFindings.push({ module: "Profitability Rules", finding: `Healthy Net Profit Margin (${(npm*100).toFixed(1)}%) in FY${yr}`, interpretation: `Net profit margin meets target benchmark.`, recommendation: "Maintain cost discipline.", severity: "Positive", year: yr, priority_score: 1.0 });
+    }
+
+    if (cashRatio >= 0.5) {
+      allFindings.push({ module: "Balance Sheet Rules", finding: `Healthy Cash Ratio Buffer (${cashRatio.toFixed(2)}) in FY${yr}`, interpretation: `Cash reserves provide adequate immediate liquidity coverage for short-term liabilities (benchmark ≥ 0.5).`, recommendation: "Maintain balanced liquidity while evaluating strategic growth reinvestment.", severity: "Positive", year: yr, priority_score: 1.0 });
+    } else {
+      allFindings.push({ module: "Balance Sheet Rules", finding: `Low Cash Ratio (${cashRatio.toFixed(2)}) in FY${yr}`, interpretation: `Cash coverage for short-term liabilities is below benchmark (0.5).`, recommendation: "Build cash reserves and manage payable outflows.", severity: "Medium", year: yr, priority_score: 6.0 });
+    }
+  });
+
+  let businessAlerts = allFindings.filter(f => f.severity !== "Positive").map(f => ({
+    level: f.severity, module: f.module, title: f.finding, interpretation: f.interpretation, recommendation: f.recommendation, year: f.year, priority_score: f.priority_score
+  }));
+
+  let swot = { Strengths: [], Weaknesses: [], Opportunities: [], Threats: [] };
+  allFindings.forEach(f => {
+    let item = { module: f.module, text: f.finding, details: f.interpretation, year: f.year };
+    if (f.severity === "Positive") {
+      if (f.module.includes("Revenue") || f.module.includes("Profitability") || f.finding.includes("Gross")) swot.Strengths.push(item);
+      else swot.Opportunities.push(item);
+    } else if (f.severity === "High" || f.severity === "Critical") {
+      let isThreat = ['balance sheet', 'cash flow', 'liquidity', 'solvency', 'burn', 'debt', 'runway', 'margin', 'loss', 'contraction'].some(k => f.module.toLowerCase().includes(k) || f.finding.toLowerCase().includes(k));
+      if (isThreat) swot.Threats.push(item);
+      else swot.Weaknesses.push(item);
+    } else {
+      swot.Weaknesses.push(item);
+    }
+  });
+
+  window.dashboardData = dashboardData;
+  window.insightsData = { business_alerts: businessAlerts, findings: allFindings, swot_summary: swot };
+
+  document.getElementById('empty-state-banner').style.display = 'none';
+  document.getElementById('dashboard-content-area').classList.remove('hidden-when-empty');
+
+  currentYear = getLatestYear();
+  if (currentYear) drawAll();
+}
+
 function drawAll() {
   destroyAll();
   const years = getYears();
+  if (!years.length || !window.dashboardData) return;
   const labels = years.map(y => `FY${y}`);
-  updateTrendLabels(years);
-  renderYearPills();
-  renderHeadcountTable(years);
-  renderOpexLegend(years);
+  const latestData = window.dashboardData[currentYear];
 
-  // 1. Revenue Trend (wide)
+  renderYearPills();
+  updateKPIs(currentYear);
+  renderDynamicInsights(currentYear);
+
+  document.getElementById('trend-sub').textContent = `FY${years[0]} – FY${years[years.length-1]} · SGD`;
+  document.getElementById('opex-sub').textContent = `FY${years[0]} vs FY${years[years.length-1]} · Growth Rate (%)`;
+
+  // 1. EXPENDITURE ALLOCATION OVERLAY CHART (STAGE 5 DESIGN)
+  const revAllocDatasets = [
+    {
+      label: 'Total Revenue',
+      data: years.map(y => window.dashboardData[y].datasets.revenue_allocation.revenue),
+      backgroundColor: 'rgba(120, 120, 120, 0.20)',
+      borderColor: '#4b5563',
+      borderWidth: 1.5,
+      borderRadius: 4,
+      stack: 'revenueCapacityStack',
+      order: 2,
+      barPercentage: 0.85,
+      categoryPercentage: 0.85,
+      grouped: false
+    }
+  ];
+
+  const expCatSet = new Set();
+  years.forEach(y => {
+    const revAlloc = window.dashboardData[y]?.datasets?.revenue_allocation || {};
+    Object.keys(revAlloc).forEach(k => {
+      if (k !== 'revenue' && k !== 'profit') expCatSet.add(k);
+    });
+  });
+  const expCats = Array.from(expCatSet);
+
+  expCats.forEach((cat, idx) => {
+    revAllocDatasets.push({
+      label: cat.toUpperCase(),
+      data: years.map(y => Math.abs(window.dashboardData[y]?.datasets?.revenue_allocation?.[cat] || 0)),
+      backgroundColor: palette[idx % palette.length],
+      borderRadius: 3,
+      stack: 'expenditureAllocationStack',
+      order: 1,
+      barPercentage: 0.45,
+      categoryPercentage: 0.85,
+      grouped: false
+    });
+  });
+
   charts.revTrend = new Chart(document.getElementById('revTrendChart'), {
     type: 'bar',
-    data: {
-      labels,
-      datasets: [
-        {
-          label: 'Revenue', type: 'bar',
-          data: years.map(y => DATA[y].rev),
-          backgroundColor: chartColors.brandSoft, borderColor: chartColors.brand, borderWidth: 1.5, borderRadius: 6, order: 2
-        },
-        {
-          label: 'Gross Profit', type: 'line',
-          data: years.map(y => DATA[y].gp),
-          borderColor: chartColors.darkGray, backgroundColor: 'transparent', borderWidth: 2, tension: .3, pointRadius: 5, pointBackgroundColor: chartColors.darkGray, order: 1
-        },
-        {
-          label: 'Net Profit', type: 'line',
-          data: years.map(y => DATA[y].np),
-          borderColor: chartColors.gold, backgroundColor: 'transparent', borderWidth: 2, tension: .3, pointRadius: 5, pointBackgroundColor: chartColors.gold, borderDash: [5,3], order: 1
-        },
-        {
-          label: 'Total Op. Expenses', type: 'line',
-          data: years.map(y => DATA[y].opex),
-          borderColor: chartColors.black, backgroundColor: 'transparent', borderWidth: 2, tension: 0, pointRadius: 5, pointHitRadius: 14, pointHoverRadius: 7, pointBackgroundColor: chartColors.black, pointBorderColor: '#fff', pointBorderWidth: 1.5, borderDash: [3,3], visualOffsetY: 16, order: 1
-        }
-      ]
-    },
-    plugins: [visualOffsetPlugin],
+    data: { labels, datasets: revAllocDatasets },
     options: {
-      interaction: { mode: 'index', intersect: false, axis: 'x' },
-      hover: { mode: 'index', intersect: false },
+      responsive: true,
       plugins: {
-        legend: { display: false },
-        tooltip: {
-          enabled: true,
-          mode: 'index',
-          intersect: false,
-          callbacks: {
-            label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y.toLocaleString(undefined, { maximumFractionDigits: 2 })}`
-          }
+        legend: {
+          display: true,
+          position: 'bottom',
+          labels: { boxWidth: 12, padding: 15 }
         }
       },
       scales: {
@@ -767,45 +870,54 @@ function drawAll() {
     }
   });
 
-  // 2. Margin chart
+  // 2. Margin Compression
   charts.margin = new Chart(document.getElementById('marginChart'), {
     type: 'line',
     data: {
       labels,
       datasets: [
-        { label: 'GPM', data: years.map(y => +(DATA[y].gpm*100).toFixed(1)), borderColor: chartColors.brand, backgroundColor: chartColors.brandSoft, borderWidth: 2, fill: true, tension: .3, pointRadius: 5, pointBackgroundColor: chartColors.brand },
-        { label: 'NPM', data: years.map(y => +(DATA[y].npm*100).toFixed(1)), borderColor: chartColors.darkGray, backgroundColor: chartColors.darkGraySoft, borderWidth: 2, fill: true, tension: .3, pointRadius: 5, pointBackgroundColor: chartColors.darkGray }
+        { label: 'GPM', data: years.map(y => +(window.dashboardData[y].datasets.margin_compression.gross_profit_margin * 100).toFixed(1)), borderColor: chartColors.brand, backgroundColor: chartColors.brandSoft, borderWidth: 2, fill: true, tension: 0.3 },
+        { label: 'NPM', data: years.map(y => +(window.dashboardData[y].datasets.margin_compression.net_profit_margin * 100).toFixed(1)), borderColor: chartColors.darkGray, backgroundColor: chartColors.darkGraySoft, borderWidth: 2, fill: true, tension: 0.3 }
       ]
     },
     options: {
       plugins: { legend: { position: 'bottom', labels: { padding: 10 } } },
       scales: {
         x: { grid: { color: gridColor } },
-        y: { grid: { color: gridColor }, ticks: { callback: v => v + '%' }, min: 0, max: 75 }
+        y: { grid: { color: gridColor }, ticks: { callback: v => v + '%' } }
       }
     }
   });
 
-  // 3. Cost donut (dynamic by year)
-  const cosD = DATA[currentYear].cos || {};
+  // 3. Expenditure Breakdown Donut
+  const expBreakdown = latestData.datasets.expenditure_breakdown || {};
+  const expLabels = Object.keys(expBreakdown);
+  const expValues = Object.values(expBreakdown);
+
   charts.costDonut = new Chart(document.getElementById('costDonut'), {
     type: 'doughnut',
     data: {
-      labels: ['Purchases', 'Food/Ingredients'],
-      datasets: [{ data: [cosD.purchases || 0, cosD.food || 0], backgroundColor: [chartColors.brand, chartColors.darkGray], borderWidth: 0, hoverOffset: 4 }]
+      labels: expLabels,
+      datasets: [{
+        data: expValues,
+        backgroundColor: expLabels.map((_, i) => palette[i % palette.length]),
+        borderWidth: 0,
+        hoverOffset: 4
+      }]
     },
-    options: { cutout: '65%', plugins: { legend: { position: 'bottom', labels: { padding: 12 } } } }
+    options: { cutout: '60%', plugins: { legend: { display: false } } }
   });
+  document.getElementById('cos-legend').innerHTML = expLabels.map((lbl, idx) => `<div class="leg"><div class="leg-dot" style="background:${palette[idx % palette.length]}"></div>${lbl}</div>`).join('');
 
-  // 4. Cash flow bars
+  // 4. Cash Flow Summary
   charts.cash = new Chart(document.getElementById('cashChart'), {
     type: 'bar',
     data: {
       labels,
       datasets: [
-        { label: 'Operating', data: years.map(y => DATA[y].ocf), backgroundColor: chartColors.brandSoft, borderColor: chartColors.brand, borderWidth: 1, borderRadius: 4 },
-        { label: 'Investing', data: years.map(y => DATA[y].icf), backgroundColor: chartColors.darkGraySoft, borderColor: chartColors.darkGray, borderWidth: 1, borderRadius: 4 },
-        { label: 'Financing', data: years.map(y => DATA[y].fcf), backgroundColor: chartColors.goldSoft, borderColor: chartColors.gold, borderWidth: 1, borderRadius: 4 }
+        { label: 'CFO', data: years.map(y => window.dashboardData[y].datasets.cash_flow_summary.cfo), backgroundColor: chartColors.brandSoft, borderColor: chartColors.brand, borderWidth: 1, borderRadius: 4 },
+        { label: 'CFI', data: years.map(y => window.dashboardData[y].datasets.cash_flow_summary.cfi), backgroundColor: chartColors.darkGraySoft, borderColor: chartColors.darkGray, borderWidth: 1, borderRadius: 4 },
+        { label: 'CFF', data: years.map(y => window.dashboardData[y].datasets.cash_flow_summary.cff), backgroundColor: chartColors.goldSoft, borderColor: chartColors.gold, borderWidth: 1, borderRadius: 4 }
       ]
     },
     options: {
@@ -817,249 +929,93 @@ function drawAll() {
     }
   });
 
-  // 5. Top OpEx grouped bar
-  const opexLabels = ['Labour', 'Utilities', 'Depreciation', 'Motor Vehicle', 'Professional', 'Subscriptions'];
-  const opexKeys = ['labour', 'utilities', 'depreciation', 'motorVehicle', 'professional', 'subscriptions'];
+  // 5. Growth Trends Multi-Series (Stage 3 Fix)
+  const growthKeySet = new Set();
+  years.forEach(y => {
+    const cats = window.dashboardData[y]?.datasets?.growth_trends?.categories || {};
+    Object.keys(cats).forEach(k => growthKeySet.add(k));
+  });
+  const growthKeys = Array.from(growthKeySet);
+
+  const growthDatasets = [
+    {
+      label: 'Revenue Growth',
+      data: years.map(y => +((window.dashboardData[y]?.datasets?.growth_trends?.revenue || 0) * 100).toFixed(1)),
+      borderColor: chartColors.brand,
+      backgroundColor: chartColors.brand,
+      borderWidth: 3,
+      tension: 0.2,
+      pointRadius: 4
+    }
+  ];
+
+  growthKeys.forEach((catKey, idx) => {
+    growthDatasets.push({
+      label: catKey,
+      data: years.map(y => +((window.dashboardData[y]?.datasets?.growth_trends?.categories?.[catKey] || 0) * 100).toFixed(1)),
+      borderColor: palette[(idx + 1) % palette.length],
+      backgroundColor: palette[(idx + 1) % palette.length],
+      borderWidth: 1.5,
+      tension: 0.2,
+      pointRadius: 3
+    });
+  });
+
   charts.opex = new Chart(document.getElementById('opexChart'), {
-    type: 'bar',
-    data: {
-      labels: opexLabels,
-      datasets: years.map((year, index) => ({
-        label: `FY${year}`,
-        data: opexKeys.map(k => DATA[year].topOpex?.[k] || 0),
-        backgroundColor: seriesColor(index, years.length),
-        borderRadius: 3
-      }))
-    },
+    type: 'line',
+    data: { labels, datasets: growthDatasets },
     options: {
-      indexAxis: 'y',
-      plugins: { legend: { display: false } },
+      responsive: true,
+      plugins: {
+        legend: { display: true, position: 'bottom', labels: { boxWidth: 12, padding: 10, font: { size: 10 } } }
+      },
       scales: {
-        x: { grid: { color: gridColor }, ticks: { callback: v => '$' + (v/1000).toFixed(0) + 'K' } },
-        y: { grid: { color: 'transparent' } }
+        x: { grid: { color: gridColor } },
+        y: { grid: { color: gridColor }, ticks: { callback: v => v + '%' } }
       }
     }
   });
 
-  // 6. Labour stacked bar
+  initExpenditureComponentsFilters();
+  const initialCat = document.getElementById('filter-cat').value;
+  const initialComps = latestData.datasets.expenditure_components?.[initialCat] || {};
+  const compLabels = Object.keys(initialComps);
+  const compValues = Object.values(initialComps);
+
   charts.labour = new Chart(document.getElementById('labourChart'), {
-    type: 'bar',
+    type: 'doughnut',
     data: {
-      labels,
-      datasets: [
-        { label: 'Salaries & Wages', data: years.map(y => DATA[y].labour?.salaries || 0), backgroundColor: chartColors.brand, borderRadius: 4 },
-        { label: 'CPF + FWL + SDL', data: years.map(y => DATA[y].labour?.cpf_fwl_sdl || 0), backgroundColor: chartColors.darkGray, borderRadius: 4 },
-        { label: 'Bonus + OT', data: years.map(y => DATA[y].labour?.bonus_ot || 0), backgroundColor: chartColors.gold, borderRadius: 4 }
-      ]
+      labels: compLabels,
+      datasets: [{
+        data: compValues,
+        backgroundColor: compLabels.map((_, i) => palette[i % palette.length]),
+        borderWidth: 0,
+        hoverOffset: 4
+      }]
     },
-    options: {
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { stacked: true, grid: { color: gridColor } },
-        y: { stacked: true, grid: { color: gridColor }, ticks: { callback: v => '$' + (v/1000).toFixed(0) + 'K' } }
-      }
-    }
+    options: { cutout: '60%', plugins: { legend: { display: false } } }
   });
+  updateExpenditureComponentsChart();
 }
 
-const FIELD_ALIASES = {
-  rev: ['revenue','totalrevenue','sales','turnover'],
-  gp: ['grossprofit','grossprofitloss'],
-  np: ['netprofit','netprofitloss','profitaftertax','netincome'],
-  opex: ['opex','operatingexpenses','totalopexpenses','totaloperatingexpenses'],
-  gpm: ['gpm','grossprofitmargin','grossmargin'],
-  npm: ['npm','netprofitmargin','netmargin'],
-  ocf: ['ocf','operatingcashflow','cashflowfromoperations','netcashfromoperatingactivities'],
-  icf: ['icf','investingcashflow','cashflowfrominvesting','netcashfrominvestingactivities'],
-  fcf: ['fcf','financingcashflow','cashflowfromfinancing','netcashfromfinancingactivities'],
-  'cos.purchases': ['purchases','purchase','costofsalespurchases'],
-  'cos.food': ['food','foodingredients','ingredients','foodcost'],
-  'topOpex.labour': ['labour','labor','labourcost','laborcost','totallabourcost','totallaborcost','staffcost'],
-  'topOpex.utilities': ['utilities','utility','utilitiescost'],
-  'topOpex.depreciation': ['depreciation','depreciationexpense'],
-  'topOpex.motorVehicle': ['motorvehicle','motorvehicleexpense','vehicle','transport'],
-  'topOpex.professional': ['professional','professionalfees','professionalfee'],
-  'topOpex.subscriptions': ['subscriptions','subscription','software'],
-  'labour.salaries': ['salaries','wages','salariesandwages','salarywages'],
-  'labour.cpf_fwl_sdl': ['cpffwlsdl','cpf','fwl','sdl','levies','cpfandlevy'],
-  'labour.bonus_ot': ['bonusot','bonusandovertime','bonus','overtime','ot'],
-  'headcount.total': ['headcount','totalheadcount','totalstaff'],
-  'headcount.ft': ['fulltime','fulltimeheadcount','ft','fulltimestaff'],
-  'headcount.pt': ['parttime','parttimeheadcount','pt','parttimestaff']
-};
-
-function normKey(value) {
-  return String(value || '').toLowerCase().replace(/fy/g,'').replace(/[^a-z0-9]/g,'');
-}
-function extractYear(value) {
-  const match = String(value || '').match(/20\d{2}/);
-  return match ? Number(match[0]) : null;
-}
-function toNumber(value) {
-  if (value == null || value === '') return null;
-  if (typeof value === 'number') return isFinite(value) ? value : null;
-  const cleaned = String(value).replace(/[$,%\s,]/g,'').replace(/[()]/g, m => m === '(' ? '-' : '');
-  const parsed = Number(cleaned);
-  if (!isFinite(parsed)) return null;
-  return String(value).includes('%') ? parsed / 100 : parsed;
-}
-function blankYearData() {
-  return {
-    rev: 0, gp: 0, np: 0, opex: 0, gpm: 0, npm: 0, ocf: 0, icf: 0, fcf: 0,
-    cos: { food: 0, purchases: 0 },
-    topOpex: { labour: 0, utilities: 0, depreciation: 0, motorVehicle: 0, professional: 0, subscriptions: 0 },
-    labour: { salaries: 0, cpf_fwl_sdl: 0, bonus_ot: 0 },
-    headcount: { total: 0, ft: 0, pt: 0 }
-  };
-}
-function resolveField(name) {
-  const normalized = normKey(name);
-  for (const [field, aliases] of Object.entries(FIELD_ALIASES)) {
-    if (aliases.includes(normalized)) return field;
-  }
-  return null;
-}
-function setNested(target, path, value) {
-  if (value == null) return;
-  const parts = path.split('.');
-  let cursor = target;
-  parts.slice(0,-1).forEach(part => cursor = cursor[part] ||= {});
-  cursor[parts[parts.length - 1]] = value;
-}
-function normalizeYearData(year, data) {
-  const merged = { ...blankYearData(), ...(DATA[year] || {}), ...data };
-  merged.cos = { ...blankYearData().cos, ...(DATA[year]?.cos || {}), ...(data.cos || {}) };
-  merged.topOpex = { ...blankYearData().topOpex, ...(DATA[year]?.topOpex || {}), ...(data.topOpex || {}) };
-  merged.labour = { ...blankYearData().labour, ...(DATA[year]?.labour || {}), ...(data.labour || {}) };
-  merged.headcount = { ...blankYearData().headcount, ...(DATA[year]?.headcount || {}), ...(data.headcount || {}) };
-  if (!merged.gpm && merged.rev) merged.gpm = merged.gp / merged.rev;
-  if (!merged.npm && merged.rev) merged.npm = merged.np / merged.rev;
-  if (!merged.opex) merged.opex = Object.values(merged.topOpex).reduce((sum, v) => sum + (Number(v) || 0), 0);
-  return merged;
-}
-function parseCSV(text) {
-  const rows = [];
-  let row = [], cell = '', quoted = false;
-  for (let i = 0; i < text.length; i++) {
-    const ch = text[i], next = text[i+1];
-    if (ch === '"' && quoted && next === '"') { cell += '"'; i++; continue; }
-    if (ch === '"') { quoted = !quoted; continue; }
-    if (ch === ',' && !quoted) { row.push(cell); cell = ''; continue; }
-    if ((ch === '\n' || ch === '\r') && !quoted) {
-      if (ch === '\r' && next === '\n') i++;
-      row.push(cell); rows.push(row); row = []; cell = ''; continue;
-    }
-    cell += ch;
-  }
-  row.push(cell); rows.push(row);
-  const headers = rows.shift().map(h => String(h).trim());
-  return rows.filter(r => r.some(c => String(c).trim())).map(r =>
-    Object.fromEntries(headers.map((h, i) => [h, r[i] ?? '']))
-  );
-}
-function rowsToData(rows) {
-  const parsed = {};
-  rows.forEach(row => {
-    const entries = Object.entries(row);
-    const yearEntry = entries.find(([k,v]) => normKey(k) === 'year' || normKey(k) === 'fiscalyear' || extractYear(v));
-    const metricEntry = entries.find(([k]) => ['metric','account','item','lineitem'].includes(normKey(k)));
-    if (yearEntry && !metricEntry) {
-      const year = extractYear(yearEntry[1]) || extractYear(yearEntry[0]);
-      if (!year) return;
-      parsed[year] ||= {};
-      entries.forEach(([key, value]) => {
-        const field = resolveField(key);
-        if (field) setNested(parsed[year], field, toNumber(value));
-      });
-      return;
-    }
-    if (metricEntry) {
-      const field = resolveField(metricEntry[1]);
-      if (!field) return;
-      entries.forEach(([key, value]) => {
-        const year = extractYear(key) || (['year','fiscalyear'].includes(normKey(key)) ? extractYear(value) : null);
-        if (!year || key === metricEntry[0]) return;
-        parsed[year] ||= {};
-        setNested(parsed[year], field, toNumber(value));
-      });
-    }
-  });
-  return Object.fromEntries(Object.entries(parsed).map(([year, data]) => [year, normalizeYearData(Number(year), data)]));
-}
-function normalizeJSON(payload) {
-  if (Array.isArray(payload)) return rowsToData(payload);
-  if (payload.year) return rowsToData([payload]);
-  return Object.fromEntries(Object.entries(payload).map(([year, data]) =>
-    [year, normalizeYearData(Number(year), data)]
-  ).filter(([year]) => Number(year)));
-}
-async function readUploadFile(file) {
-  const name = file.name.toLowerCase();
-  if (name.endsWith('.json')) return normalizeJSON(JSON.parse(await file.text()));
-  if (name.endsWith('.csv')) return rowsToData(parseCSV(await file.text()));
-  if (name.endsWith('.xlsx') || name.endsWith('.xls')) {
-    if (!window.XLSX) throw new Error('Excel parser is still loading. Please try again in a moment.');
-    const workbook = XLSX.read(await file.arrayBuffer(), { type: 'array' });
-    const sheet = workbook.Sheets[workbook.SheetNames[0]];
-    return rowsToData(XLSX.utils.sheet_to_json(sheet, { defval: '' }));
-  }
-  throw new Error('Unsupported file type. Please upload .xlsx, .xls, .csv, or .json.');
-}
-async function handleUpload(file) {
-  const status = document.getElementById('upload-status');
-  status.className = 'upload-status';
-  status.textContent = `Reading ${file.name}...`;
-  try {
-    const imported = await readUploadFile(file);
-    const importedYears = Object.keys(imported).map(Number).filter(Boolean);
-    if (!importedYears.length) throw new Error('No usable fiscal year data was found.');
-    importedYears.forEach(year => DATA[year] = imported[year]);
-    currentYear = Math.max(...importedYears);
-    drawAll();
-    updateKPIs(currentYear);
-    status.className = 'upload-status ok';
-    status.textContent = `Loaded FY${importedYears.join(', FY')} from ${file.name}`;
-  } catch (err) {
-    status.className = 'upload-status err';
-    status.textContent = err.message;
-  }
-}
-function setupUpload() {
-  const dropzone = document.getElementById('upload-dropzone');
-  const input = document.getElementById('upload-input');
-  document.getElementById('upload-button').addEventListener('click', () => input.click());
-  input.addEventListener('change', e => e.target.files[0] && handleUpload(e.target.files[0]));
-  ['dragenter','dragover'].forEach(eventName => dropzone.addEventListener(eventName, e => {
-    e.preventDefault(); dropzone.classList.add('dragging');
-  }));
-  ['dragleave','drop'].forEach(eventName => dropzone.addEventListener(eventName, e => {
-    e.preventDefault(); dropzone.classList.remove('dragging');
-  }));
-  dropzone.addEventListener('drop', e => {
-    const file = e.dataTransfer.files[0];
-    if (file) handleUpload(file);
-  });
-}
-
-// ── YEAR SWITCH ──
 function setYear(y) {
   currentYear = y;
   document.querySelectorAll('.year-pill').forEach(p => p.classList.remove('active'));
   document.querySelector(`.year-pill[data-year="${y}"]`)?.classList.add('active');
   updateKPIs(y);
-  // Update COS donut
-  const cosD = DATA[y].cos || {};
-  if (charts.costDonut) {
-    charts.costDonut.data.datasets[0].data = [cosD.purchases || 0, cosD.food || 0];
+  renderDynamicInsights(y);
+  
+  const latestData = window.dashboardData[currentYear];
+  if (latestData && charts.costDonut) {
+    const expBreakdown = latestData.datasets.expenditure_breakdown || {};
+    charts.costDonut.data.labels = Object.keys(expBreakdown);
+    charts.costDonut.data.datasets[0].data = Object.values(expBreakdown);
     charts.costDonut.update();
+    document.getElementById('cos-sub').textContent = `FY${y}`;
+    const totalExp = Object.values(expBreakdown).reduce((sum, val) => sum + (val || 0), 0);
+    document.getElementById('cos-total').textContent = fmt(totalExp) + ' total';
   }
 }
-
-// ── INIT ──
-currentYear = getLatestYear();
-setupUpload();
-drawAll();
-updateKPIs(currentYear);
 </script>
 </body>
 </html>

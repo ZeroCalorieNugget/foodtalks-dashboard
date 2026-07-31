@@ -1,0 +1,773 @@
+{
+    "income_statement": {
+        "table_rows": [
+            {
+                "accounting item": "Trading Income",
+                "category 01": "revenue",
+                "category 02": "operating revenue",
+                "accounting break_up item": "Sales",
+                "2025": 137238,
+                "2024": 142476,
+                "2023": 11978
+            },
+            {
+                "accounting item": "Cost of Sales",
+                "category 01": "cost",
+                "category 02": "cost of food",
+                "accounting break_up item": "Food",
+                "2025": 21615,
+                "2024": 25598,
+                "2023": -70156
+            },
+            {
+                "accounting item": "Cost of Sales",
+                "category 01": "cost",
+                "category 02": "cost of Purchases",
+                "accounting break_up item": "Purchases",
+                "2025": -49846,
+                "2024": 4677,
+                "2023": 179930
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "other",
+                "category 02": "Rights-based Expenses",
+                "accounting break_up item": "License fee",
+                "2025": 175639,
+                "2024": 173483,
+                "2023": 167169
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "Capacity",
+                "category 02": "Capacity Costs-produce",
+                "accounting break_up item": "Property Tax",
+                "2025": -31016,
+                "2024": 130591,
+                "2023": 147867
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "Capacity",
+                "category 02": "Capacity Costs-produce",
+                "accounting break_up item": "Storage Rental",
+                "2025": 127310,
+                "2024": 4757,
+                "2023": -2586
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "Capacity",
+                "category 02": "Capacity Costs-produce",
+                "accounting break_up item": "Rental  - Kitchen",
+                "2025": 48773,
+                "2024": 62043,
+                "2023": -12499
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "Capacity",
+                "category 02": "Capacity Costs-produce",
+                "accounting break_up item": "Depreciation",
+                "2025": -64285,
+                "2024": 92371,
+                "2023": -74826
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "Capacity",
+                "category 02": "Capacity Costs-produce",
+                "accounting break_up item": "Facility Fee",
+                "2025": -30467,
+                "2024": 1637,
+                "2023": -55078
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "Capacity",
+                "category 02": "Capacity Costs-produce",
+                "accounting break_up item": "Kitchen Ware",
+                "2025": 181,
+                "2024": 49459,
+                "2023": 39813
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "Capacity",
+                "category 02": "Capacity Costs-produce",
+                "accounting break_up item": "Kitchen Ware - Miscellaneous",
+                "2025": -26608,
+                "2024": 7104,
+                "2023": 106062
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "Capacity",
+                "category 02": "Capacity Costs-produce",
+                "accounting break_up item": "Maintenance Fee",
+                "2025": 174654,
+                "2024": 73284,
+                "2023": 19491
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "Capacity",
+                "category 02": "Capacity Costs-produce",
+                "accounting break_up item": "Repairs and Maintenance",
+                "2025": 33112,
+                "2024": -64451,
+                "2023": -49152
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "Capacity",
+                "category 02": "Capacity Costs-produce",
+                "accounting break_up item": "Leasing expenses",
+                "2025": 165653,
+                "2024": 60781,
+                "2023": 152484
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "Capacity",
+                "category 02": "Capacity Costs-produce",
+                "accounting break_up item": "Insurance",
+                "2025": 81148,
+                "2024": 34755,
+                "2023": -25063
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "Capacity",
+                "category 02": "Capacity Costs-deliver",
+                "accounting break_up item": "Delivery Expenses",
+                "2025": 94590,
+                "2024": -25295,
+                "2023": -76464
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "Capacity",
+                "category 02": "Capacity Costs-deliver",
+                "accounting break_up item": "Parking",
+                "2025": -27045,
+                "2024": 23328,
+                "2023": 36100
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "Capacity",
+                "category 02": "Capacity Costs-deliver",
+                "accounting break_up item": "Road Tax",
+                "2025": -36581,
+                "2024": -4502,
+                "2023": -7690
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "Capacity",
+                "category 02": "Capacity Costs-deliver",
+                "accounting break_up item": "Motor Vehicle Expenses",
+                "2025": 61113,
+                "2024": -39334,
+                "2023": 175034
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "Capacity",
+                "category 02": "Capacity Costs-deliver",
+                "accounting break_up item": "Upkeep of motor vehicle",
+                "2025": 174681,
+                "2024": -47530,
+                "2023": -37118
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "Consumption",
+                "category 02": "Consumption Expenses",
+                "accounting break_up item": "Disposable Wares",
+                "2025": 1330,
+                "2024": 70010,
+                "2023": 81292
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "Consumption",
+                "category 02": "Consumption Expenses",
+                "accounting break_up item": "Cleaning Supplies",
+                "2025": 172777,
+                "2024": 36509,
+                "2023": 93476
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "Consumption",
+                "category 02": "Consumption Expenses",
+                "accounting break_up item": "Utilities",
+                "2025": -7912,
+                "2024": -2496,
+                "2023": 109628
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "People",
+                "category 02": "People cost-employee",
+                "accounting break_up item": "Salaries and Wages",
+                "2025": -53248,
+                "2024": -69442,
+                "2023": 86172
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "People",
+                "category 02": "People cost-employee",
+                "accounting break_up item": "Staff accomodation",
+                "2025": 56056,
+                "2024": 43703,
+                "2023": 131634
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "People",
+                "category 02": "People cost-employee",
+                "accounting break_up item": "Staff Meals",
+                "2025": 47605,
+                "2024": -34728,
+                "2023": 159416
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "People",
+                "category 02": "People cost-employee",
+                "accounting break_up item": "Staff welfare",
+                "2025": 153877,
+                "2024": 42381,
+                "2023": 138158
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "People",
+                "category 02": "People cost-employee",
+                "accounting break_up item": "Casual Labour",
+                "2025": 155689,
+                "2024": 144668,
+                "2023": 155317
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "People",
+                "category 02": "People cost-employee",
+                "accounting break_up item": "Bonuses",
+                "2025": 173596,
+                "2024": 137374,
+                "2023": 6238
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "People",
+                "category 02": "People cost-employee",
+                "accounting break_up item": "Overtime, incentive, off-in-lieu, AL pay",
+                "2025": 141603,
+                "2024": 55870,
+                "2023": 120382
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "People",
+                "category 02": "People cost-employee",
+                "accounting break_up item": "Recruitment Expenses",
+                "2025": 165742,
+                "2024": 72168,
+                "2023": -16238
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "People",
+                "category 02": "People cost-employee",
+                "accounting break_up item": "Medical Expenses",
+                "2025": 57808,
+                "2024": -19455,
+                "2023": 27535
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "People",
+                "category 02": "People cost-employee",
+                "accounting break_up item": "CPF",
+                "2025": -70370,
+                "2024": 110950,
+                "2023": 112641
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "People",
+                "category 02": "People cost-employee",
+                "accounting break_up item": "CDAC",
+                "2025": -23690,
+                "2024": -14293,
+                "2023": 43317
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "People",
+                "category 02": "People cost-employee",
+                "accounting break_up item": "FWL",
+                "2025": -65098,
+                "2024": -26579,
+                "2023": 145602
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "People",
+                "category 02": "People cost-employee",
+                "accounting break_up item": "Courses and training fees",
+                "2025": 85730,
+                "2024": 72411,
+                "2023": 79209
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "People",
+                "category 02": "People cost-employee",
+                "accounting break_up item": "SDL",
+                "2025": 120813,
+                "2024": 11732,
+                "2023": 29467
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "other",
+                "category 02": "People cost-employer",
+                "accounting break_up item": "Director Fee",
+                "2025": 3378,
+                "2024": 158667,
+                "2023": 70631
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "other",
+                "category 02": "Financial costs",
+                "accounting break_up item": "Bank Fees",
+                "2025": -11715,
+                "2024": 130748,
+                "2023": 175171
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "other",
+                "category 02": "Financial costs",
+                "accounting break_up item": "HP interest",
+                "2025": -34353,
+                "2024": 117443,
+                "2023": -40897
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "other",
+                "category 02": "Financial costs",
+                "accounting break_up item": "Loan interest",
+                "2025": 152035,
+                "2024": 165491,
+                "2023": -24038
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "Go-to-Market",
+                "category 02": "Go-to-Market costs",
+                "accounting break_up item": "Subscriptions",
+                "2025": 135250,
+                "2024": 122192,
+                "2023": 35056
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "Go-to-Market",
+                "category 02": "Go-to-Market costs",
+                "accounting break_up item": "Entertainment",
+                "2025": 44927,
+                "2024": 49742,
+                "2023": -6877
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "Go-to-Market",
+                "category 02": "Go-to-Market costs",
+                "accounting break_up item": "Advertising & Marketing",
+                "2025": 134169,
+                "2024": 128731,
+                "2023": -68407
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "Go-to-Market",
+                "category 02": "Go-to-Market costs",
+                "accounting break_up item": "Travel - International",
+                "2025": 168477,
+                "2024": 39894,
+                "2023": 149554
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "Go-to-Market",
+                "category 02": "Go-to-Market costs",
+                "accounting break_up item": "Commission",
+                "2025": -65268,
+                "2024": 165469,
+                "2023": 133638
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "other",
+                "category 02": "Professional Services",
+                "accounting break_up item": "Accounting Fee",
+                "2025": 119692,
+                "2024": 34287,
+                "2023": 115215
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "other",
+                "category 02": "Professional Services",
+                "accounting break_up item": "Professional expenses",
+                "2025": -54218,
+                "2024": 36751,
+                "2023": 58462
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "other",
+                "category 02": "Administrative Support",
+                "accounting break_up item": "Office Expenses",
+                "2025": 107268,
+                "2024": 158010,
+                "2023": 121485
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "other",
+                "category 02": "Administrative Support",
+                "accounting break_up item": "Printing & Stationery",
+                "2025": 135900,
+                "2024": 136334,
+                "2023": 4928
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "other",
+                "category 02": "Administrative Support",
+                "accounting break_up item": "Telephone & Internet",
+                "2025": -13163,
+                "2024": 44319,
+                "2023": -6291
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "other",
+                "category 02": "General & minor",
+                "accounting break_up item": "General Expenses",
+                "2025": 72258,
+                "2024": 70888,
+                "2023": 100581
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "other",
+                "category 02": "General & minor",
+                "accounting break_up item": "Minor assets",
+                "2025": -34945,
+                "2024": 110583,
+                "2023": -52701
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "other",
+                "category 02": "General & minor",
+                "accounting break_up item": "Misc expenses",
+                "2025": 170020,
+                "2024": 166367,
+                "2023": 9006
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "other",
+                "category 02": "General & minor",
+                "accounting break_up item": "Transportation",
+                "2025": 13186,
+                "2024": 79592,
+                "2023": 117556
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "other",
+                "category 02": "General & minor",
+                "accounting break_up item": "Subcontractors",
+                "2025": -45793,
+                "2024": 138499,
+                "2023": -69764
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "other",
+                "category 02": "General & minor",
+                "accounting break_up item": "Fine & penalties",
+                "2025": 118155,
+                "2024": -76742,
+                "2023": 84739
+            },
+            {
+                "accounting item": "Operating Expenses",
+                "category 01": "other",
+                "category 02": "General & minor",
+                "accounting break_up item": "Corporate Tax Expense",
+                "2025": 125622,
+                "2024": 7750,
+                "2023": -56055
+            }
+        ],
+        "columns": [
+            "accounting item",
+            "category 01",
+            "category 02",
+            "accounting break_up item",
+            "2025",
+            "2024",
+            "2023"
+        ],
+        "total_rows": 58,
+        "notes": "Complete raw data extraction layer preserving original Income Statement structure with standardized schema"
+    },
+    "balance_sheet": {
+        "table_rows": [
+            {
+                "category 01": "cash",
+                "accounting item": "current Assets",
+                "accounting break_up item": "CIMB SGD",
+                "2025": 73994,
+                "2024": 54395,
+                "2023": 85533
+            },
+            {
+                "category 01": "cash",
+                "accounting item": "current Assets",
+                "accounting break_up item": "DBS SGD",
+                "2025": 44865,
+                "2024": 177652,
+                "2023": 17309
+            },
+            {
+                "category 01": "cash",
+                "accounting item": "current Assets",
+                "accounting break_up item": "Maybank SGD - FTPL",
+                "2025": 35580,
+                "2024": 31138,
+                "2023": 78986
+            },
+            {
+                "category 01": "cash",
+                "accounting item": "current Assets",
+                "accounting break_up item": "MAYBANK SGD_CLOSED",
+                "2025": -46491,
+                "2024": -16079,
+                "2023": 128009
+            },
+            {
+                "category 01": "cash",
+                "accounting item": "current Assets",
+                "accounting break_up item": "OCBC Account",
+                "2025": 111897,
+                "2024": 52160,
+                "2023": 151126
+            },
+            {
+                "category 01": "cash",
+                "accounting item": "current Assets",
+                "accounting break_up item": "Petty cash",
+                "2025": 110738,
+                "2024": -34680,
+                "2023": 134907
+            },
+            {
+                "category 01": "Operating Receivables",
+                "accounting item": "current Assets",
+                "accounting break_up item": "Accounts Receivable",
+                "2025": 143166,
+                "2024": -35337,
+                "2023": 6757
+            },
+            {
+                "category 01": "Operating Receivables",
+                "accounting item": "current Assets",
+                "accounting break_up item": "Deposits",
+                "2025": 69386,
+                "2024": -58791,
+                "2023": 129053
+            },
+            {
+                "category 01": "Financing Receivables",
+                "accounting item": "current Assets",
+                "accounting break_up item": "Loan receivables",
+                "2025": -46652,
+                "2024": -12374,
+                "2023": 71902
+            },
+            {
+                "category 01": "Operating Receivables",
+                "accounting item": "current Assets",
+                "accounting break_up item": "Other receivables",
+                "2025": 157937,
+                "2024": -51534,
+                "2023": -9152
+            },
+            {
+                "category 01": "Prepayments",
+                "accounting item": "current Assets",
+                "accounting break_up item": "Prepayments",
+                "2025": -78276,
+                "2024": 4241,
+                "2023": -69119
+            },
+            {
+                "category 01": "Operating Payables",
+                "accounting item": "current Liabilities",
+                "accounting break_up item": "Accounts Payable",
+                "2025": 34532,
+                "2024": 101540,
+                "2023": 158767
+            },
+            {
+                "category 01": "Operating Payables",
+                "accounting item": "current Liabilities",
+                "accounting break_up item": "Accrued expenses",
+                "2025": 46225,
+                "2024": 38075,
+                "2023": 58768
+            },
+            {
+                "category 01": "Operating Payables",
+                "accounting item": "current Liabilities",
+                "accounting break_up item": "Other Payables",
+                "2025": 91021,
+                "2024": 112878,
+                "2023": 8025
+            },
+            {
+                "category 01": "Tax Liabilities",
+                "accounting item": "current Liabilities",
+                "accounting break_up item": "GST",
+                "2025": 17182,
+                "2024": -36132,
+                "2023": -14905
+            },
+            {
+                "category 01": "Contract Liabilities",
+                "accounting item": "current Liabilities",
+                "accounting break_up item": "Customer prepayment",
+                "2025": -44238,
+                "2024": 166001,
+                "2023": 156488
+            },
+            {
+                "category 01": "Borrowings-short",
+                "accounting item": "current Liabilities",
+                "accounting break_up item": "CIMB Loan (current)",
+                "2025": 23842,
+                "2024": 45318,
+                "2023": -38495
+            },
+            {
+                "category 01": "Borrowings-short",
+                "accounting item": "current Liabilities",
+                "accounting break_up item": "DBS Loan (current)",
+                "2025": 47063,
+                "2024": 60048,
+                "2023": 170678
+            },
+            {
+                "category 01": "Borrowings-short",
+                "accounting item": "current Liabilities",
+                "accounting break_up item": "DBS Working Capital Loan (current)",
+                "2025": 21978,
+                "2024": -50415,
+                "2023": 89464
+            },
+            {
+                "category 01": "Borrowings-short",
+                "accounting item": "current Liabilities",
+                "accounting break_up item": "Maybank Loan (current)",
+                "2025": 169699,
+                "2024": 30499,
+                "2023": 5363
+            },
+            {
+                "category 01": "Borrowings-short",
+                "accounting item": "current Liabilities",
+                "accounting break_up item": "OCBC Temporary Bridging Loan (current)",
+                "2025": 173569,
+                "2024": -79258,
+                "2023": 74112
+            },
+            {
+                "category 01": "Borrowings-short",
+                "accounting item": "current Liabilities",
+                "accounting break_up item": "Hire Purchases",
+                "2025": 61998,
+                "2024": 123776,
+                "2023": 153396
+            },
+            {
+                "category 01": "Tax Liabilities",
+                "accounting item": "current Liabilities",
+                "accounting break_up item": "Income Tax Payable",
+                "2025": 11617,
+                "2024": -14109,
+                "2023": -62413
+            }
+        ],
+        "columns": [
+            "category 01",
+            "accounting item",
+            "accounting break_up item",
+            "2025",
+            "2024",
+            "2023"
+        ],
+        "total_rows": 23,
+        "notes": "Complete raw data extraction layer preserving original Balance Sheet structure with standardized schema"
+    },
+    "cash_flow_statement": {
+        "table_rows": [
+            {
+                "accounting item": "Operating Cash Flow (CFO)",
+                "2025": 35506,
+                "2024": 326999,
+                "2023": 209060
+            },
+            {
+                "accounting item": "Investing Cash Flow (CFI)",
+                "2025": 282302,
+                "2024": -88678,
+                "2023": -186286
+            },
+            {
+                "accounting item": "Financing Cash Flow (CFF)",
+                "2025": 276527,
+                "2024": -59072,
+                "2023": -198837
+            },
+            {
+                "accounting item": "Net Cash Flow",
+                "2025": 343041,
+                "2024": 337333,
+                "2023": 310926
+            }
+        ],
+        "columns": [
+            "accounting item",
+            "2025",
+            "2024",
+            "2023"
+        ],
+        "total_rows": 4,
+        "notes": "Complete raw data extraction layer preserving original Cash Flow Statement structure with standardized schema"
+    }
+}

@@ -1,0 +1,464 @@
+{
+    "2023": {
+        "kpis": {
+            "total_revenue": 11978.0,
+            "gross_profit_margin": -8.1646,
+            "net_profit_margin": -246.7505,
+            "operating_cash_flow": 209060.0,
+            "current_ratio": 0.96,
+            "cash_ratio": 0.78,
+            "cash_burn_months": 23.0,
+            "cash_conversion": -0.07
+        },
+        "datasets": {
+            "revenue_allocation": {
+                "revenue": 11978.0,
+                "profit": -2955578.0,
+                "cost": 109774.0,
+                "other": 775197.0,
+                "capacity": 336375.0,
+                "consumption": 284396.0,
+                "people": 1218850.0,
+                "go-to-market": 242964.0
+            },
+            "margin_compression": {
+                "gross_profit_margin": -8.1646,
+                "net_profit_margin": -246.7505
+            },
+            "expenditure_breakdown": {
+                "cost of food": -70156.0,
+                "cost of purchases": 179930.0,
+                "rights-based expenses": 167169.0,
+                "capacity costs-produce": 246513.0,
+                "capacity costs-deliver": 89862.0,
+                "consumption expenses": 284396.0,
+                "people cost-employee": 1218850.0,
+                "people cost-employer": 70631.0,
+                "financial costs": 110236.0,
+                "go-to-market costs": 242964.0,
+                "professional services": 173677.0,
+                "administrative support": 120122.0,
+                "general & minor": 133362.0
+            },
+            "cash_flow_summary": {
+                "cfo": 209060.0,
+                "cfi": -186286.0,
+                "cff": -198837.0
+            },
+            "expenditure_components": {
+                "operating revenue": {
+                    "Sales": 11978.0
+                },
+                "cost of food": {
+                    "Food": -70156.0
+                },
+                "cost of purchases": {
+                    "Purchases": 179930.0
+                },
+                "rights-based expenses": {
+                    "License fee": 167169.0
+                },
+                "capacity costs-produce": {
+                    "Property Tax": 147867.0,
+                    "Storage Rental": -2586.0,
+                    "Rental  - Kitchen": -12499.0,
+                    "Depreciation": -74826.0,
+                    "Facility Fee": -55078.0,
+                    "Kitchen Ware": 39813.0,
+                    "Kitchen Ware - Miscellaneous": 106062.0,
+                    "Maintenance Fee": 19491.0,
+                    "Repairs and Maintenance": -49152.0,
+                    "Leasing expenses": 152484.0,
+                    "Insurance": -25063.0
+                },
+                "capacity costs-deliver": {
+                    "Delivery Expenses": -76464.0,
+                    "Parking": 36100.0,
+                    "Road Tax": -7690.0,
+                    "Motor Vehicle Expenses": 175034.0,
+                    "Upkeep of motor vehicle": -37118.0
+                },
+                "consumption expenses": {
+                    "Disposable Wares": 81292.0,
+                    "Cleaning Supplies": 93476.0,
+                    "Utilities": 109628.0
+                },
+                "people cost-employee": {
+                    "Salaries and Wages": 86172.0,
+                    "Staff accomodation": 131634.0,
+                    "Staff Meals": 159416.0,
+                    "Staff welfare": 138158.0,
+                    "Casual Labour": 155317.0,
+                    "Bonuses": 6238.0,
+                    "Overtime, incentive, off-in-lieu, AL pay": 120382.0,
+                    "Recruitment Expenses": -16238.0,
+                    "Medical Expenses": 27535.0,
+                    "CPF": 112641.0,
+                    "CDAC": 43317.0,
+                    "FWL": 145602.0,
+                    "Courses and training fees": 79209.0,
+                    "SDL": 29467.0
+                },
+                "people cost-employer": {
+                    "Director Fee": 70631.0
+                },
+                "financial costs": {
+                    "Bank Fees": 175171.0,
+                    "HP interest": -40897.0,
+                    "Loan interest": -24038.0
+                },
+                "go-to-market costs": {
+                    "Subscriptions": 35056.0,
+                    "Entertainment": -6877.0,
+                    "Advertising & Marketing": -68407.0,
+                    "Travel - International": 149554.0,
+                    "Commission": 133638.0
+                },
+                "professional services": {
+                    "Accounting Fee": 115215.0,
+                    "Professional expenses": 58462.0
+                },
+                "administrative support": {
+                    "Office Expenses": 121485.0,
+                    "Printing & Stationery": 4928.0,
+                    "Telephone & Internet": -6291.0
+                },
+                "general & minor": {
+                    "General Expenses": 100581.0,
+                    "Minor assets": -52701.0,
+                    "Misc expenses": 9006.0,
+                    "Transportation": 117556.0,
+                    "Subcontractors": -69764.0,
+                    "Fine & penalties": 84739.0,
+                    "Corporate Tax Expense": -56055.0
+                }
+            },
+            "growth_trends": {
+                "revenue": 0.0,
+                "categories": {
+                    "cost of food": 0.0,
+                    "cost of purchases": 0.0,
+                    "rights-based expenses": 0.0,
+                    "capacity costs-produce": 0.0,
+                    "capacity costs-deliver": 0.0,
+                    "consumption expenses": 0.0,
+                    "people cost-employee": 0.0,
+                    "people cost-employer": 0.0,
+                    "financial costs": 0.0,
+                    "go-to-market costs": 0.0,
+                    "professional services": 0.0,
+                    "administrative support": 0.0,
+                    "general & minor": 0.0
+                }
+            }
+        }
+    },
+    "2024": {
+        "kpis": {
+            "total_revenue": 142476.0,
+            "gross_profit_margin": 0.7875,
+            "net_profit_margin": -21.3094,
+            "operating_cash_flow": 326999.0,
+            "current_ratio": 0.22,
+            "cash_ratio": 0.53,
+            "cash_burn_months": 9.4,
+            "cash_conversion": -0.11
+        },
+        "datasets": {
+            "revenue_allocation": {
+                "revenue": 142476.0,
+                "profit": -3036078.0,
+                "cost": 30275.0,
+                "other": 1652470.0,
+                "capacity": 358998.0,
+                "consumption": 104023.0,
+                "people": 526760.0,
+                "go-to-market": 506028.0
+            },
+            "margin_compression": {
+                "gross_profit_margin": 0.7875,
+                "net_profit_margin": -21.3094
+            },
+            "expenditure_breakdown": {
+                "cost of food": 25598.0,
+                "cost of purchases": 4677.0,
+                "rights-based expenses": 173483.0,
+                "capacity costs-produce": 452331.0,
+                "capacity costs-deliver": -93333.0,
+                "consumption expenses": 104023.0,
+                "people cost-employee": 526760.0,
+                "people cost-employer": 158667.0,
+                "financial costs": 413682.0,
+                "go-to-market costs": 506028.0,
+                "professional services": 71038.0,
+                "administrative support": 338663.0,
+                "general & minor": 496937.0
+            },
+            "cash_flow_summary": {
+                "cfo": 326999.0,
+                "cfi": -88678.0,
+                "cff": -59072.0
+            },
+            "expenditure_components": {
+                "operating revenue": {
+                    "Sales": 142476.0
+                },
+                "cost of food": {
+                    "Food": 25598.0
+                },
+                "cost of purchases": {
+                    "Purchases": 4677.0
+                },
+                "rights-based expenses": {
+                    "License fee": 173483.0
+                },
+                "capacity costs-produce": {
+                    "Property Tax": 130591.0,
+                    "Storage Rental": 4757.0,
+                    "Rental  - Kitchen": 62043.0,
+                    "Depreciation": 92371.0,
+                    "Facility Fee": 1637.0,
+                    "Kitchen Ware": 49459.0,
+                    "Kitchen Ware - Miscellaneous": 7104.0,
+                    "Maintenance Fee": 73284.0,
+                    "Repairs and Maintenance": -64451.0,
+                    "Leasing expenses": 60781.0,
+                    "Insurance": 34755.0
+                },
+                "capacity costs-deliver": {
+                    "Delivery Expenses": -25295.0,
+                    "Parking": 23328.0,
+                    "Road Tax": -4502.0,
+                    "Motor Vehicle Expenses": -39334.0,
+                    "Upkeep of motor vehicle": -47530.0
+                },
+                "consumption expenses": {
+                    "Disposable Wares": 70010.0,
+                    "Cleaning Supplies": 36509.0,
+                    "Utilities": -2496.0
+                },
+                "people cost-employee": {
+                    "Salaries and Wages": -69442.0,
+                    "Staff accomodation": 43703.0,
+                    "Staff Meals": -34728.0,
+                    "Staff welfare": 42381.0,
+                    "Casual Labour": 144668.0,
+                    "Bonuses": 137374.0,
+                    "Overtime, incentive, off-in-lieu, AL pay": 55870.0,
+                    "Recruitment Expenses": 72168.0,
+                    "Medical Expenses": -19455.0,
+                    "CPF": 110950.0,
+                    "CDAC": -14293.0,
+                    "FWL": -26579.0,
+                    "Courses and training fees": 72411.0,
+                    "SDL": 11732.0
+                },
+                "people cost-employer": {
+                    "Director Fee": 158667.0
+                },
+                "financial costs": {
+                    "Bank Fees": 130748.0,
+                    "HP interest": 117443.0,
+                    "Loan interest": 165491.0
+                },
+                "go-to-market costs": {
+                    "Subscriptions": 122192.0,
+                    "Entertainment": 49742.0,
+                    "Advertising & Marketing": 128731.0,
+                    "Travel - International": 39894.0,
+                    "Commission": 165469.0
+                },
+                "professional services": {
+                    "Accounting Fee": 34287.0,
+                    "Professional expenses": 36751.0
+                },
+                "administrative support": {
+                    "Office Expenses": 158010.0,
+                    "Printing & Stationery": 136334.0,
+                    "Telephone & Internet": 44319.0
+                },
+                "general & minor": {
+                    "General Expenses": 70888.0,
+                    "Minor assets": 110583.0,
+                    "Misc expenses": 166367.0,
+                    "Transportation": 79592.0,
+                    "Subcontractors": 138499.0,
+                    "Fine & penalties": -76742.0,
+                    "Corporate Tax Expense": 7750.0
+                }
+            },
+            "growth_trends": {
+                "revenue": 10.8948,
+                "categories": {
+                    "cost of food": -1.3649,
+                    "cost of purchases": -0.974,
+                    "rights-based expenses": 0.0378,
+                    "capacity costs-produce": 0.8349,
+                    "capacity costs-deliver": -2.0386,
+                    "consumption expenses": -0.6342,
+                    "people cost-employee": -0.5678,
+                    "people cost-employer": 1.2464,
+                    "financial costs": 2.7527,
+                    "go-to-market costs": 1.0827,
+                    "professional services": -0.591,
+                    "administrative support": 1.8193,
+                    "general & minor": 2.7262
+                }
+            }
+        }
+    },
+    "2025": {
+        "kpis": {
+            "total_revenue": 137238.0,
+            "gross_profit_margin": 1.2057,
+            "net_profit_margin": -22.651,
+            "operating_cash_flow": 35506.0,
+            "current_ratio": 0.88,
+            "cash_ratio": 0.51,
+            "cash_burn_months": 11.6,
+            "cash_conversion": -0.01
+        },
+        "datasets": {
+            "revenue_allocation": {
+                "revenue": 137238.0,
+                "profit": -3108573.0,
+                "cost": -28231.0,
+                "other": 998966.0,
+                "capacity": 745213.0,
+                "consumption": 166195.0,
+                "people": 946113.0,
+                "go-to-market": 417555.0
+            },
+            "margin_compression": {
+                "gross_profit_margin": 1.2057,
+                "net_profit_margin": -22.651
+            },
+            "expenditure_breakdown": {
+                "cost of food": 21615.0,
+                "cost of purchases": -49846.0,
+                "rights-based expenses": 175639.0,
+                "capacity costs-produce": 478455.0,
+                "capacity costs-deliver": 266758.0,
+                "consumption expenses": 166195.0,
+                "people cost-employee": 946113.0,
+                "people cost-employer": 3378.0,
+                "financial costs": 105967.0,
+                "go-to-market costs": 417555.0,
+                "professional services": 65474.0,
+                "administrative support": 230005.0,
+                "general & minor": 418503.0
+            },
+            "cash_flow_summary": {
+                "cfo": 35506.0,
+                "cfi": 282302.0,
+                "cff": 276527.0
+            },
+            "expenditure_components": {
+                "operating revenue": {
+                    "Sales": 137238.0
+                },
+                "cost of food": {
+                    "Food": 21615.0
+                },
+                "cost of purchases": {
+                    "Purchases": -49846.0
+                },
+                "rights-based expenses": {
+                    "License fee": 175639.0
+                },
+                "capacity costs-produce": {
+                    "Property Tax": -31016.0,
+                    "Storage Rental": 127310.0,
+                    "Rental  - Kitchen": 48773.0,
+                    "Depreciation": -64285.0,
+                    "Facility Fee": -30467.0,
+                    "Kitchen Ware": 181.0,
+                    "Kitchen Ware - Miscellaneous": -26608.0,
+                    "Maintenance Fee": 174654.0,
+                    "Repairs and Maintenance": 33112.0,
+                    "Leasing expenses": 165653.0,
+                    "Insurance": 81148.0
+                },
+                "capacity costs-deliver": {
+                    "Delivery Expenses": 94590.0,
+                    "Parking": -27045.0,
+                    "Road Tax": -36581.0,
+                    "Motor Vehicle Expenses": 61113.0,
+                    "Upkeep of motor vehicle": 174681.0
+                },
+                "consumption expenses": {
+                    "Disposable Wares": 1330.0,
+                    "Cleaning Supplies": 172777.0,
+                    "Utilities": -7912.0
+                },
+                "people cost-employee": {
+                    "Salaries and Wages": -53248.0,
+                    "Staff accomodation": 56056.0,
+                    "Staff Meals": 47605.0,
+                    "Staff welfare": 153877.0,
+                    "Casual Labour": 155689.0,
+                    "Bonuses": 173596.0,
+                    "Overtime, incentive, off-in-lieu, AL pay": 141603.0,
+                    "Recruitment Expenses": 165742.0,
+                    "Medical Expenses": 57808.0,
+                    "CPF": -70370.0,
+                    "CDAC": -23690.0,
+                    "FWL": -65098.0,
+                    "Courses and training fees": 85730.0,
+                    "SDL": 120813.0
+                },
+                "people cost-employer": {
+                    "Director Fee": 3378.0
+                },
+                "financial costs": {
+                    "Bank Fees": -11715.0,
+                    "HP interest": -34353.0,
+                    "Loan interest": 152035.0
+                },
+                "go-to-market costs": {
+                    "Subscriptions": 135250.0,
+                    "Entertainment": 44927.0,
+                    "Advertising & Marketing": 134169.0,
+                    "Travel - International": 168477.0,
+                    "Commission": -65268.0
+                },
+                "professional services": {
+                    "Accounting Fee": 119692.0,
+                    "Professional expenses": -54218.0
+                },
+                "administrative support": {
+                    "Office Expenses": 107268.0,
+                    "Printing & Stationery": 135900.0,
+                    "Telephone & Internet": -13163.0
+                },
+                "general & minor": {
+                    "General Expenses": 72258.0,
+                    "Minor assets": -34945.0,
+                    "Misc expenses": 170020.0,
+                    "Transportation": 13186.0,
+                    "Subcontractors": -45793.0,
+                    "Fine & penalties": 118155.0,
+                    "Corporate Tax Expense": 125622.0
+                }
+            },
+            "growth_trends": {
+                "revenue": -0.0368,
+                "categories": {
+                    "cost of food": -0.1556,
+                    "cost of purchases": -11.6577,
+                    "rights-based expenses": 0.0124,
+                    "capacity costs-produce": 0.0578,
+                    "capacity costs-deliver": -3.8581,
+                    "consumption expenses": 0.5977,
+                    "people cost-employee": 0.7961,
+                    "people cost-employer": -0.9787,
+                    "financial costs": -0.7438,
+                    "go-to-market costs": -0.1748,
+                    "professional services": -0.0783,
+                    "administrative support": -0.3208,
+                    "general & minor": -0.1578
+                }
+            }
+        }
+    }
+}
