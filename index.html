@@ -56,7 +56,7 @@ nav{
 .brand-logo{display:block;width:188px;height:auto;flex-shrink:0;}
 .brand-divider{width:1px;height:30px;background:var(--border);flex-shrink:0;}
 .brand-copy{display:flex;flex-direction:column;gap:2px;min-width:0;}
-.nav-brand h1{font-family:var(--display);font-size:22px;line-height:1.1;font-weight:800;letter-spacing:-.035em;}
+.nav-brand h1{font-family:var(--display);font-size:28px;line-height:1.05;font-weight:800;letter-spacing:-.045em;}
 .nav-brand span{font-size:10px;line-height:1.3;color:var(--muted);font-family:var(--mono);letter-spacing:.055em;text-transform:uppercase;}
 .nav-right{display:flex;align-items:center;gap:8px;}
 .year-pill{
@@ -66,7 +66,8 @@ nav{
 }
 .year-pill:hover{color:var(--text);border-color:var(--brand-red);}
 .year-pill.active{background:var(--brand-red);color:#fff;border-color:var(--brand-red);font-weight:500;}
-.secure-badge{font-size:11px;background:var(--green-soft);color:var(--green);padding:4px 10px;border-radius:20px;border:1px solid var(--green);font-family:var(--mono);font-weight:500;}
+.secure-badge{display:inline-flex;align-items:center;gap:7px;font-size:11px;background:var(--green-soft);color:var(--green);padding:5px 11px;border-radius:20px;border:1px solid rgba(20,122,85,.55);font-family:var(--mono);font-weight:500;}
+.secure-badge svg{width:13px;height:13px;stroke:currentColor;flex-shrink:0;}
 
 /* ── LAYOUT CONTAINER ── */
 main{padding:30px 32px 40px;max-width:1440px;margin:0 auto;}
@@ -94,31 +95,39 @@ main{padding:30px 32px 40px;max-width:1440px;margin:0 auto;}
 /* ── UPLOAD PANEL ── */
 .upload-panel{
   background:var(--surface);
-  border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:24px;
+  border:1px solid var(--border);border-radius:16px;padding:26px 28px;margin-bottom:28px;
   box-shadow:var(--shadow);
 }
-.upload-header-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
-.upload-title{font-family:var(--display);font-size:15px;font-weight:700;letter-spacing:-.015em;}
+.upload-header-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.upload-heading{display:flex;align-items:center;gap:14px;}
+.upload-heading-icon{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:var(--brand-red-soft);color:var(--brand-red);flex-shrink:0;}
+.upload-heading-icon svg{width:23px;height:23px;stroke:currentColor;}
+.upload-title{font-family:var(--display);font-size:17px;font-weight:700;letter-spacing:-.025em;}
 .upload-copy{font-size:12px;color:var(--muted);line-height:1.4;}
 .upload-slots-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
 .upload-slot{
-  border:1px dashed var(--border2);border-radius:10px;padding:14px;text-align:center;
-  background:var(--surface2);display:flex;flex-direction:column;gap:8px;align-items:center;
+  border:1px dashed var(--border2);border-radius:12px;padding:16px;text-align:center;
+  background:var(--surface2);display:flex;flex-direction:column;gap:9px;align-items:center;
 }
 .upload-slot.active{border-color:var(--green);background:var(--green-soft);}
+.slot-icon{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--brand-red-soft);color:var(--brand-red);}
+.slot-icon svg{width:19px;height:19px;stroke:currentColor;}
 .slot-title{font-size:11px;font-weight:600;text-transform:uppercase;}
 .slot-status{font-size:10px;font-family:var(--mono);color:var(--muted);}
 .slot-status.ok{color:var(--green);font-weight:500;}
 .slot-status.err{color:var(--red);font-weight:500;}
 .upload-btn-sm{
-  border:1px solid var(--brand-red);background:var(--brand-red);color:#fff;border-radius:8px;
-  padding:5px 12px;font-family:var(--font);font-size:11px;font-weight:600;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid var(--brand-red);background:var(--brand-red);color:#fff;border-radius:8px;
+  padding:7px 14px;font-family:var(--font);font-size:11px;font-weight:600;cursor:pointer;box-shadow:0 5px 12px rgba(230,0,18,.16);
 }
+.upload-btn-sm svg{width:14px;height:14px;stroke:currentColor;}
 .upload-btn-sm:hover{background:var(--brand-red-dark);border-color:var(--brand-red-dark);}
 
 .empty-state-banner{
-  background:#fbfbfb;border:2px dashed var(--border2);border-radius:14px;padding:48px;text-align:center;margin-bottom:24px;
+  background:linear-gradient(180deg,#fff 0%,#f9fafc 100%);border:1.5px dashed #b8c2cf;border-radius:14px;padding:44px;text-align:center;margin-bottom:24px;
 }
+.empty-state-icon{width:96px;height:72px;margin:0 auto 14px;color:#9ca7b4;}
+.empty-state-icon svg{width:100%;height:100%;stroke:currentColor;}
 .empty-state-banner h3{font-family:var(--display);font-size:22px;font-weight:700;letter-spacing:-.025em;margin-bottom:8px;}
 .empty-state-banner p{color:var(--muted);font-size:13px;max-width:500px;margin:0 auto;}
 
@@ -150,6 +159,7 @@ main{padding:30px 32px 40px;max-width:1440px;margin:0 auto;}
 .intel-item{display:flex;gap:10px;padding-bottom:10px;border-bottom:1px solid var(--border);}
 .intel-item:last-child{border-bottom:none;padding-bottom:0;}
 .intel-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
+.intel-icon svg{width:15px;height:15px;}
 .icon-warn{background:var(--amber-soft);color:var(--amber);}
 .icon-good{background:var(--green-soft);color:var(--green);}
 .icon-info{background:var(--blue-soft);color:var(--blue);}
@@ -180,7 +190,7 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-t
   .nav-brand{gap:12px;}
   .brand-logo{width:142px;}
   .brand-divider{height:26px;}
-  .nav-brand h1{font-size:18px;}
+  .nav-brand h1{font-size:21px;}
   .nav-brand span{font-size:8px;}
   .secure-badge{max-width:170px;text-align:center;line-height:1.3;}
   main{padding:22px 18px 32px;}
@@ -197,6 +207,7 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-t
   .kpi-grid,.bottom-grid,.chart-grid,.chart-grid.three{grid-template-columns:1fr;}
   .chart-card.wide{grid-column:span 1;}
   .upload-header-row{align-items:flex-start;}
+  .upload-panel{padding:22px 20px;}
   .empty-state-banner{padding:36px 20px;}
 }
 </style>
@@ -213,7 +224,7 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-t
     </div>
   </div>
   <div class="nav-right" id="year-controls">
-    <span class="secure-badge">🔒 Secure Ephemeral Session (Zero Persistence)</span>
+    <span class="secure-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Secure Ephemeral Session (Zero Persistence)</span>
   </div>
 </nav>
 
@@ -221,34 +232,41 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-t
 
   <div class="upload-panel">
     <div class="upload-header-row">
-      <div>
-        <div class="upload-title">Secure Document Upload &amp; Ephemeral Data Refresh</div>
-        <div class="upload-copy">Upload all 3 financial templates to initiate session analysis. Data exists solely in browser RAM and is wiped on exit.</div>
+      <div class="upload-heading">
+        <div class="upload-heading-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6m0 0-3 3m3-3 3 3"/></svg></div>
+        <div>
+          <div class="upload-title">Secure Document Upload &amp; Ephemeral Data Refresh</div>
+          <div class="upload-copy">Upload all 3 financial templates to initiate session analysis. Data exists solely in browser RAM and is wiped on exit.</div>
+        </div>
       </div>
     </div>
     <div class="upload-slots-grid">
       <div class="upload-slot" id="slot-is">
+        <div class="slot-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div>
         <div class="slot-title">0.1.1 Income Statement</div>
         <div class="slot-status" id="status-is">Awaiting file...</div>
-        <button class="upload-btn-sm" type="button" onclick="document.getElementById('input-is').click()">Choose File</button>
+        <button class="upload-btn-sm" type="button" onclick="document.getElementById('input-is').click()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4m0 0-4 4m4-4 4 4M5 15v4a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-4"/></svg>Choose File</button>
         <input id="input-is" type="file" accept=".xlsx,.xls,.csv" hidden onchange="handleClientFileUpload('is', this)"/>
       </div>
       <div class="upload-slot" id="slot-bs">
+        <div class="slot-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div>
         <div class="slot-title">0.1.2 Balance Sheet</div>
         <div class="slot-status" id="status-bs">Awaiting file...</div>
-        <button class="upload-btn-sm" type="button" onclick="document.getElementById('input-bs').click()">Choose File</button>
+        <button class="upload-btn-sm" type="button" onclick="document.getElementById('input-bs').click()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4m0 0-4 4m4-4 4 4M5 15v4a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-4"/></svg>Choose File</button>
         <input id="input-bs" type="file" accept=".xlsx,.xls,.csv" hidden onchange="handleClientFileUpload('bs', this)"/>
       </div>
       <div class="upload-slot" id="slot-cf">
+        <div class="slot-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div>
         <div class="slot-title">0.1.3 Cash Flow Statement</div>
         <div class="slot-status" id="status-cf">Awaiting file...</div>
-        <button class="upload-btn-sm" type="button" onclick="document.getElementById('input-cf').click()">Choose File</button>
+        <button class="upload-btn-sm" type="button" onclick="document.getElementById('input-cf').click()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4m0 0-4 4m4-4 4 4M5 15v4a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-4"/></svg>Choose File</button>
         <input id="input-cf" type="file" accept=".xlsx,.xls,.csv" hidden onchange="handleClientFileUpload('cf', this)"/>
       </div>
     </div>
   </div>
 
   <div class="empty-state-banner" id="empty-state-banner">
+    <div class="empty-state-icon"><svg viewBox="0 0 96 72" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 60h58"/><path d="M28 26h15l5 7h20a5 5 0 0 1 5 5v18a4 4 0 0 1-4 4H27a4 4 0 0 1-4-4V31a5 5 0 0 1 5-5z" fill="rgba(156,167,180,.08)"/><path d="M35 33V15h22l8 8v10"/><path d="M57 15v8h8M40 27h13M40 21h9"/></svg></div>
     <h3>No Financial Data Loaded</h3>
     <p>Please upload your Income Statement, Balance Sheet, and Cash Flow Statement templates above to begin the secure ephemeral analysis session.</p>
   </div>
@@ -573,7 +591,7 @@ function renderDynamicInsights(y) {
     if (yearFilteredAlerts.length > 0) {
       alertsContainer.innerHTML = yearFilteredAlerts.map(alert => `
         <div class="intel-item">
-          <div class="intel-icon icon-warn">⚠️</div>
+          <div class="intel-icon icon-warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2.8 19h18.4L12 3z"/><path d="M12 9v4m0 3h.01"/></svg></div>
           <div class="intel-text"><strong>[${alert.level}] ${alert.title}:</strong> ${alert.interpretation}</div>
         </div>
       `).join('');
@@ -591,7 +609,7 @@ function renderDynamicInsights(y) {
     if (yearFilteredFindings.length > 0) {
       findingsContainer.innerHTML = yearFilteredFindings.map(f => `
         <div class="intel-item">
-          <div class="intel-icon icon-info">🔍</div>
+          <div class="intel-icon icon-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.3 15.3 4.7 4.7"/></svg></div>
           <div class="intel-text">
             <strong>${f.finding}</strong> (${f.module})
             <br/><em>Interpretation:</em> ${f.interpretation}
