@@ -453,8 +453,8 @@ Chart.defaults.color = '#606770';
 Chart.defaults.font.family = "'Inter', Arial, sans-serif";
 Chart.defaults.font.size = 11;
 const gridColor = '#e7e9ec';
-const palette = ['#e60012', '#15171a', '#68717d', '#9a6413', '#147a55', '#b9000e', '#8b929b', '#c72835', '#465363', '#b6bcc4'];
-const chartColors = { brand: '#e60012', brandSoft: '#e6001218', black: '#15171a', darkGray: '#68717d', darkGraySoft: '#68717d66', gold: '#9a6413', goldSoft: '#9a641366', green: '#147a55' };
+const palette = ['#e60012', '#17191d', '#cfd2d7', '#4b515a', '#b9000e', '#8a9098', '#f12638', '#a9adb4', '#bd4a52', '#f2c9cd'];
+const chartColors = { brand: '#e60012', brandSoft: '#e6001224', black: '#17191d', darkGray: '#4b515a', darkGraySoft: '#4b515a24', gold: '#a9adb4', goldSoft: '#a9adb438', green: '#bd4a52' };
 
 function destroyAll() {
   Object.values(charts).forEach(c => c && c.destroy());
@@ -866,8 +866,8 @@ function drawAll() {
     {
       label: 'Total Revenue',
       data: years.map(y => window.dashboardData[y].datasets.revenue_allocation.revenue),
-      backgroundColor: 'rgba(120, 120, 120, 0.20)',
-      borderColor: '#4b5563',
+      backgroundColor: '#cfd2d760',
+      borderColor: chartColors.darkGray,
       borderWidth: 1.5,
       borderRadius: 4,
       stack: 'revenueCapacityStack',
@@ -951,7 +951,8 @@ function drawAll() {
       datasets: [{
         data: expValues,
         backgroundColor: expLabels.map((_, i) => palette[i % palette.length]),
-        borderWidth: 0,
+        borderColor: '#ffffff',
+        borderWidth: 1,
         hoverOffset: 4
       }]
     },
@@ -1039,7 +1040,8 @@ function drawAll() {
       datasets: [{
         data: compValues,
         backgroundColor: compLabels.map((_, i) => palette[i % palette.length]),
-        borderWidth: 0,
+        borderColor: '#ffffff',
+        borderWidth: 1,
         hoverOffset: 4
       }]
     },
