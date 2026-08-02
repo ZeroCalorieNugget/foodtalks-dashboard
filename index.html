@@ -182,7 +182,10 @@ main{padding:30px 32px 40px;max-width:1440px;margin:0 auto;}
 .swot-pt{font-size:10.5px;color:var(--muted);line-height:1.4;padding-left:8px;position:relative;cursor:help;}
 .swot-pt::before{content:'·';position:absolute;left:1px;}
 
-footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-top:1px solid var(--border);}
+footer{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding:22px 20px 24px;font-size:11px;color:var(--muted);border-top:1px solid var(--border);}
+.footer-system{font-weight:500;}
+.footer-credit{display:flex;align-items:center;justify-content:center;gap:10px;color:var(--muted2);font-size:10px;letter-spacing:.01em;}
+.footer-smu-logo{display:block;width:82px;height:auto;opacity:.62;filter:saturate(.72);}
 .hidden-when-empty { display: none !important; }
 
 @media (max-width:900px){
@@ -208,6 +211,8 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-t
   .upload-header-row{align-items:flex-start;}
   .upload-panel{padding:22px 20px;}
   .empty-state-banner{padding:36px 20px;}
+  .footer-credit{flex-direction:column;gap:6px;}
+  .footer-smu-logo{width:76px;}
 }
 </style>
 </head>
@@ -435,7 +440,13 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-t
 
 </main>
 
-<footer>Foodtalks Pte. Ltd. · Secure Ephemeral Financial Decision Support System</footer>
+<footer>
+  <div class="footer-system">Foodtalks Pte. Ltd. · Secure Ephemeral Financial Decision Support System</div>
+  <div class="footer-credit">
+    <img class="footer-smu-logo" src="assets/smu-logo.png" alt="Singapore Management University"/>
+    <span>&copy; 2026 SMU MSA Class of 2027 · SMU-X Foodtalks Group 2</span>
+  </div>
+</footer>
 
 <script>
 window.dashboardData = null;
