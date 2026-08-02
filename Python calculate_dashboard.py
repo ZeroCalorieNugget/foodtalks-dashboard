@@ -221,8 +221,12 @@ def calculate_dashboard_metrics():
             prev_exp = dashboard_data[prev_yr]["datasets"]["expenditure_breakdown"]
             for cat02, val in exp_breakdown.items():
                 prev_val = prev_exp.get(cat02, 0.0)
+                previous_cost = abs(prev_val)
+                current_cost = abs(val)
                 cat_growths[cat02] = (
-                    round((val - prev_val) / prev_val, 4) if prev_val != 0 else 0.0
+                    round((current_cost - previous_cost) / previous_cost, 4)
+                    if previous_cost != 0
+                    else 0.0
                 )
             growth_trends["categories"] = cat_growths
 

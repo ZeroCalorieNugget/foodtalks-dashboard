@@ -132,6 +132,7 @@ main{padding:30px 32px 40px;max-width:1440px;margin:0 auto;}
 
 .chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
 .chart-grid.three{grid-template-columns:1fr 1fr 1fr;}
+.chart-grid.cost-analysis{grid-template-columns:minmax(0,1.65fr) minmax(300px,1fr);align-items:stretch;}
 .chart-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:var(--shadow);}
 .chart-card.wide{grid-column:span 2;}
 .chart-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;}
@@ -192,7 +193,7 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-t
   .nav-brand h1{font-size:16px;white-space:normal;}
   .secure-badge{max-width:170px;text-align:center;line-height:1.3;}
   main{padding:22px 18px 32px;}
-  .kpi-grid,.bottom-grid,.chart-grid.three{grid-template-columns:1fr 1fr;}
+  .kpi-grid,.bottom-grid,.chart-grid.three,.chart-grid.cost-analysis{grid-template-columns:1fr 1fr;}
   .upload-slots-grid{grid-template-columns:1fr;}
 }
 
@@ -202,7 +203,7 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-t
   .brand-divider{display:none;}
   .nav-right{width:100%;}
   .secure-badge{max-width:none;width:100%;}
-  .kpi-grid,.bottom-grid,.chart-grid,.chart-grid.three{grid-template-columns:1fr;}
+  .kpi-grid,.bottom-grid,.chart-grid,.chart-grid.three,.chart-grid.cost-analysis{grid-template-columns:1fr;}
   .chart-card.wide{grid-column:span 1;}
   .upload-header-row{align-items:flex-start;}
   .upload-panel{padding:22px 20px;}
@@ -397,7 +398,7 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-t
     </div>
 
     <div class="section-label">Cost Structure Analysis</div>
-    <div class="chart-grid">
+    <div class="chart-grid cost-analysis">
       <div class="chart-card">
         <div class="chart-header">
           <div>
@@ -406,7 +407,7 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-t
           </div>
           <span class="chart-badge badge-warn">Multi-Series</span>
         </div>
-        <canvas id="opexChart" height="200"></canvas>
+        <canvas id="opexChart" height="285"></canvas>
       </div>
       <div class="chart-card">
         <div class="chart-header">
@@ -450,8 +451,16 @@ Chart.defaults.color = '#606770';
 Chart.defaults.font.family = "'Inter', Arial, sans-serif";
 Chart.defaults.font.size = 11;
 const gridColor = '#e7e9ec';
-const palette = ['#e60012', '#17191d', '#cfd2d7', '#4b515a', '#b9000e', '#8a9098', '#f12638', '#a9adb4', '#bd4a52', '#f2c9cd'];
-const chartColors = { brand: '#e60012', brandSoft: '#e6001224', black: '#17191d', darkGray: '#4b515a', darkGraySoft: '#4b515a24', gold: '#a9adb4', goldSoft: '#a9adb438', green: '#bd4a52' };
+const palette = ['#e60012', '#1f2937', '#2563eb', '#0f766e', '#d97706', '#7c3aed', '#64748b', '#0891b2', '#db2777', '#65a30d', '#475569', '#f59e0b', '#4f46e5', '#059669'];
+const chartColors = { brand: '#e60012', brandSoft: '#e6001224', black: '#17191d', darkGray: '#1f2937', darkGraySoft: '#1f293724', gold: '#2563eb', goldSoft: '#2563eb24', green: '#0f766e' };
+
+function doughnutTooltipLabel(context) {
+  const values = context.dataset.data || [];
+  const total = values.reduce((sum, value) => sum + Math.abs(Number(value) || 0), 0);
+  const value = Number(context.raw) || 0;
+  const share = total ? (Math.abs(value) / total * 100).toFixed(1) : '0.0';
+  return `${context.label}: ${fmt(value)} (${share}%)`;
+}
 
 function destroyAll() {
   Object.values(charts).forEach(c => c && c.destroy());
@@ -760,7 +769,9 @@ function processEphemeralSessionDataLocally() {
       let prevExp = dashboardData[prevYr]?.datasets?.expenditure_breakdown || {};
       Object.entries(expBreakdown).forEach(([cat02, val]) => {
         let prevVal = prevExp[cat02] || 0.0;
-        catGrowths[cat02] = prevVal !== 0 ? Number(((val - prevVal) / prevVal).toFixed(4)) : 0.0;
+        const previousCost = Math.abs(prevVal);
+        const currentCost = Math.abs(val);
+        catGrowths[cat02] = previousCost !== 0 ? Number(((currentCost - previousCost) / previousCost).toFixed(4)) : 0.0;
       });
     }
 
@@ -953,7 +964,13 @@ function drawAll() {
         hoverOffset: 4
       }]
     },
-    options: { cutout: '60%', plugins: { legend: { display: false } } }
+    options: {
+      cutout: '60%',
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: doughnutTooltipLabel } }
+      }
+    }
   });
   document.getElementById('cos-legend').innerHTML = expLabels.map((lbl, idx) => `<div class="leg"><div class="leg-dot" style="background:${palette[idx % palette.length]}"></div>${lbl}</div>`).join('');
 
@@ -1009,17 +1026,54 @@ function drawAll() {
     });
   });
 
+  const highGrowthThreshold = 250;
+  growthDatasets.forEach(dataset => {
+    dataset.yAxisID = Math.max(...dataset.data.map(value => Math.abs(value))) > highGrowthThreshold ? 'yHigh' : 'y';
+  });
+
+  const axisBounds = values => {
+    if (!values.length) return { min: -50, max: 100 };
+    const rawMin = Math.min(0, ...values);
+    const rawMax = Math.max(0, ...values);
+    const padding = Math.max(25, (rawMax - rawMin) * 0.1);
+    return {
+      min: Math.floor((rawMin - padding) / 50) * 50,
+      max: Math.ceil((rawMax + padding) / 50) * 50
+    };
+  };
+  const regularGrowthValues = growthDatasets.filter(dataset => dataset.yAxisID === 'y').flatMap(dataset => dataset.data);
+  const highGrowthValues = growthDatasets.filter(dataset => dataset.yAxisID === 'yHigh').flatMap(dataset => dataset.data);
+  const regularBounds = axisBounds(regularGrowthValues);
+  const highBounds = axisBounds(highGrowthValues);
+
   charts.opex = new Chart(document.getElementById('opexChart'), {
     type: 'line',
     data: { labels, datasets: growthDatasets },
     options: {
       responsive: true,
       plugins: {
-        legend: { display: true, position: 'bottom', labels: { boxWidth: 12, padding: 10, font: { size: 10 } } }
+        legend: { display: true, position: 'bottom', labels: { boxWidth: 12, padding: 12, font: { size: 10 } } },
+        tooltip: { callbacks: { label: context => `${context.dataset.label}: ${context.parsed.y.toFixed(1)}%` } }
       },
       scales: {
         x: { grid: { color: gridColor } },
-        y: { grid: { color: gridColor }, ticks: { callback: v => v + '%' } }
+        y: {
+          position: 'left',
+          min: regularBounds.min,
+          max: regularBounds.max,
+          grid: { color: gridColor },
+          ticks: { callback: v => v + '%' },
+          title: { display: true, text: 'Core growth range' }
+        },
+        yHigh: {
+          display: highGrowthValues.length > 0,
+          position: 'right',
+          min: highBounds.min,
+          max: highBounds.max,
+          grid: { drawOnChartArea: false },
+          ticks: { callback: v => v + '%' },
+          title: { display: highGrowthValues.length > 0, text: 'High growth range' }
+        }
       }
     }
   });
@@ -1042,7 +1096,13 @@ function drawAll() {
         hoverOffset: 4
       }]
     },
-    options: { cutout: '60%', plugins: { legend: { display: false } } }
+    options: {
+      cutout: '60%',
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: doughnutTooltipLabel } }
+      }
+    }
   });
   updateExpenditureComponentsChart();
 }
