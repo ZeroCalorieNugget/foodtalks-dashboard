@@ -7,52 +7,56 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap');
 
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#ffffff;
+  --bg:#f6f7f9;
   --surface:#ffffff;
-  --surface2:#f7f7f7;
-  --border:#e6e6e6;
-  --border2:#cfcfcf;
-  --brand-red:#e60000;
-  --brand-red-soft:#e600001a;
-  --green:#13875a;
-  --green-soft:#24c08318;
-  --red:#d92d2d;
-  --red-soft:#ff4b4b18;
-  --amber:#b87512;
-  --amber-soft:#f4b44b18;
-  --blue:#4b5563;
-  --blue-soft:#4b556318;
-  --text:#171717;
-  --muted:#696969;
-  --muted2:#9a9a9a;
-  --font:'DM Sans',sans-serif;
-  --mono:'DM Mono',monospace;
+  --surface2:#f9fafb;
+  --border:#e5e7eb;
+  --border2:#cbd0d6;
+  --brand-red:#e60012;
+  --brand-red-dark:#b9000e;
+  --brand-red-soft:#e6001212;
+  --green:#147a55;
+  --green-soft:#147a5514;
+  --red:#c72835;
+  --red-soft:#c7283512;
+  --amber:#9a6413;
+  --amber-soft:#9a641314;
+  --blue:#465363;
+  --blue-soft:#46536312;
+  --text:#15171a;
+  --muted:#606770;
+  --muted2:#8b929b;
+  --font:'Inter',Arial,sans-serif;
+  --display:'Manrope','Inter',Arial,sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+  --shadow:0 12px 34px rgba(16,24,40,.055);
 }
 
 body{
   background:
-    radial-gradient(circle at 10% -10%, rgba(230,0,0,.08), transparent 30%),
-    linear-gradient(180deg,#fff 0%,#fafafa 48%,var(--bg) 100%);
-  color:var(--text);font-family:var(--font);font-size:14px;min-height:100vh;
+    radial-gradient(circle at 8% -8%, rgba(230,0,18,.07), transparent 28%),
+    linear-gradient(180deg,#fff 0%,var(--bg) 52%,#f8f9fb 100%);
+  color:var(--text);font-family:var(--font);font-size:14px;line-height:1.5;min-height:100vh;
 }
 
 /* ── NAVIGATION BAR ── */
 nav{
   display:flex;align-items:center;justify-content:space-between;
-  padding:12px 28px;
+  padding:15px 32px;
   border-bottom:1px solid var(--border);
   position:sticky;top:0;z-index:100;
-  background:rgba(255,255,255,.92);backdrop-filter:blur(12px);
+  background:rgba(255,255,255,.94);backdrop-filter:blur(16px);
+  box-shadow:0 1px 0 rgba(17,24,39,.02);
 }
-.nav-brand{display:flex;align-items:center;gap:14px;min-width:0;}
-.brand-copy{display:flex;align-items:baseline;gap:8px;min-width:0;}
-.nav-brand .dot{width:8px;height:8px;border-radius:50%;background:var(--brand-red);box-shadow:0 0 16px rgba(230,0,0,.7);flex-shrink:0;}
-.nav-brand h1{font-size:15px;font-weight:600;}
-.nav-brand span{font-size:12px;color:var(--muted);font-family:var(--mono);}
+.nav-brand{display:flex;align-items:center;gap:18px;min-width:0;}
+.brand-logo{display:block;width:188px;height:auto;flex-shrink:0;}
+.brand-divider{width:1px;height:30px;background:var(--border);flex-shrink:0;}
+.brand-copy{display:flex;align-items:center;min-width:0;}
+.nav-brand h1{font-family:var(--display);font-size:20px;line-height:1.15;font-weight:700;letter-spacing:-.025em;white-space:nowrap;}
 .nav-right{display:flex;align-items:center;gap:8px;}
 .year-pill{
   font-size:12px;padding:5px 14px;border-radius:20px;cursor:pointer;
@@ -61,26 +65,27 @@ nav{
 }
 .year-pill:hover{color:var(--text);border-color:var(--brand-red);}
 .year-pill.active{background:var(--brand-red);color:#fff;border-color:var(--brand-red);font-weight:500;}
-.secure-badge{font-size:11px;background:var(--green-soft);color:var(--green);padding:4px 10px;border-radius:20px;border:1px solid var(--green);font-family:var(--mono);font-weight:500;}
+.secure-badge{display:inline-flex;align-items:center;gap:7px;font-size:11px;background:var(--green-soft);color:var(--green);padding:5px 11px;border-radius:20px;border:1px solid rgba(20,122,85,.55);font-family:var(--display);font-weight:700;letter-spacing:-.015em;}
+.secure-badge svg{width:13px;height:13px;stroke:currentColor;flex-shrink:0;}
 
 /* ── LAYOUT CONTAINER ── */
-main{padding:24px 28px;max-width:1400px;margin:0 auto;}
-.section-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+main{padding:30px 32px 40px;max-width:1440px;margin:0 auto;}
+.section-label{font-family:var(--display);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#4c535c;margin-bottom:12px;display:flex;align-items:center;gap:10px;}
 .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
 
 /* ── KPI GRID ── */
 .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
 .kpi{
-  background:linear-gradient(180deg,#fff 0%,#fbfbfb 100%);border:1px solid var(--border);border-radius:14px;
-  padding:18px 20px;position:relative;overflow:hidden;box-shadow:0 10px 28px rgba(0,0,0,.04);
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  padding:19px 20px;position:relative;overflow:hidden;box-shadow:var(--shadow);
 }
 .kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:14px 14px 0 0;}
 .kpi.green::before{background:var(--brand-red);}
-.kpi.amber::before{background:#8a8a8a;}
-.kpi.red::before{background:#171717;}
+.kpi.amber::before{background:#555d66;}
+.kpi.red::before{background:#15171a;}
 .kpi.blue::before{background:var(--amber);}
 .kpi-label{font-size:11px;color:var(--muted);margin-bottom:8px;text-transform:uppercase;}
-.kpi-value{font-size:26px;font-weight:600;margin-bottom:6px;line-height:1;}
+.kpi-value{font-family:var(--display);font-size:27px;font-weight:700;letter-spacing:-.035em;margin-bottom:6px;line-height:1;}
 .kpi-delta{font-size:12px;font-family:var(--mono);display:flex;align-items:center;gap:4px;}
 .kpi-delta.up{color:var(--green);}
 .kpi-delta.down{color:var(--red);}
@@ -88,42 +93,52 @@ main{padding:24px 28px;max-width:1400px;margin:0 auto;}
 
 /* ── UPLOAD PANEL ── */
 .upload-panel{
-  background:linear-gradient(180deg,#fff 0%,#fbfbfb 100%);
-  border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:24px;
-  box-shadow:0 10px 28px rgba(0,0,0,.04);
+  background:var(--surface);
+  border:1px solid var(--border);border-radius:16px;padding:26px 28px;margin-bottom:28px;
+  box-shadow:var(--shadow);
 }
-.upload-header-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
-.upload-title{font-size:13px;font-weight:600;}
+.upload-header-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.upload-heading{display:flex;align-items:center;gap:14px;}
+.upload-heading-icon{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:var(--brand-red-soft);color:var(--brand-red);flex-shrink:0;}
+.upload-heading-icon svg{width:23px;height:23px;stroke:currentColor;}
+.upload-title{font-family:var(--display);font-size:17px;font-weight:700;letter-spacing:-.025em;}
 .upload-copy{font-size:12px;color:var(--muted);line-height:1.4;}
 .upload-slots-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
 .upload-slot{
-  border:1px dashed var(--border2);border-radius:10px;padding:14px;text-align:center;
-  background:#fafafa;display:flex;flex-direction:column;gap:8px;align-items:center;
+  border:1px dashed var(--border2);border-radius:12px;padding:16px;text-align:center;
+  background:var(--surface2);display:flex;flex-direction:column;gap:9px;align-items:center;
 }
 .upload-slot.active{border-color:var(--green);background:var(--green-soft);}
+.slot-icon{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--brand-red-soft);color:var(--brand-red);}
+.slot-icon svg{width:19px;height:19px;stroke:currentColor;}
 .slot-title{font-size:11px;font-weight:600;text-transform:uppercase;}
 .slot-status{font-size:10px;font-family:var(--mono);color:var(--muted);}
 .slot-status.ok{color:var(--green);font-weight:500;}
 .slot-status.err{color:var(--red);font-weight:500;}
 .upload-btn-sm{
-  border:1px solid var(--brand-red);background:var(--brand-red);color:#fff;border-radius:14px;
-  padding:5px 12px;font-family:var(--font);font-size:11px;font-weight:600;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid var(--brand-red);background:var(--brand-red);color:#fff;border-radius:8px;
+  padding:7px 14px;font-family:var(--font);font-size:11px;font-weight:600;cursor:pointer;box-shadow:0 5px 12px rgba(230,0,18,.16);
 }
+.upload-btn-sm svg{width:14px;height:14px;stroke:currentColor;}
+.upload-btn-sm:hover{background:var(--brand-red-dark);border-color:var(--brand-red-dark);}
 
 .empty-state-banner{
-  background:#fbfbfb;border:2px dashed var(--border2);border-radius:14px;padding:48px;text-align:center;margin-bottom:24px;
+  background:linear-gradient(180deg,#fff 0%,#f9fafc 100%);border:1.5px dashed #b8c2cf;border-radius:14px;padding:44px;text-align:center;margin-bottom:24px;
 }
-.empty-state-banner h3{font-size:18px;margin-bottom:8px;}
+.empty-state-icon{width:96px;height:72px;margin:0 auto 14px;color:#9ca7b4;}
+.empty-state-icon svg{width:100%;height:100%;stroke:currentColor;}
+.empty-state-banner h3{font-family:var(--display);font-size:22px;font-weight:700;letter-spacing:-.025em;margin-bottom:8px;}
 .empty-state-banner p{color:var(--muted);font-size:13px;max-width:500px;margin:0 auto;}
 
 .chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
 .chart-grid.three{grid-template-columns:1fr 1fr 1fr;}
-.chart-card{background:linear-gradient(180deg,#fff 0%,#fbfbfb 100%);border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:0 10px 28px rgba(0,0,0,.04);}
+.chart-grid.cost-analysis{grid-template-columns:minmax(0,1.65fr) minmax(300px,1fr);align-items:stretch;}
+.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:var(--shadow);}
 .chart-card.wide{grid-column:span 2;}
 .chart-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;}
-.chart-title{font-size:13px;font-weight:500;}
+.chart-title{font-family:var(--display);font-size:14px;font-weight:700;letter-spacing:-.015em;}
 .chart-sub{font-size:11px;color:var(--muted);margin-top:2px;}
-.chart-badge{font-size:10px;padding:3px 8px;border-radius:10px;font-family:var(--mono);}
+.chart-badge{font-size:10px;padding:3px 8px;border-radius:10px;font-family:var(--display);font-weight:600;letter-spacing:.01em;}
 .badge-warn{background:var(--amber-soft);color:var(--amber);}
 .badge-good{background:var(--brand-red-soft);color:var(--brand-red);}
 .badge-info{background:var(--blue-soft);color:var(--blue);}
@@ -139,11 +154,12 @@ main{padding:24px 28px;max-width:1400px;margin:0 auto;}
 
 /* ── DECISION SUPPORT INTELLIGENCE GRID ── */
 .bottom-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px;}
-.intel-card{background:linear-gradient(180deg,#fff 0%,#fbfbfb 100%);border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:0 10px 28px rgba(0,0,0,.04);display:flex;flex-direction:column;gap:14px;}
+.intel-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:14px;}
 .intel-list{display:flex;flex-direction:column;gap:10px;max-height:340px;overflow-y:auto;}
 .intel-item{display:flex;gap:10px;padding-bottom:10px;border-bottom:1px solid var(--border);}
 .intel-item:last-child{border-bottom:none;padding-bottom:0;}
 .intel-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
+.intel-icon svg{width:15px;height:15px;}
 .icon-warn{background:var(--amber-soft);color:var(--amber);}
 .icon-good{background:var(--green-soft);color:var(--green);}
 .icon-info{background:var(--blue-soft);color:var(--blue);}
@@ -166,22 +182,52 @@ main{padding:24px 28px;max-width:1400px;margin:0 auto;}
 .swot-pt{font-size:10.5px;color:var(--muted);line-height:1.4;padding-left:8px;position:relative;cursor:help;}
 .swot-pt::before{content:'·';position:absolute;left:1px;}
 
-footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-top:1px solid var(--border);}
+footer{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding:22px 20px 24px;font-size:11px;color:var(--muted);border-top:1px solid var(--border);}
+.footer-system{font-weight:500;}
+.footer-credit{display:flex;align-items:center;justify-content:center;gap:10px;color:var(--muted2);font-size:10px;letter-spacing:.01em;}
+.footer-smu-logo{display:block;width:82px;height:auto;opacity:.62;filter:saturate(.72);}
 .hidden-when-empty { display: none !important; }
+
+@media (max-width:900px){
+  nav{padding:13px 18px;align-items:flex-start;gap:14px;}
+  .nav-brand{gap:12px;}
+  .brand-logo{width:142px;}
+  .brand-divider{height:26px;}
+  .nav-brand h1{font-size:16px;white-space:normal;}
+  .secure-badge{max-width:170px;text-align:center;line-height:1.3;}
+  main{padding:22px 18px 32px;}
+  .kpi-grid,.bottom-grid,.chart-grid.three,.chart-grid.cost-analysis{grid-template-columns:1fr 1fr;}
+  .upload-slots-grid{grid-template-columns:1fr;}
+}
+
+@media (max-width:620px){
+  nav{position:relative;flex-direction:column;}
+  .brand-logo{width:164px;}
+  .brand-divider{display:none;}
+  .nav-right{width:100%;}
+  .secure-badge{max-width:none;width:100%;}
+  .kpi-grid,.bottom-grid,.chart-grid,.chart-grid.three,.chart-grid.cost-analysis{grid-template-columns:1fr;}
+  .chart-card.wide{grid-column:span 1;}
+  .upload-header-row{align-items:flex-start;}
+  .upload-panel{padding:22px 20px;}
+  .empty-state-banner{padding:36px 20px;}
+  .footer-credit{flex-direction:column;gap:6px;}
+  .footer-smu-logo{width:76px;}
+}
 </style>
 </head>
 <body>
 
 <nav>
   <div class="nav-brand">
-    <div class="dot"></div>
+    <img class="brand-logo" src="assets/foodtalks-logo.png" alt="Foodtalks"/>
+    <div class="brand-divider" aria-hidden="true"></div>
     <div class="brand-copy">
-      <h1>Foodtalks Pte. Ltd.</h1>
-      <span>Financial Decision Support System</span>
+      <h1>Financial Decision Support System</h1>
     </div>
   </div>
   <div class="nav-right" id="year-controls">
-    <span class="secure-badge">🔒 Secure Ephemeral Session (Zero Persistence)</span>
+    <span class="secure-badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Secure Ephemeral Session (Zero Persistence)</span>
   </div>
 </nav>
 
@@ -189,34 +235,41 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-t
 
   <div class="upload-panel">
     <div class="upload-header-row">
-      <div>
-        <div class="upload-title">Secure Document Upload &amp; Ephemeral Data Refresh</div>
-        <div class="upload-copy">Upload all 3 financial templates to initiate session analysis. Data exists solely in browser RAM and is wiped on exit.</div>
+      <div class="upload-heading">
+        <div class="upload-heading-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 18v-6m0 0-3 3m3-3 3 3"/></svg></div>
+        <div>
+          <div class="upload-title">Secure Document Upload &amp; Ephemeral Data Refresh</div>
+          <div class="upload-copy">Upload all 3 financial templates to initiate session analysis. Data exists solely in browser RAM and is wiped on exit.</div>
+        </div>
       </div>
     </div>
     <div class="upload-slots-grid">
       <div class="upload-slot" id="slot-is">
+        <div class="slot-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div>
         <div class="slot-title">0.1.1 Income Statement</div>
         <div class="slot-status" id="status-is">Awaiting file...</div>
-        <button class="upload-btn-sm" type="button" onclick="document.getElementById('input-is').click()">Choose File</button>
+        <button class="upload-btn-sm" type="button" onclick="document.getElementById('input-is').click()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4m0 0-4 4m4-4 4 4M5 15v4a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-4"/></svg>Choose File</button>
         <input id="input-is" type="file" accept=".xlsx,.xls,.csv" hidden onchange="handleClientFileUpload('is', this)"/>
       </div>
       <div class="upload-slot" id="slot-bs">
+        <div class="slot-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div>
         <div class="slot-title">0.1.2 Balance Sheet</div>
         <div class="slot-status" id="status-bs">Awaiting file...</div>
-        <button class="upload-btn-sm" type="button" onclick="document.getElementById('input-bs').click()">Choose File</button>
+        <button class="upload-btn-sm" type="button" onclick="document.getElementById('input-bs').click()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4m0 0-4 4m4-4 4 4M5 15v4a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-4"/></svg>Choose File</button>
         <input id="input-bs" type="file" accept=".xlsx,.xls,.csv" hidden onchange="handleClientFileUpload('bs', this)"/>
       </div>
       <div class="upload-slot" id="slot-cf">
+        <div class="slot-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div>
         <div class="slot-title">0.1.3 Cash Flow Statement</div>
         <div class="slot-status" id="status-cf">Awaiting file...</div>
-        <button class="upload-btn-sm" type="button" onclick="document.getElementById('input-cf').click()">Choose File</button>
+        <button class="upload-btn-sm" type="button" onclick="document.getElementById('input-cf').click()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4m0 0-4 4m4-4 4 4M5 15v4a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-4"/></svg>Choose File</button>
         <input id="input-cf" type="file" accept=".xlsx,.xls,.csv" hidden onchange="handleClientFileUpload('cf', this)"/>
       </div>
     </div>
   </div>
 
   <div class="empty-state-banner" id="empty-state-banner">
+    <div class="empty-state-icon"><svg viewBox="0 0 96 72" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 60h58"/><path d="M28 26h15l5 7h20a5 5 0 0 1 5 5v18a4 4 0 0 1-4 4H27a4 4 0 0 1-4-4V31a5 5 0 0 1 5-5z" fill="rgba(156,167,180,.08)"/><path d="M35 33V15h22l8 8v10"/><path d="M57 15v8h8M40 27h13M40 21h9"/></svg></div>
     <h3>No Financial Data Loaded</h3>
     <p>Please upload your Income Statement, Balance Sheet, and Cash Flow Statement templates above to begin the secure ephemeral analysis session.</p>
   </div>
@@ -350,7 +403,7 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-t
     </div>
 
     <div class="section-label">Cost Structure Analysis</div>
-    <div class="chart-grid">
+    <div class="chart-grid cost-analysis">
       <div class="chart-card">
         <div class="chart-header">
           <div>
@@ -359,7 +412,7 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-t
           </div>
           <span class="chart-badge badge-warn">Multi-Series</span>
         </div>
-        <canvas id="opexChart" height="200"></canvas>
+        <canvas id="opexChart" height="285"></canvas>
       </div>
       <div class="chart-card">
         <div class="chart-header">
@@ -387,7 +440,13 @@ footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-t
 
 </main>
 
-<footer>Foodtalks Pte. Ltd. · Secure Ephemeral Financial Decision Support System</footer>
+<footer>
+  <div class="footer-system">Foodtalks Pte. Ltd. · Secure Ephemeral Financial Decision Support System</div>
+  <div class="footer-credit">
+    <img class="footer-smu-logo" src="assets/smu-logo.png" alt="Singapore Management University"/>
+    <span>&copy; 2026 SMU MSA Class of 2027 · SMU-X Foodtalks Group 2</span>
+  </div>
+</footer>
 
 <script>
 window.dashboardData = null;
@@ -399,12 +458,20 @@ let sessionUploads = { is: null, bs: null, cf: null };
 const fmt = (n, dp=0) => n == '—' || n == null || isNaN(n) ? '—' : '$' + (Math.abs(n) >= 1e6 ? (n/1e6).toFixed(dp||2) + 'M' : Math.abs(n) >= 1e3 ? (n/1e3).toFixed(dp||1) + 'K' : n.toFixed(dp));
 const pct = n => n == null || isNaN(n) ? '—' : (n * 100).toFixed(1) + '%';
 
-Chart.defaults.color = '#696969';
-Chart.defaults.font.family = "'DM Sans', sans-serif";
+Chart.defaults.color = '#606770';
+Chart.defaults.font.family = "'Inter', Arial, sans-serif";
 Chart.defaults.font.size = 11;
-const gridColor = '#e9e9e9';
-const palette = ['#e60000', '#8a8a8a', '#171717', '#b87512', '#4b5563', '#24c083', '#3b82f6', '#ec4899', '#8b5cf6', '#14b8a6'];
-const chartColors = { brand: '#e60000', brandSoft: '#e6000018', black: '#171717', darkGray: '#8a8a8a', darkGraySoft: '#8a8a8a66', gold: '#b87512', goldSoft: '#b8751266', green: '#13875a' };
+const gridColor = '#e7e9ec';
+const palette = ['#e60012', '#1f2937', '#2563eb', '#0f766e', '#d97706', '#7c3aed', '#64748b', '#0891b2', '#db2777', '#65a30d', '#475569', '#f59e0b', '#4f46e5', '#059669'];
+const chartColors = { brand: '#e60012', brandSoft: '#e6001224', black: '#17191d', darkGray: '#1f2937', darkGraySoft: '#1f293724', gold: '#2563eb', goldSoft: '#2563eb24', green: '#0f766e' };
+
+function doughnutTooltipLabel(context) {
+  const values = context.dataset.data || [];
+  const total = values.reduce((sum, value) => sum + Math.abs(Number(value) || 0), 0);
+  const value = Number(context.raw) || 0;
+  const share = total ? (Math.abs(value) / total * 100).toFixed(1) : '0.0';
+  return `${context.label}: ${fmt(value)} (${share}%)`;
+}
 
 function destroyAll() {
   Object.values(charts).forEach(c => c && c.destroy());
@@ -576,7 +643,7 @@ function renderDynamicInsights(y) {
     if (yearFilteredAlerts.length > 0) {
       alertsContainer.innerHTML = yearFilteredAlerts.map(alert => `
         <div class="intel-item">
-          <div class="intel-icon icon-warn">⚠️</div>
+          <div class="intel-icon icon-warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2.8 19h18.4L12 3z"/><path d="M12 9v4m0 3h.01"/></svg></div>
           <div class="intel-text"><strong>[${alert.level}] ${alert.title}:</strong> ${alert.interpretation}</div>
         </div>
       `).join('');
@@ -593,7 +660,7 @@ function renderDynamicInsights(y) {
     if (yearFilteredFindings.length > 0) {
       findingsContainer.innerHTML = yearFilteredFindings.map(f => `
         <div class="intel-item">
-          <div class="intel-icon icon-info">🔍</div>
+          <div class="intel-icon icon-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.3 15.3 4.7 4.7"/></svg></div>
           <div class="intel-text">
             <strong>${f.finding}</strong> (${f.module})
             <br/><em>Interpretation:</em> ${f.interpretation}
@@ -772,7 +839,9 @@ function processEphemeralSessionDataLocally() {
       let prevExp = dashboardData[prevYr]?.datasets?.expenditure_breakdown || {};
       Object.entries(expBreakdown).forEach(([cat02, val]) => {
         let prevVal = prevExp[cat02] || 0.0;
-        catGrowths[cat02] = prevVal !== 0 ? Number(((val - prevVal) / prevVal).toFixed(4)) : 0.0;
+        const previousCost = Math.abs(prevVal);
+        const currentCost = Math.abs(val);
+        catGrowths[cat02] = previousCost !== 0 ? Number(((currentCost - previousCost) / previousCost).toFixed(4)) : 0.0;
       });
     }
 
@@ -875,8 +944,8 @@ function drawAll() {
     {
       label: 'Total Revenue',
       data: years.map(y => window.dashboardData[y].datasets.revenue_allocation.revenue),
-      backgroundColor: 'rgba(120, 120, 120, 0.20)',
-      borderColor: '#4b5563',
+      backgroundColor: '#cfd2d760',
+      borderColor: chartColors.darkGray,
       borderWidth: 1.5,
       borderRadius: 4,
       stack: 'revenueCapacityStack',
@@ -960,11 +1029,18 @@ function drawAll() {
       datasets: [{
         data: expValues,
         backgroundColor: expLabels.map((_, i) => palette[i % palette.length]),
-        borderWidth: 0,
+        borderColor: '#ffffff',
+        borderWidth: 1,
         hoverOffset: 4
       }]
     },
-    options: { cutout: '60%', plugins: { legend: { display: false } } }
+    options: {
+      cutout: '60%',
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: doughnutTooltipLabel } }
+      }
+    }
   });
   document.getElementById('cos-legend').innerHTML = expLabels.map((lbl, idx) => `<div class="leg"><div class="leg-dot" style="background:${palette[idx % palette.length]}"></div>${lbl}</div>`).join('');
 
@@ -1020,17 +1096,54 @@ function drawAll() {
     });
   });
 
+  const highGrowthThreshold = 250;
+  growthDatasets.forEach(dataset => {
+    dataset.yAxisID = Math.max(...dataset.data.map(value => Math.abs(value))) > highGrowthThreshold ? 'yHigh' : 'y';
+  });
+
+  const axisBounds = values => {
+    if (!values.length) return { min: -50, max: 100 };
+    const rawMin = Math.min(0, ...values);
+    const rawMax = Math.max(0, ...values);
+    const padding = Math.max(25, (rawMax - rawMin) * 0.1);
+    return {
+      min: Math.floor((rawMin - padding) / 50) * 50,
+      max: Math.ceil((rawMax + padding) / 50) * 50
+    };
+  };
+  const regularGrowthValues = growthDatasets.filter(dataset => dataset.yAxisID === 'y').flatMap(dataset => dataset.data);
+  const highGrowthValues = growthDatasets.filter(dataset => dataset.yAxisID === 'yHigh').flatMap(dataset => dataset.data);
+  const regularBounds = axisBounds(regularGrowthValues);
+  const highBounds = axisBounds(highGrowthValues);
+
   charts.opex = new Chart(document.getElementById('opexChart'), {
     type: 'line',
     data: { labels, datasets: growthDatasets },
     options: {
       responsive: true,
       plugins: {
-        legend: { display: true, position: 'bottom', labels: { boxWidth: 12, padding: 10, font: { size: 10 } } }
+        legend: { display: true, position: 'bottom', labels: { boxWidth: 12, padding: 12, font: { size: 10 } } },
+        tooltip: { callbacks: { label: context => `${context.dataset.label}: ${context.parsed.y.toFixed(1)}%` } }
       },
       scales: {
         x: { grid: { color: gridColor } },
-        y: { grid: { color: gridColor }, ticks: { callback: v => v + '%' } }
+        y: {
+          position: 'left',
+          min: regularBounds.min,
+          max: regularBounds.max,
+          grid: { color: gridColor },
+          ticks: { callback: v => v + '%' },
+          title: { display: true, text: 'Core growth range' }
+        },
+        yHigh: {
+          display: highGrowthValues.length > 0,
+          position: 'right',
+          min: highBounds.min,
+          max: highBounds.max,
+          grid: { drawOnChartArea: false },
+          ticks: { callback: v => v + '%' },
+          title: { display: highGrowthValues.length > 0, text: 'High growth range' }
+        }
       }
     }
   });
@@ -1048,11 +1161,18 @@ function drawAll() {
       datasets: [{
         data: compValues,
         backgroundColor: compLabels.map((_, i) => palette[i % palette.length]),
-        borderWidth: 0,
+        borderColor: '#ffffff',
+        borderWidth: 1,
         hoverOffset: 4
       }]
     },
-    options: { cutout: '60%', plugins: { legend: { display: false } } }
+    options: {
+      cutout: '60%',
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: doughnutTooltipLabel } }
+      }
+    }
   });
   updateExpenditureComponentsChart();
 }
