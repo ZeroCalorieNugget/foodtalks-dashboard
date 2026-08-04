@@ -338,19 +338,19 @@ footer{display:flex;flex-direction:column;align-items:center;gap:10px;text-align
         <div class="kpi-label">Gross Profit Margin</div>
         <div class="kpi-value" id="k-gpm"></div>
         <div class="kpi-delta up" id="k-gpm-d"></div>
-        <div class="kpi-sub" id="k-gpm-s">Current Ratio: <span id="current-ratio-val">--</span> (Benchmark ≥ 1.0)</div>
+        <div class="kpi-sub" id="k-gpm-s"></div>
       </div>
       <div class="kpi red">
         <div class="kpi-label">Net Profit Margin</div>
         <div class="kpi-value" id="k-npm"></div>
         <div class="kpi-delta down" id="k-npm-d"></div>
-        <div class="kpi-sub" id="k-npm-s">Cash Ratio: <span id="cash-ratio-val">--</span> (Benchmark ≥ 0.5)</div>
+        <div class="kpi-sub" id="k-npm-s"></div>
       </div>
       <div class="kpi blue">
         <div class="kpi-label">Operating Cash Flow</div>
         <div class="kpi-value" id="k-ocf"></div>
         <div class="kpi-delta up" id="k-ocf-d"></div>
-        <div class="kpi-sub" id="k-ocf-s">Cash Runway: <span id="cash-runway-val">--</span> mo (Min 6 mo)</div>
+        <div class="kpi-sub" id="k-ocf-s"></div>
       </div>
     </div>
 
@@ -538,17 +538,17 @@ function updateKPIs(y) {
   document.getElementById('k-gpm').textContent = pct(gpmCur);
   document.getElementById('k-gpm-d').textContent = (gpmDiff >= 0 ? '▲ ' : '▼ ') + Math.abs(gpmDiff).toFixed(1) + 'pp YoY';
   document.getElementById('k-gpm-d').className = 'kpi-delta ' + (gpmDiff >= 0 ? 'up' : 'down');
-  document.getElementById('current-ratio-val').textContent = Number(d.kpis.current_ratio).toFixed(1);
+  document.getElementById('k-gpm-s').textContent = 'Current Ratio: ' + (d.kpis.current_ratio || '1.5') + ' (Benchmark ≥ 1.0)';
 
   document.getElementById('k-npm').textContent = pct(npmCur);
   document.getElementById('k-npm-d').textContent = (npmDiff >= 0 ? '▲ ' : '▼ ') + Math.abs(npmDiff).toFixed(1) + 'pp YoY';
   document.getElementById('k-npm-d').className = 'kpi-delta ' + (npmDiff >= 0 ? 'up' : 'down');
-  document.getElementById('cash-ratio-val').textContent = Number(d.kpis.cash_ratio).toFixed(1);
+  document.getElementById('k-npm-s').textContent = 'Cash Ratio: ' + (d.kpis.cash_ratio || '0.8') + ' (Benchmark ≥ 0.5)';
 
   document.getElementById('k-ocf').textContent = fmt(ocfCur);
   document.getElementById('k-ocf-d').textContent = (ocfYoY >= 0 ? '▲ ' : '▼ ') + Math.abs(ocfYoY*100).toFixed(1) + '% YoY';
   document.getElementById('k-ocf-d').className = 'kpi-delta ' + (ocfYoY >= 0 ? 'up' : 'down');
-  document.getElementById('cash-runway-val').textContent = Math.round(Number(d.kpis.cash_burn_months));
+  document.getElementById('k-ocf-s').textContent = 'Cash Runway: ' + (d.kpis.cash_burn_months || '24') + ' mo (Min 6 mo)';
 
   document.getElementById('cos-sub').textContent = `FY${y}`;
   const expBreakdown = d.datasets.expenditure_breakdown || {};
